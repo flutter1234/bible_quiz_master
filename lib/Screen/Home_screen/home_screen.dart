@@ -32,7 +32,6 @@ class _home_screenState extends State<home_screen> {
     dataProvider.currency = storage.read("currency") ?? 0;
     storeData();
     firstData();
-    // dataProvider.themeChange = storage.read("themeChange") ?? false;
     if (dataProvider.musicOn == true) {
       dataProvider.initAudioPlayer();
     }
@@ -105,7 +104,6 @@ class _home_screenState extends State<home_screen> {
         String currentDate = DateFormat("yyyy-MM-dd").format(todayDate);
         storage.write("WeekDate", currentDate);
       }
-      dataProvider.themeChange = storage.read("themeChange") ?? false;
     }
   }
 
@@ -1541,6 +1539,7 @@ class _home_screenState extends State<home_screen> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/quiz_bg_image.jpeg";
+                                                      storage.write("backgroundImage", dataProvider.backgroundImage);
                                                       print("backgroundImage =====>>>${dataProvider.backgroundImage}");
                                                       dataProvider.themeChangeDialog = false;
 
@@ -1562,6 +1561,7 @@ class _home_screenState extends State<home_screen> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/green_theme/green_bg_image.jpeg";
+                                                      storage.write("backgroundImage", dataProvider.backgroundImage);
                                                       print("backgroundImage =====>>>${dataProvider.backgroundImage}");
                                                       dataProvider.themeChangeDialog = false;
                                                       setState(() {});
@@ -1590,6 +1590,7 @@ class _home_screenState extends State<home_screen> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/black_theme/black_bg_image.jpeg";
+                                                      storage.write("backgroundImage", dataProvider.backgroundImage);
                                                       print("backgroundImage =====>>>${dataProvider.backgroundImage}");
                                                       dataProvider.themeChangeDialog = false;
                                                       setState(() {});
@@ -1610,6 +1611,7 @@ class _home_screenState extends State<home_screen> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/blue_theme/blue_bg_image.jpeg";
+                                                      storage.write("backgroundImage", dataProvider.backgroundImage);
                                                       print("backgroundImage =====>>>${dataProvider.backgroundImage}");
                                                       dataProvider.themeChangeDialog = false;
                                                       setState(() {});

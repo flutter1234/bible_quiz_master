@@ -24,11 +24,10 @@ class _splash_screenState extends State<splash_screen> {
 
   fetchData() {
     Api dataProvider = Provider.of<Api>(context, listen: false);
+    dataProvider.backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
 
     context.read<Api>().getData().then((value) {
       context.read<Api>().multiQuiz().then((value) {
-        dataProvider.themeChange = storage.read("themeChange") ?? false;
-        print("themeChange ==== >>>>>>${dataProvider.themeChange}");
         Future.delayed(Duration(seconds: 1)).then((value) {
           Navigator.pushReplacementNamed(context, home_screen.routeName);
         });
