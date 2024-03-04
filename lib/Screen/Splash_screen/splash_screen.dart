@@ -16,6 +16,8 @@ class splash_screen extends StatefulWidget {
 }
 
 class _splash_screenState extends State<splash_screen> {
+  bool isLoading = true;
+
   @override
   void initState() {
     fetchData();
@@ -24,8 +26,8 @@ class _splash_screenState extends State<splash_screen> {
 
   fetchData() {
     Api dataProvider = Provider.of<Api>(context, listen: false);
+    Future.delayed(Duration(seconds: 2)).then((value) {});
     dataProvider.backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
-
     context.read<Api>().getData().then((value) {
       context.read<Api>().multiQuiz().then((value) {
         Future.delayed(Duration(seconds: 1)).then((value) {
