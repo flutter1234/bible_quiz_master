@@ -106,11 +106,8 @@ class _quiz_screenState extends State<quiz_screen> {
                           height: 26.sp,
                           width: 80.w,
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1.w,
-                              color: Colors.brown.shade900,
-                            ),
-                            color: HexColor('CFB595'),
+                            border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                            color: dataProvider.currencyBoxColor,
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Center(
@@ -118,7 +115,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               '${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Levels']}',
                               style: GoogleFonts.breeSerif(
                                 fontSize: 16.sp,
-                                color: Colors.brown.shade700,
+                                color: dataProvider.currencyTextColor,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -145,7 +142,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               width: 50.w,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.brown.shade800,
+                                color: dataProvider.timeBoxColor,
                               ),
                               child: Center(
                                 child: Text(
@@ -171,11 +168,8 @@ class _quiz_screenState extends State<quiz_screen> {
                               height: 26.sp,
                               width: 90.w,
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1.w,
-                                  color: Colors.brown.shade900,
-                                ),
-                                color: HexColor('CFB595'),
+                                border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                                color: dataProvider.currencyBoxColor,
                                 borderRadius: BorderRadius.circular(20.r),
                               ),
                               child: Center(
@@ -183,7 +177,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                   '${dataProvider.currency}',
                                   style: GoogleFonts.breeSerif(
                                     fontSize: 16.sp,
-                                    color: Colors.brown.shade700,
+                                    color: dataProvider.currencyTextColor,
                                     fontWeight: FontWeight.w800,
                                   ),
                                 ),
@@ -214,7 +208,7 @@ class _quiz_screenState extends State<quiz_screen> {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: AssetImage('assets/images/qu.jpeg'),
+                              image: AssetImage(dataProvider.questionImage),
                             ),
                           ),
                           child: Center(
@@ -227,7 +221,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                 '${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['question']}',
                                 style: GoogleFonts.raleway(
                                   fontSize: 20.sp,
-                                  color: Colors.black,
+                                  color: dataProvider.questionTextColor,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
@@ -352,12 +346,12 @@ class _quiz_screenState extends State<quiz_screen> {
                                           fit: BoxFit.fill,
                                           image: colorChange == true
                                               ? index + 1 == dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
-                                                  ? AssetImage('assets/images/option_image_new__1_-removebg-preview.png')
+                                                  ? AssetImage(dataProvider.correctOptionImage)
                                                   : selectAnswer ==
                                                           dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index]
-                                                      ? AssetImage('assets/images/option_image_new__3_-removebg-preview.png')
-                                                      : AssetImage('assets/images/option_image_new__2_-removebg-preview.png')
-                                              : AssetImage('assets/images/option_image_new__2_-removebg-preview.png')),
+                                                      ? AssetImage(dataProvider.wrongOptionImage)
+                                                      : AssetImage(dataProvider.optionImage)
+                                              : AssetImage(dataProvider.optionImage)),
                                       // color: colorChange == true
                                       //     ? index + 1 == levelQuestion[nextQuestion]['correct_answer']
                                       //         ? Colors.green
@@ -374,7 +368,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                           Text(
                                             "${ABCD[index]} : ",
                                             style: GoogleFonts.raleway(
-                                              fontSize: 22.sp,
+                                              fontSize: 20.sp,
                                               color: colorChange == true
                                                   ? index + 1 ==
                                                           dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
@@ -382,8 +376,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                                       : selectAnswer ==
                                                               dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index]
                                                           ? Colors.white
-                                                          : Colors.black
-                                                  : Colors.black,
+                                                          : dataProvider.textColor
+                                                  : dataProvider.textColor,
                                               fontWeight: FontWeight.w900,
                                             ),
                                           ),
@@ -404,8 +398,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                                                   dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
                                                                       [index]
                                                               ? Colors.white
-                                                              : Colors.black
-                                                      : Colors.black,
+                                                              : dataProvider.textColor
+                                                      : dataProvider.textColor,
                                                   fontWeight: FontWeight.w900,
                                                 ),
                                               ),
@@ -448,7 +442,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                 width: 50.sp,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage('assets/images/lifeline_image.png'),
+                                    image: AssetImage(dataProvider.lifeLineImage),
                                   ),
                                 ),
                                 child: Center(
@@ -458,7 +452,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     children: [
                                       Icon(
                                         Icons.timer_outlined,
-                                        color: Colors.black,
+                                        color: dataProvider.iconColor,
                                         size: 26.sp,
                                       ),
                                       Positioned(
@@ -483,7 +477,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               height: 15.sp,
                               width: 50.w,
                               decoration: BoxDecoration(
-                                color: Colors.brown.shade100,
+                                color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
                               ),
                               child: Row(
@@ -495,7 +489,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     '100',
                                     style: GoogleFonts.notoSans(
                                       fontSize: 10.sp,
-                                      color: Colors.black,
+                                      color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
@@ -532,13 +526,13 @@ class _quiz_screenState extends State<quiz_screen> {
                                 width: 50.sp,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage('assets/images/lifeline_image.png'),
+                                    image: AssetImage(dataProvider.lifeLineImage),
                                   ),
                                 ),
                                 child: Center(
                                   child: Icon(
                                     Icons.format_color_fill_rounded,
-                                    color: Colors.black,
+                                    color: dataProvider.iconColor,
                                     size: 30.sp,
                                   ),
                                 ),
@@ -549,7 +543,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               height: 15.sp,
                               width: 50.w,
                               decoration: BoxDecoration(
-                                color: Colors.brown.shade100,
+                                color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
                               ),
                               child: Row(
@@ -561,7 +555,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     '120',
                                     style: GoogleFonts.notoSans(
                                       fontSize: 10.sp,
-                                      color: Colors.black,
+                                      color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
@@ -612,12 +606,12 @@ class _quiz_screenState extends State<quiz_screen> {
                                 width: 50.sp,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage('assets/images/lifeline_image.png'),
+                                    image: AssetImage(dataProvider.lifeLineImage),
                                   ),
                                 ),
                                 child: Icon(
                                   Icons.light_mode_sharp,
-                                  color: Colors.black,
+                                  color: dataProvider.iconColor,
                                   size: 30.sp,
                                 ),
                               ),
@@ -627,7 +621,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               height: 15.sp,
                               width: 50.w,
                               decoration: BoxDecoration(
-                                color: Colors.brown.shade100,
+                                color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
                               ),
                               child: Row(
@@ -639,7 +633,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     '200',
                                     style: GoogleFonts.notoSans(
                                       fontSize: 10.sp,
-                                      color: Colors.black,
+                                      color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),
@@ -661,12 +655,12 @@ class _quiz_screenState extends State<quiz_screen> {
                               width: 50.sp,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage('assets/images/lifeline_image.png'),
+                                  image: AssetImage(dataProvider.lifeLineImage),
                                 ),
                               ),
                               child: Icon(
                                 Icons.video_call_outlined,
-                                color: Colors.black,
+                                color: dataProvider.iconColor,
                                 size: 30.sp,
                               ),
                             ),
@@ -675,7 +669,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               height: 15.sp,
                               width: 50.w,
                               decoration: BoxDecoration(
-                                color: Colors.brown.shade100,
+                                color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
                               ),
                               child: Row(
@@ -687,7 +681,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     '50',
                                     style: GoogleFonts.notoSans(
                                       fontSize: 10.sp,
-                                      color: Colors.black,
+                                      color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),

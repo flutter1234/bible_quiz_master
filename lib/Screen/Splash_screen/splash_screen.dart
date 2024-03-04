@@ -3,6 +3,7 @@ import 'package:bible_quiz_master/Screen/Home_screen/home_screen.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,7 @@ class splash_screen extends StatefulWidget {
 
 class _splash_screenState extends State<splash_screen> {
   bool isLoading = true;
+  String backgroundImage = "";
 
   @override
   void initState() {
@@ -26,9 +28,41 @@ class _splash_screenState extends State<splash_screen> {
 
   fetchData() {
     Api dataProvider = Provider.of<Api>(context, listen: false);
-    Future.delayed(Duration(seconds: 2)).then((value) {});
-    dataProvider.backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
     context.read<Api>().getData().then((value) {
+      backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
+      dataProvider.optionImage = storage.read("optionImage") ?? dataProvider.optionImage;
+      dataProvider.correctOptionImage = storage.read("correctOptionImage") ?? dataProvider.correctOptionImage;
+      dataProvider.wrongOptionImage = storage.read("wrongOptionImage") ?? dataProvider.wrongOptionImage;
+      dataProvider.questionImage = storage.read("questionImage") ?? dataProvider.questionImage;
+      dataProvider.lifeLineImage = storage.read("lifeLineImage") ?? dataProvider.lifeLineImage;
+      String? storedTextColor = storage.read("textColor");
+      String? storedCurrencyColor = storage.read("currencyTextColor");
+      String? storedLifeLineColor = storage.read("lifeLineBoxColor");
+      String? storedBoxColor = storage.read("currencyBoxColor");
+      String? storedTimeBoxColor = storage.read("timeBoxColor");
+      String? storedQuestionText = storage.read("questionTextColor");
+      String? storedIconColor = storage.read("iconColor");
+      if (storedTextColor != null && storedCurrencyColor != null && storedLifeLineColor != null && storedBoxColor != null && storedTimeBoxColor != null && storedQuestionText != null&&  storedIconColor != null) {
+        dataProvider.textColor = Color(int.parse(storedTextColor, radix: 16));
+        dataProvider.currencyTextColor = Color(int.parse(storedCurrencyColor, radix: 16));
+        dataProvider.lifeLineBoxColor = Color(int.parse(storedLifeLineColor, radix: 16));
+        dataProvider.currencyBoxColor = Color(int.parse(storedBoxColor, radix: 16));
+        dataProvider.timeBoxColor = Color(int.parse(storedTimeBoxColor, radix: 16));
+        dataProvider.questionTextColor = Color(int.parse(storedQuestionText, radix: 16));
+        dataProvider.iconColor = Color(int.parse(storedIconColor, radix: 16));
+      } else {
+        dataProvider.textColor = Colors.black;
+        dataProvider.currencyTextColor = Colors.brown.shade700;
+        dataProvider.lifeLineBoxColor = Colors.brown.shade100;
+        dataProvider.currencyBoxColor = HexColor('CFB595');
+        dataProvider.timeBoxColor = Colors.brown.shade800;
+        dataProvider.questionTextColor = Colors.black;
+        dataProvider.iconColor = Colors.black;
+      }
+      setState(() {
+        isLoading = false;
+      });
+      dataProvider.backgroundImage = backgroundImage;
       context.read<Api>().multiQuiz().then((value) {
         Future.delayed(Duration(seconds: 1)).then((value) {
           Navigator.pushReplacementNamed(context, home_screen.routeName);
@@ -40,36 +74,41 @@ class _splash_screenState extends State<splash_screen> {
   @override
   Widget build(BuildContext context) {
     Api dataProvider = Provider.of<Api>(context, listen: true);
-
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage(dataProvider.backgroundImage),
-          ),
-        ),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Center(
-              child: Image.asset(
-                "assets/images/bible_book_image.png",
-                fit: BoxFit.fill,
+      body: isLoading
+          ? Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: Colors.black87,
+            )
+          : Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(dataProvider.backgroundImage),
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 150.h),
-              child: Lottie.asset(
+              child: Stack(
                 alignment: Alignment.bottomCenter,
-                'assets/Lottie/Animation.json',
+                children: [
+                  Center(
+                    child: Image.asset(
+                      "assets/images/bible_book_image.png",
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 150.h),
+                    child: Lottie.asset(
+                      alignment: Alignment.bottomCenter,
+                      'assets/Lottie/Animation.json',
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

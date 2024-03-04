@@ -140,7 +140,7 @@ class _levels_screenState extends State<levels_screen> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage('assets/images/option_image_new__2_-removebg-preview.png'),
+                                  image: AssetImage('assets/images/theme1_option_image.png'),
                                 ),
                               ),
                               child: Row(

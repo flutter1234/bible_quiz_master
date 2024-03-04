@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,8 +37,18 @@ class Api extends ChangeNotifier {
   bool themeChangeDialog = false;
 
   String backgroundImage = "assets/images/quiz_bg_image.jpeg";
-
-
+  String optionImage = "assets/images/theme1_option_image.png";
+  String correctOptionImage = "assets/images/theme1_option_green.png";
+  String wrongOptionImage = "assets/images/theme1_option_red.png";
+  String questionImage = "assets/images/theme1_question_image.jpeg";
+  String lifeLineImage = "assets/images/lifeline_image.png";
+  Color textColor = Colors.black;
+  Color currencyTextColor = Colors.brown.shade700;
+  Color lifeLineBoxColor = Colors.brown.shade100;
+  Color currencyBoxColor =  HexColor('CFB595');
+  Color timeBoxColor =  Colors.brown.shade800;
+  Color questionTextColor =  Colors.black;
+  Color iconColor =  Colors.black;
 
   Future<void> getData() async {
     var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json");
@@ -65,7 +76,7 @@ class Api extends ChangeNotifier {
 
   Future<void> launchurl() async {
     if (!await launchUrl(Uri.parse(url))) {
-      throw Exception('Could not launch ${Uri.parse(url)}');
+        throw Exception('Could not launch ${Uri.parse(url)}');
     }
   }
 

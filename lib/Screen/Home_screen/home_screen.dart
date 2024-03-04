@@ -1540,7 +1540,30 @@ class _home_screenState extends State<home_screen> {
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/quiz_bg_image.jpeg";
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                      print("backgroundImage =====>>>${dataProvider.backgroundImage}");
+                                                      dataProvider.optionImage = "assets/images/theme1_option_image.png";
+                                                      storage.write("optionImage", dataProvider.optionImage);
+                                                      dataProvider.correctOptionImage = "assets/images/theme1_option_green.png";
+                                                      storage.write("correctOptionImage", dataProvider.correctOptionImage);
+                                                      dataProvider.wrongOptionImage = "assets/images/theme1_option_red.png";
+                                                      storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
+                                                      dataProvider.questionImage = "assets/images/theme1_question_image.jpeg";
+                                                      storage.write("questionImage", dataProvider.questionImage);
+                                                      dataProvider.lifeLineImage = "assets/images/lifeline_image.png";
+                                                      storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.textColor = Colors.black;
+                                                      storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
+                                                      dataProvider.lifeLineBoxColor = Colors.brown.shade100;
+                                                      storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyBoxColor = HexColor('CFB595');
+                                                      storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyTextColor = Colors.brown.shade700;
+                                                      storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
+                                                      dataProvider.timeBoxColor = Colors.brown.shade800;
+                                                      storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
+                                                      dataProvider.questionTextColor = Colors.black;
+                                                      storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
+                                                      dataProvider.iconColor = Colors.black;
+                                                      storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
 
                                                       setState(() {});
@@ -1562,8 +1585,33 @@ class _home_screenState extends State<home_screen> {
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/green_theme/green_bg_image.jpeg";
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                      print("backgroundImage =====>>>${dataProvider.backgroundImage}");
+                                                      dataProvider.optionImage = "assets/images/green_theme/theme2_option_image.png";
+                                                      storage.write("optionImage", dataProvider.optionImage);
+                                                      dataProvider.correctOptionImage = "assets/images/green_theme/theme2_correct_answer.png";
+                                                      storage.write("correctOptionImage", dataProvider.correctOptionImage);
+                                                      dataProvider.wrongOptionImage = "assets/images/green_theme/theme2_wrong_answer.png";
+                                                      storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
+                                                      dataProvider.questionImage = "assets/images/green_theme/theme2_question_image.png";
+                                                      storage.write("questionImage", dataProvider.questionImage);
+                                                      dataProvider.lifeLineImage = "assets/images/green_theme/theme2_lifeLine_image.png";
+                                                      storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.textColor = Colors.white;
+                                                      storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
+                                                      dataProvider.lifeLineBoxColor = HexColor('EDC967');
+                                                      storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyBoxColor = HexColor('AE8625');
+                                                      storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyTextColor = Colors.white;
+                                                      storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
+                                                      dataProvider.timeBoxColor = HexColor('AE8625');
+                                                      storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
+                                                      dataProvider.timeBoxColor = HexColor('AE8625');
+                                                      dataProvider.questionTextColor = Colors.black;
+                                                      storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
+                                                      dataProvider.iconColor = Colors.black;
+                                                      storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
+
                                                       setState(() {});
                                                     },
                                                     child: Container(
@@ -1591,8 +1639,32 @@ class _home_screenState extends State<home_screen> {
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/black_theme/black_bg_image.jpeg";
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                      print("backgroundImage =====>>>${dataProvider.backgroundImage}");
+                                                      dataProvider.optionImage = "assets/images/black_theme/theme3_option_image.png";
+                                                      storage.write("optionImage", dataProvider.optionImage);
+                                                      dataProvider.correctOptionImage = "assets/images/green_theme/theme2_correct_answer.png";
+                                                      storage.write("correctOptionImage", dataProvider.correctOptionImage);
+                                                      dataProvider.wrongOptionImage = "assets/images/green_theme/theme2_wrong_answer.png";
+                                                      storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
+                                                      dataProvider.questionImage = "assets/images/black_theme/theme3_question_image.png";
+                                                      storage.write("questionImage", dataProvider.questionImage);
+                                                      dataProvider.lifeLineImage = "assets/images/black_theme/theme3_lifeLine_image.png";
+                                                      storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.textColor = Colors.black;
+                                                      storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
+                                                      dataProvider.lifeLineBoxColor = Colors.black54;
+                                                      storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyBoxColor = Colors.black54;
+                                                      storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyTextColor = Colors.white;
+                                                      storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
+                                                      dataProvider.timeBoxColor = Colors.black;
+                                                      storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
+                                                      dataProvider.questionTextColor = Colors.white;
+                                                      storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
+                                                      dataProvider.iconColor = Colors.white;
+                                                      storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
+
                                                       setState(() {});
                                                     },
                                                     child: Container(
