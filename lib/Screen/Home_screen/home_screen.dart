@@ -35,7 +35,6 @@ class _home_screenState extends State<home_screen> {
     if (dataProvider.musicOn == true) {
       dataProvider.initAudioPlayer();
     }
-
     super.initState();
   }
 
@@ -1420,14 +1419,9 @@ class _home_screenState extends State<home_screen> {
                                             ),
                                             Padding(
                                               padding: EdgeInsets.symmetric(horizontal: 100.sp),
-                                              child: Container(
-                                                height: 0.8.h,
-                                                color: Colors.white,
-                                              ),
+                                              child: Container(height: 0.8.h, color: Colors.white),
                                             ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            )
+                                            SizedBox(height: 10.h)
                                           ],
                                         ),
                                       ),
