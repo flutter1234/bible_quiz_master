@@ -105,12 +105,14 @@ class _splash_screenState extends State<splash_screen> {
                 children: [
                   Center(
                     child: Image.asset(
+                      height: isIpad ? 400.sp : 450.sp,
+                      width: 1.sw,
                       "assets/images/bible_book_image.png",
                       fit: BoxFit.fill,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 150.h),
+                    padding: EdgeInsets.only(bottom: isIpad ? 50.h : 150.h),
                     child: Lottie.asset(
                       alignment: Alignment.bottomCenter,
                       'assets/Lottie/Animation.json',

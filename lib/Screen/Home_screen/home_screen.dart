@@ -4,9 +4,7 @@ import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/Screen/Levels_screen/levels_screen.dart';
 import 'package:bible_quiz_master/Screen/Quiz_screen/quiz_screen.dart';
 import 'package:bible_quiz_master/main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -80,7 +78,7 @@ class _home_screenState extends State<home_screen> {
       String currentDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
       storage.write("WeekDate", currentDate);
       var temp = await storage.read("WeekDate");
-      // print("FirstTime ============>>>${temp}");
+      print("FirstTime ============>>>${temp}");
 
       storage.write("isFirstTime", false);
     } else {
@@ -94,7 +92,6 @@ class _home_screenState extends State<home_screen> {
       storedDate = DateTime(storedDate.year, storedDate.month, storedDate.day);
 
       dataProvider.difference = todayDate.difference(storedDate).inDays;
-      print("difference ====>>${dataProvider.difference}");
 
       if (dataProvider.difference >= 7) {
         dataProvider.difference = 0;
@@ -994,7 +991,7 @@ class _home_screenState extends State<home_screen> {
                                       width: 90.w,
                                       decoration: BoxDecoration(
                                         border: Border.all(width: 1.w, color: Colors.brown.shade900),
-                                        color: HexColor('CFB595'),
+                                        color: dataProvider.currencyBoxColor,
                                         borderRadius: BorderRadius.circular(20.r),
                                       ),
                                       child: Center(
@@ -1002,7 +999,7 @@ class _home_screenState extends State<home_screen> {
                                           '${dataProvider.currency}',
                                           style: GoogleFonts.breeSerif(
                                             fontSize: isIpad ? 13.sp : 16.sp,
-                                            color: Colors.brown.shade700,
+                                            color: dataProvider.currencyTextColor,
                                             fontWeight: FontWeight.w800,
                                           ),
                                         ),
@@ -1709,7 +1706,7 @@ class _home_screenState extends State<home_screen> {
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
-                                                      dataProvider.backgroundImage = "assets/images/blue_theme/4bg2.jpeg";
+                                                      dataProvider.backgroundImage = "assets/images/blue_theme/blue_bg_image.jpeg";
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
                                                       dataProvider.optionImage = "assets/images/blue_theme/theme4_option_image.png";
                                                       storage.write("optionImage", dataProvider.optionImage);
@@ -1717,7 +1714,7 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("correctOptionImage", dataProvider.correctOptionImage);
                                                       dataProvider.wrongOptionImage = "assets/images/blue_theme/theme4_wrong_image.png";
                                                       storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
-                                                      dataProvider.questionImage = "assets/images/blue_theme/theme4_question_image.jpeg";
+                                                      dataProvider.questionImage = "assets/images/blue_theme/theme4_question_image1.jpeg";
                                                       storage.write("questionImage", dataProvider.questionImage);
                                                       dataProvider.lifeLineImage = "assets/images/blue_theme/theme4_lifeline_image.png";
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
