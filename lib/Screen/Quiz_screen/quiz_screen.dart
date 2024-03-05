@@ -732,7 +732,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                         width: 1.w,
                                         color: Colors.brown.shade900,
                                       ),
-                                      color: HexColor('CFB595'),
+                                      color: dataProvider.currencyBoxColor,
                                       borderRadius: BorderRadius.circular(20.r),
                                     ),
                                     child: Center(
@@ -740,7 +740,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                         '${dataProvider.currency}',
                                         style: GoogleFonts.breeSerif(
                                           fontSize: 16.sp,
-                                          color: Colors.brown.shade700,
+                                          color: dataProvider.currencyTextColor,
                                           fontWeight: FontWeight.w800,
                                         ),
                                       ),
@@ -882,11 +882,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                     height: 26.sp,
                                     width: 90.w,
                                     decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1.w,
-                                        color: Colors.brown.shade900,
-                                      ),
-                                      color: HexColor('CFB595'),
+                                      border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                                      color: dataProvider.currencyBoxColor,
                                       borderRadius: BorderRadius.circular(20.r),
                                     ),
                                     child: Center(
@@ -894,7 +891,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                         '${dataProvider.currency}',
                                         style: GoogleFonts.breeSerif(
                                           fontSize: 16.sp,
-                                          color: Colors.brown.shade700,
+                                          color: dataProvider.currencyTextColor,
                                           fontWeight: FontWeight.w800,
                                         ),
                                       ),

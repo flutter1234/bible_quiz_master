@@ -30,15 +30,18 @@ class _home_screenState extends State<home_screen> {
     dataProvider.soundOn = storage.read("soundOn") ?? true;
     dataProvider.musicOn = storage.read("musicOn") ?? true;
     dataProvider.currency = storage.read("currency") ?? 0;
-    storeData();
-    firstData();
+    storeData().then((value) {
+      firstData().then((value) {
+        setState(() {});
+      });
+    });
     if (dataProvider.musicOn == true) {
       dataProvider.initAudioPlayer();
     }
     super.initState();
   }
 
-  storeData() {
+  Future<void> storeData() async {
     Api dataProvider = Provider.of<Api>(context, listen: false);
     dataProvider.currency = storage.read("currency") ?? 0;
     dataProvider.tempData = storage.read("Reward") ??
@@ -67,7 +70,7 @@ class _home_screenState extends State<home_screen> {
     }
   }
 
-  firstData() async {
+  Future<void> firstData() async {
     Api dataProvider = Provider.of<Api>(context, listen: false);
     bool first = await storage.read("isFirstTime") ?? true;
 
@@ -87,7 +90,9 @@ class _home_screenState extends State<home_screen> {
       DateTime storedDate = DateFormat("yyyy-MM-dd").parse(temp);
       todayDate = DateTime(todayDate.year, todayDate.month, todayDate.day);
       storedDate = DateTime(storedDate.year, storedDate.month, storedDate.day);
+
       dataProvider.difference = todayDate.difference(storedDate).inDays;
+      print("difference ====>>${dataProvider.difference}");
 
       if (dataProvider.difference >= 7) {
         dataProvider.difference = 0;
@@ -109,7 +114,6 @@ class _home_screenState extends State<home_screen> {
   @override
   Widget build(BuildContext context) {
     Api dataProvider = Provider.of<Api>(context, listen: true);
-
     return (dataProvider.tempData[dataProvider.difference]['collected'] == false && dialogOpen == false) || dialog == true
         ? Stack(
             alignment: Alignment.center,
@@ -1635,9 +1639,9 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
                                                       dataProvider.optionImage = "assets/images/black_theme/theme3_option_image.png";
                                                       storage.write("optionImage", dataProvider.optionImage);
-                                                      dataProvider.correctOptionImage = "assets/images/green_theme/theme2_correct_answer.png";
+                                                      dataProvider.correctOptionImage = "assets/images/black_theme/theme3_correct_image.png";
                                                       storage.write("correctOptionImage", dataProvider.correctOptionImage);
-                                                      dataProvider.wrongOptionImage = "assets/images/green_theme/theme2_wrong_answer.png";
+                                                      dataProvider.wrongOptionImage = "assets/images/black_theme/theme3_wrong_image.png";
                                                       storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
                                                       dataProvider.questionImage = "assets/images/black_theme/theme3_question_image.png";
                                                       storage.write("questionImage", dataProvider.questionImage);
@@ -1678,7 +1682,30 @@ class _home_screenState extends State<home_screen> {
                                                     onTap: () {
                                                       dataProvider.backgroundImage = "assets/images/blue_theme/blue_bg_image.jpeg";
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                      print("backgroundImage =====>>>${dataProvider.backgroundImage}");
+                                                      dataProvider.optionImage = "assets/images/blue_theme/op1.png";
+                                                      storage.write("optionImage", dataProvider.optionImage);
+                                                      dataProvider.correctOptionImage = "assets/images/black_theme/theme3_correct_image.png";
+                                                      storage.write("correctOptionImage", dataProvider.correctOptionImage);
+                                                      dataProvider.wrongOptionImage = "assets/images/black_theme/theme3_wrong_image.png";
+                                                      storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
+                                                      dataProvider.questionImage = "assets/images/blue_theme/theme4_question_image.jpeg";
+                                                      storage.write("questionImage", dataProvider.questionImage);
+                                                      dataProvider.lifeLineImage = "assets/images/black_theme/theme3_lifeLine_image.png";
+                                                      storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.textColor = Colors.white;
+                                                      storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
+                                                      dataProvider.lifeLineBoxColor = Colors.black54;
+                                                      storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyBoxColor = Colors.black54;
+                                                      storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
+                                                      dataProvider.currencyTextColor = Colors.white;
+                                                      storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
+                                                      dataProvider.timeBoxColor = Colors.black;
+                                                      storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
+                                                      dataProvider.questionTextColor = Colors.white;
+                                                      storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
+                                                      dataProvider.iconColor = Colors.white;
+                                                      storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
                                                       setState(() {});
                                                     },
