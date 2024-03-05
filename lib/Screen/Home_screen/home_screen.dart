@@ -4,7 +4,9 @@ import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/Screen/Levels_screen/levels_screen.dart';
 import 'package:bible_quiz_master/Screen/Quiz_screen/quiz_screen.dart';
 import 'package:bible_quiz_master/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -130,13 +132,13 @@ class _home_screenState extends State<home_screen> {
                   ),
                   child: Center(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.sp),
+                      padding: EdgeInsets.symmetric(horizontal: isIpad ? 40.sp : 25.sp),
                       child: Stack(
                         alignment: Alignment.center,
                         clipBehavior: Clip.none,
                         children: [
                           Container(
-                            height: isIpad ? 445.sp : 410.sp,
+                            height: isIpad ? 380.sp : 410.sp,
                             width: 1.sw,
                             decoration: BoxDecoration(
                               color: HexColor('4c3228'),
@@ -148,8 +150,8 @@ class _home_screenState extends State<home_screen> {
                                 Padding(
                                   padding: EdgeInsets.all(10.sp),
                                   child: Container(
-                                    height: isIpad ? 330.sp : 330.sp,
-                                    width: 350.w,
+                                    height: isIpad ? 300.sp : 330.sp,
+                                    width: isIpad ? 270.w : 350.w,
                                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 6.w, right: 6.w, top: 20.h),
@@ -162,7 +164,7 @@ class _home_screenState extends State<home_screen> {
                                                 alignment: Alignment.center,
                                                 children: [
                                                   Container(
-                                                    height: isIpad ? 100.sp : 92.sp,
+                                                    height: isIpad ? 85.sp : 92.sp,
                                                     width: 80.w,
                                                     decoration: BoxDecoration(
                                                       border: Border.all(width: 1.w, color: Colors.white),
@@ -179,13 +181,16 @@ class _home_screenState extends State<home_screen> {
                                                               height: 25.sp,
                                                               color: dataProvider.difference == 0 ? HexColor('e69b00') : HexColor('a08679'),
                                                             ),
-                                                            Text(
-                                                              'Day 1',
-                                                              style: GoogleFonts.abhayaLibre(
-                                                                fontSize: isIpad ? 20.sp : 16.sp,
-                                                                color: Colors.black,
-                                                                fontWeight: FontWeight.w900,
-                                                                fontStyle: FontStyle.normal,
+                                                            Positioned(
+                                                              bottom: isIpad ? 6.h : 5.h,
+                                                              child: Text(
+                                                                'Day 1',
+                                                                style: GoogleFonts.abhayaLibre(
+                                                                  fontSize: isIpad ? 13.sp : 16.sp,
+                                                                  color: Colors.black,
+                                                                  fontWeight: FontWeight.w900,
+                                                                  fontStyle: FontStyle.normal,
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -238,7 +243,7 @@ class _home_screenState extends State<home_screen> {
                                                 alignment: Alignment.center,
                                                 children: [
                                                   Container(
-                                                    height: isIpad ? 100.sp : 92.sp,
+                                                    height: isIpad ? 85.sp : 92.sp,
                                                     width: 80.w,
                                                     decoration: BoxDecoration(
                                                       border: Border.all(width: 1.w, color: Colors.white),
@@ -255,13 +260,16 @@ class _home_screenState extends State<home_screen> {
                                                               height: 25.sp,
                                                               color: dataProvider.difference == 1 ? HexColor('e69b00') : HexColor('5a2720'),
                                                             ),
-                                                            Text(
-                                                              'Day 2',
-                                                              style: GoogleFonts.abhayaLibre(
-                                                                fontSize: isIpad ? 20.sp : 16.sp,
-                                                                color: Colors.white,
-                                                                fontWeight: FontWeight.w900,
-                                                                fontStyle: FontStyle.normal,
+                                                            Positioned(
+                                                              bottom: isIpad ? 6.h : 5.h,
+                                                              child: Text(
+                                                                'Day 2',
+                                                                style: GoogleFonts.abhayaLibre(
+                                                                  fontSize: isIpad ? 13.sp : 16.sp,
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.w900,
+                                                                  fontStyle: FontStyle.normal,
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -314,7 +322,7 @@ class _home_screenState extends State<home_screen> {
                                                 alignment: Alignment.center,
                                                 children: [
                                                   Container(
-                                                    height: isIpad ? 100.sp : 92.sp,
+                                                    height: isIpad ? 85.sp : 92.sp,
                                                     width: 80.w,
                                                     decoration: BoxDecoration(
                                                       border: Border.all(width: 1.w, color: Colors.white),
@@ -331,13 +339,16 @@ class _home_screenState extends State<home_screen> {
                                                               height: 25.sp,
                                                               color: dataProvider.difference == 2 ? HexColor('e69b00') : HexColor('5a2720'),
                                                             ),
-                                                            Text(
-                                                              'Day 3',
-                                                              style: GoogleFonts.abhayaLibre(
-                                                                fontSize: isIpad ? 20.sp : 16.sp,
-                                                                color: Colors.white,
-                                                                fontWeight: FontWeight.w900,
-                                                                fontStyle: FontStyle.normal,
+                                                            Positioned(
+                                                              bottom: isIpad ? 6.h : 5.h,
+                                                              child: Text(
+                                                                'Day 3',
+                                                                style: GoogleFonts.abhayaLibre(
+                                                                  fontSize: isIpad ? 13.sp : 16.sp,
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.w900,
+                                                                  fontStyle: FontStyle.normal,
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -397,7 +408,7 @@ class _home_screenState extends State<home_screen> {
                                                   alignment: Alignment.center,
                                                   children: [
                                                     Container(
-                                                      height: isIpad ? 100.sp : 92.sp,
+                                                      height: isIpad ? 85.sp : 92.sp,
                                                       width: 80.w,
                                                       decoration: BoxDecoration(
                                                         border: Border.all(width: 1.w, color: Colors.white),
@@ -414,13 +425,16 @@ class _home_screenState extends State<home_screen> {
                                                                 height: 25.sp,
                                                                 color: dataProvider.difference == 3 ? HexColor('e69b00') : HexColor('5a2720'),
                                                               ),
-                                                              Text(
-                                                                'Day 4',
-                                                                style: GoogleFonts.abhayaLibre(
-                                                                  fontSize: isIpad ? 20.sp : 16.sp,
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.w900,
-                                                                  fontStyle: FontStyle.normal,
+                                                              Positioned(
+                                                                bottom: isIpad ? 6.h : 5.h,
+                                                                child: Text(
+                                                                  'Day 4',
+                                                                  style: GoogleFonts.abhayaLibre(
+                                                                    fontSize: isIpad ? 13.sp : 16.sp,
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w900,
+                                                                    fontStyle: FontStyle.normal,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],
@@ -473,7 +487,7 @@ class _home_screenState extends State<home_screen> {
                                                   alignment: Alignment.center,
                                                   children: [
                                                     Container(
-                                                      height: isIpad ? 100.sp : 92.sp,
+                                                      height: isIpad ? 85.sp : 92.sp,
                                                       width: 80.w,
                                                       decoration: BoxDecoration(
                                                         border: Border.all(width: 1.w, color: Colors.white),
@@ -490,13 +504,16 @@ class _home_screenState extends State<home_screen> {
                                                                 height: 25.sp,
                                                                 color: dataProvider.difference == 4 ? HexColor('e69b00') : HexColor('5a2720'),
                                                               ),
-                                                              Text(
-                                                                'Day 5',
-                                                                style: GoogleFonts.abhayaLibre(
-                                                                  fontSize: isIpad ? 20.sp : 16.sp,
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.w900,
-                                                                  fontStyle: FontStyle.normal,
+                                                              Positioned(
+                                                                bottom: isIpad ? 6.h : 5.h,
+                                                                child: Text(
+                                                                  'Day 5',
+                                                                  style: GoogleFonts.abhayaLibre(
+                                                                    fontSize: isIpad ? 13.sp : 16.sp,
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w900,
+                                                                    fontStyle: FontStyle.normal,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],
@@ -549,7 +566,7 @@ class _home_screenState extends State<home_screen> {
                                                   alignment: Alignment.center,
                                                   children: [
                                                     Container(
-                                                      height: isIpad ? 100.sp : 92.sp,
+                                                      height: isIpad ? 85.sp : 92.sp,
                                                       width: 80.w,
                                                       decoration: BoxDecoration(
                                                         border: Border.all(width: 1.w, color: Colors.white),
@@ -566,13 +583,16 @@ class _home_screenState extends State<home_screen> {
                                                                 height: 25.sp,
                                                                 color: dataProvider.difference == 5 ? HexColor('e69b00') : HexColor('5a2720'),
                                                               ),
-                                                              Text(
-                                                                'Day 6',
-                                                                style: GoogleFonts.abhayaLibre(
-                                                                  fontSize: isIpad ? 20.sp : 16.sp,
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.w900,
-                                                                  fontStyle: FontStyle.normal,
+                                                              Positioned(
+                                                                bottom: isIpad ? 6.h : 5.h,
+                                                                child: Text(
+                                                                  'Day 6',
+                                                                  style: GoogleFonts.abhayaLibre(
+                                                                    fontSize: isIpad ? 13.sp : 16.sp,
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w900,
+                                                                    fontStyle: FontStyle.normal,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ],
@@ -630,7 +650,7 @@ class _home_screenState extends State<home_screen> {
                                               alignment: Alignment.center,
                                               children: [
                                                 Container(
-                                                  height: isIpad ? 100.sp : 95.sp,
+                                                  height: isIpad ? 92.sp : 95.sp,
                                                   width: 300.w,
                                                   decoration: BoxDecoration(
                                                     border: Border.all(width: 1.w, color: Colors.white),
@@ -648,11 +668,11 @@ class _home_screenState extends State<home_screen> {
                                                             color: dataProvider.difference == 6 ? HexColor('e69b00') : HexColor('5a2720'),
                                                           ),
                                                           Positioned(
-                                                            bottom: 5.h,
+                                                            bottom: isIpad ? 10.h : 5.h,
                                                             child: Text(
                                                               'Day 7',
                                                               style: GoogleFonts.abhayaLibre(
-                                                                fontSize: isIpad ? 20.sp : 16.sp,
+                                                                fontSize: isIpad ? 13.sp : 16.sp,
                                                                 color: Colors.white,
                                                                 fontWeight: FontWeight.w900,
                                                                 fontStyle: FontStyle.normal,
@@ -667,7 +687,7 @@ class _home_screenState extends State<home_screen> {
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
                                                             Container(
-                                                              width: 130.w,
+                                                              width: isIpad ? 115.w : 130.w,
                                                               child: Row(
                                                                 children: [
                                                                   Image(
@@ -693,7 +713,7 @@ class _home_screenState extends State<home_screen> {
                                                               color: Colors.black54,
                                                             ),
                                                             Container(
-                                                              width: 130.w,
+                                                              width: isIpad ? 115.w : 130.w,
                                                               child: Row(
                                                                 children: [
                                                                   Image(
@@ -822,7 +842,7 @@ class _home_screenState extends State<home_screen> {
                                           setState(() {});
                                         },
                                         child: Container(
-                                          height: isIpad ? 45.sp : 40.sp,
+                                          height: isIpad ? 35.sp : 40.sp,
                                           width: 200.w,
                                           decoration: BoxDecoration(
                                             border: Border.all(width: 2.w, color: Colors.white),
@@ -833,7 +853,7 @@ class _home_screenState extends State<home_screen> {
                                             child: Text(
                                               'Tap to Collect',
                                               style: GoogleFonts.b612(
-                                                fontSize: 20.sp,
+                                                fontSize: isIpad ? 17.sp : 20.sp,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w900,
                                                 fontStyle: FontStyle.normal,
@@ -866,9 +886,9 @@ class _home_screenState extends State<home_screen> {
                             ),
                           ),
                           Positioned(
-                            top: -14.h,
+                            top: isIpad ? -22.h : -14.h,
                             child: Container(
-                              height: 35.sp,
+                              height: isIpad ? 30.sp : 35.sp,
                               width: 180.w,
                               decoration: BoxDecoration(
                                 border: Border.all(width: 1.w, color: Colors.yellow.shade700),
@@ -880,7 +900,7 @@ class _home_screenState extends State<home_screen> {
                                   textAlign: TextAlign.center,
                                   'DAILY REWARD',
                                   style: GoogleFonts.sanchez(
-                                    fontSize: isIpad ? 20.sp : 20.sp,
+                                    fontSize: isIpad ? 17.sp : 20.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w900,
                                     fontStyle: FontStyle.normal,
@@ -896,8 +916,8 @@ class _home_screenState extends State<home_screen> {
                 ),
               ),
               Positioned(
-                right: 15.w,
-                top: 150.h,
+                right: isIpad ? 27.w : 15.w,
+                top: isIpad ? 55.h : 150.h,
                 child: GestureDetector(
                   onTap: () {
                     dialogOpen = true;
@@ -905,8 +925,8 @@ class _home_screenState extends State<home_screen> {
                     setState(() {});
                   },
                   child: Container(
-                    width: 35.sp,
-                    height: 35.sp,
+                    width: isIpad ? 30.sp : 35.sp,
+                    height: isIpad ? 30.sp : 35.sp,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(width: 1.w, color: Colors.white),
@@ -914,7 +934,7 @@ class _home_screenState extends State<home_screen> {
                     ),
                     child: Icon(
                       Icons.close,
-                      size: isIpad ? 30.sp : 25.sp,
+                      size: isIpad ? 22.sp : 25.sp,
                       color: Colors.white,
                     ),
                   ),
@@ -935,7 +955,12 @@ class _home_screenState extends State<home_screen> {
               child: Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 50.h),
+                    padding: EdgeInsets.only(
+                        top: isSmall
+                            ? 25.h
+                            : isIpad
+                                ? 20.h
+                                : 50.h),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -954,7 +979,7 @@ class _home_screenState extends State<home_screen> {
                                 },
                                 child: Icon(
                                   Icons.settings,
-                                  size: 30.sp,
+                                  size: isIpad ? 25.sp : 30.sp,
                                   color: Colors.yellow.shade700,
                                 ),
                               ),
@@ -965,13 +990,10 @@ class _home_screenState extends State<home_screen> {
                                   clipBehavior: Clip.none,
                                   children: [
                                     Container(
-                                      height: 26.sp,
+                                      height: isIpad ? 20.sp : 26.sp,
                                       width: 90.w,
                                       decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1.w,
-                                          color: Colors.brown.shade900,
-                                        ),
+                                        border: Border.all(width: 1.w, color: Colors.brown.shade900),
                                         color: HexColor('CFB595'),
                                         borderRadius: BorderRadius.circular(20.r),
                                       ),
@@ -979,7 +1001,7 @@ class _home_screenState extends State<home_screen> {
                                         child: Text(
                                           '${dataProvider.currency}',
                                           style: GoogleFonts.breeSerif(
-                                            fontSize: 18.sp,
+                                            fontSize: isIpad ? 13.sp : 16.sp,
                                             color: Colors.brown.shade700,
                                             fontWeight: FontWeight.w800,
                                           ),
@@ -990,7 +1012,7 @@ class _home_screenState extends State<home_screen> {
                                       left: -12.w,
                                       child: Image(
                                         image: AssetImage('assets/images/single_diamond.png'),
-                                        height: 28.sp,
+                                        height: isIpad ? 22.sp : 28.sp,
                                         width: 35.w,
                                       ),
                                     )
@@ -1002,10 +1024,11 @@ class _home_screenState extends State<home_screen> {
                         ),
                         Spacer(),
                         Container(
-                          height: 450.sp,
+                          height: isIpad ? 400.sp : 450.sp,
                           width: 1.sw,
                           decoration: BoxDecoration(
                             image: DecorationImage(
+                              fit: BoxFit.fill,
                               image: AssetImage('assets/images/bible_book_image.png'),
                             ),
                           ),
@@ -1059,7 +1082,7 @@ class _home_screenState extends State<home_screen> {
                                     Navigator.pushNamed(context, quiz_screen.routeName);
                                   },
                                   child: Container(
-                                    height: 50.sp,
+                                    height: isIpad ? 45.sp : 50.sp,
                                     width: 180.w,
                                     decoration: BoxDecoration(
                                       border: Border.all(width: 2.w, color: Colors.green.shade900),
@@ -1077,7 +1100,7 @@ class _home_screenState extends State<home_screen> {
                                       child: Text(
                                         "PLAY",
                                         style: GoogleFonts.abyssinicaSil(
-                                          fontSize: 35.sp,
+                                          fontSize: isIpad ? 30.sp : 35.sp,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -1098,7 +1121,7 @@ class _home_screenState extends State<home_screen> {
                                         }
                                       },
                                       child: Container(
-                                        height: 50.sp,
+                                        height: isIpad ? 45.sp : 50.sp,
                                         width: 180.w,
                                         decoration: BoxDecoration(
                                           border: Border.all(
@@ -1119,7 +1142,7 @@ class _home_screenState extends State<home_screen> {
                                           child: Text(
                                             "Daily Challenge",
                                             style: GoogleFonts.abyssinicaSil(
-                                              fontSize: 22.sp,
+                                              fontSize: isIpad ? 20.sp : 22.sp,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -1182,7 +1205,7 @@ class _home_screenState extends State<home_screen> {
                                         child: Column(
                                           children: [
                                             Container(
-                                              height: 35.sp,
+                                              height: isIpad ? 30.sp : 35.sp,
                                               width: 1.sw,
                                               decoration: BoxDecoration(
                                                 color: HexColor('6f473e'),
@@ -1195,7 +1218,7 @@ class _home_screenState extends State<home_screen> {
                                                 child: Text(
                                                   "SETTING",
                                                   style: GoogleFonts.notoSans(
-                                                    fontSize: 25.sp,
+                                                    fontSize: isIpad ? 20.sp : 25.sp,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -1221,8 +1244,8 @@ class _home_screenState extends State<home_screen> {
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          height: 50.sp,
-                                                          width: 50.sp,
+                                                          height: isIpad ? 45.sp : 50.sp,
+                                                          width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
                                                               image: AssetImage('assets/images/lifeline_image.png'),
@@ -1239,7 +1262,7 @@ class _home_screenState extends State<home_screen> {
                                                         Text(
                                                           "Music",
                                                           style: GoogleFonts.acme(
-                                                            fontSize: 16.sp,
+                                                            fontSize: isIpad ? 14.sp : 16.sp,
                                                             color: Colors.white70,
                                                             fontWeight: FontWeight.w900,
                                                           ),
@@ -1259,8 +1282,8 @@ class _home_screenState extends State<home_screen> {
                                                     child: Column(
                                                       children: [
                                                         Container(
-                                                          height: 50.sp,
-                                                          width: 50.sp,
+                                                          height: isIpad ? 45.sp : 50.sp,
+                                                          width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
                                                               image: AssetImage('assets/images/lifeline_image.png'),
@@ -1277,7 +1300,7 @@ class _home_screenState extends State<home_screen> {
                                                         Text(
                                                           "Sound",
                                                           style: GoogleFonts.acme(
-                                                            fontSize: 16.sp,
+                                                            fontSize: isIpad ? 14.sp : 16.sp,
                                                             color: Colors.white70,
                                                             fontWeight: FontWeight.w900,
                                                           ),
@@ -1297,8 +1320,8 @@ class _home_screenState extends State<home_screen> {
                                                           });
                                                         },
                                                         child: Container(
-                                                          height: 50.sp,
-                                                          width: 50.sp,
+                                                          height: isIpad ? 45.sp : 50.sp,
+                                                          width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
                                                               image: AssetImage('assets/images/lifeline_image.png'),
@@ -1314,7 +1337,7 @@ class _home_screenState extends State<home_screen> {
                                                       Text(
                                                         "Exit App",
                                                         style: GoogleFonts.acme(
-                                                          fontSize: 16.sp,
+                                                          fontSize: isIpad ? 14.sp : 16.sp,
                                                           color: Colors.white70,
                                                           fontWeight: FontWeight.w900,
                                                         ),
@@ -1334,8 +1357,8 @@ class _home_screenState extends State<home_screen> {
                                                           dataProvider.launchurl();
                                                         },
                                                         child: Container(
-                                                          height: 50.sp,
-                                                          width: 50.sp,
+                                                          height: isIpad ? 45.sp : 50.sp,
+                                                          width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
                                                               image: AssetImage('assets/images/lifeline_image.png'),
@@ -1351,7 +1374,7 @@ class _home_screenState extends State<home_screen> {
                                                       Text(
                                                         "Support",
                                                         style: GoogleFonts.acme(
-                                                          fontSize: 16.sp,
+                                                          fontSize: isIpad ? 14.sp : 16.sp,
                                                           color: Colors.white70,
                                                           fontWeight: FontWeight.w900,
                                                         ),
@@ -1372,7 +1395,7 @@ class _home_screenState extends State<home_screen> {
                                                 setState(() {});
                                               },
                                               child: Container(
-                                                height: 45.sp,
+                                                height: isIpad ? 40.sp : 45.sp,
                                                 width: 200.w,
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
@@ -1387,13 +1410,13 @@ class _home_screenState extends State<home_screen> {
                                                     children: [
                                                       Icon(
                                                         Icons.list,
-                                                        size: 28.sp,
+                                                        size: isIpad ? 25.sp : 28.sp,
                                                         color: Colors.white,
                                                       ),
                                                       Text(
                                                         " Levels",
                                                         style: GoogleFonts.breeSerif(
-                                                          fontSize: 22.sp,
+                                                          fontSize: isIpad ? 18.sp : 22.sp,
                                                           color: Colors.white,
                                                           fontWeight: FontWeight.w800,
                                                         ),
@@ -1404,7 +1427,7 @@ class _home_screenState extends State<home_screen> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 20.h),
+                                            SizedBox(height: isIpad ? 5.h : 20.h),
                                             GestureDetector(
                                               onTap: () {
                                                 setState(() {
@@ -1415,7 +1438,7 @@ class _home_screenState extends State<home_screen> {
                                               child: Text(
                                                 "Privacy Policy",
                                                 style: GoogleFonts.abyssinicaSil(
-                                                  fontSize: 18.sp,
+                                                  fontSize: isIpad ? 16.sp : 18.sp,
                                                   color: Colors.white60,
                                                   fontWeight: FontWeight.w900,
                                                 ),
@@ -1435,7 +1458,7 @@ class _home_screenState extends State<home_screen> {
                               ),
                               Positioned(
                                 right: 15.w,
-                                top: 1.sh / 2.9,
+                                top: isIpad ? 1.sh / 3.6 : 1.sh / 2.9,
                                 child: GestureDetector(
                                   onTap: () {
                                     if (dataProvider.soundOn == true) {
@@ -1445,8 +1468,8 @@ class _home_screenState extends State<home_screen> {
                                     setState(() {});
                                   },
                                   child: Container(
-                                    height: 30.sp,
-                                    width: 30.w,
+                                    height: isIpad ? 25.sp : 30.sp,
+                                    width: isIpad ? 25.sp : 30.sp,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(width: 0.5.w, color: Colors.white),
@@ -1455,7 +1478,7 @@ class _home_screenState extends State<home_screen> {
                                     child: Icon(
                                       Icons.close,
                                       color: Colors.yellow,
-                                      size: 25.sp,
+                                      size: isIpad ? 20.sp : 25.sp,
                                     ),
                                   ),
                                 ),

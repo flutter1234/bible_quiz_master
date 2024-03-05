@@ -53,7 +53,12 @@ class _levels_screenState extends State<levels_screen> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 40.h),
+          padding: EdgeInsets.only(
+              top: isSmall
+                  ? 20.h
+                  : isIpad
+                      ? 15.h
+                      : 40.h),
           child: Column(
             children: [
               Padding(
@@ -67,7 +72,7 @@ class _levels_screenState extends State<levels_screen> {
                       },
                       child: Icon(
                         Icons.arrow_back_ios_new,
-                        size: 25.sp,
+                        size: isIpad ? 22.sp : 25.sp,
                         color: HexColor('CFB595'),
                       ),
                     ),
@@ -76,7 +81,7 @@ class _levels_screenState extends State<levels_screen> {
                     Text(
                       'Levels',
                       style: GoogleFonts.breeSerif(
-                        fontSize: 25.sp,
+                        fontSize: isIpad ? 22.sp : 25.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w800,
                       ),
@@ -87,22 +92,19 @@ class _levels_screenState extends State<levels_screen> {
                       clipBehavior: Clip.none,
                       children: [
                         Container(
-                          height: 26.sp,
+                          height: isIpad ? 20.sp : 26.sp,
                           width: 90.w,
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1.w,
-                              color: Colors.brown.shade900,
-                            ),
-                            color: HexColor('CFB595'),
+                            border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                            color: dataProvider.currencyBoxColor,
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Center(
                             child: Text(
                               '${dataProvider.currency}',
                               style: GoogleFonts.breeSerif(
-                                fontSize: 18.sp,
-                                color: Colors.brown.shade700,
+                                fontSize: isIpad ? 13.sp : 16.sp,
+                                color: dataProvider.currencyTextColor,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -111,8 +113,8 @@ class _levels_screenState extends State<levels_screen> {
                         Positioned(
                           left: -12.w,
                           child: Image(
-                            image: AssetImage('assets/images/diamond_image.png'),
-                            height: 28.sp,
+                            image: AssetImage('assets/images/single_diamond.png'),
+                            height: isIpad ? 22.sp : 28.sp,
                             width: 35.w,
                           ),
                         )
@@ -135,7 +137,7 @@ class _levels_screenState extends State<levels_screen> {
                         child: Column(
                           children: [
                             Container(
-                              height: 55.sp,
+                              height: isIpad ? 50.sp : 55.sp,
                               width: 1.sw,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -151,7 +153,7 @@ class _levels_screenState extends State<levels_screen> {
                                     child: Text(
                                       'Chapter ${index + 1}',
                                       style: GoogleFonts.breeSerif(
-                                        fontSize: 20.sp,
+                                        fontSize: isIpad ? 17.sp:20.sp,
                                         color: Colors.brown.shade700,
                                         fontWeight: FontWeight.w800,
                                       ),
@@ -163,7 +165,7 @@ class _levels_screenState extends State<levels_screen> {
                                   Text(
                                     '${(index + 1) * 3 - 2} - ${(index + 1) * 3}',
                                     style: GoogleFonts.breeSerif(
-                                      fontSize: 20.sp,
+                                      fontSize: isIpad ? 17.sp:20.sp,
                                       color: Colors.brown.shade700,
                                       fontWeight: FontWeight.w800,
                                     ),
@@ -181,7 +183,7 @@ class _levels_screenState extends State<levels_screen> {
                             ),
                             levelShowList[index] == true
                                 ? Container(
-                                    height: 100.sp,
+                                    height: isIpad ? 85.sp:100.sp,
                                     child: ListView.builder(
                                       itemCount: dataProvider.bibleList['data'][index]['Chapter'].length,
                                       itemBuilder: (context, index2) {
@@ -201,7 +203,7 @@ class _levels_screenState extends State<levels_screen> {
                                               }
                                             },
                                             child: Container(
-                                              height: 30.sp,
+                                              height: isIpad ? 25.sp:30.sp,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(5.r),
                                                 border: Border.all(width: 0.5, color: Colors.brown.shade400),
@@ -215,7 +217,7 @@ class _levels_screenState extends State<levels_screen> {
                                                     Text(
                                                       '${dataProvider.bibleList['data'][index]['Chapter'][index2]['Levels']}',
                                                       style: GoogleFonts.breeSerif(
-                                                        fontSize: 20.sp,
+                                                        fontSize: isIpad ? 17.sp:20.sp,
                                                         color: Colors.brown.shade700,
                                                         fontWeight: FontWeight.w800,
                                                       ),
@@ -230,7 +232,7 @@ class _levels_screenState extends State<levels_screen> {
                                                                   ? Icons.play_arrow
                                                                   : Icons.lock,
                                                       color: Colors.green,
-                                                      size: 22.sp,
+                                                      size: isIpad ? 20.sp:22.sp,
                                                     )
                                                   ],
                                                 ),
