@@ -42,7 +42,15 @@ class _splash_screenState extends State<splash_screen> {
       String? storedTimeBoxColor = storage.read("timeBoxColor");
       String? storedQuestionText = storage.read("questionTextColor");
       String? storedIconColor = storage.read("iconColor");
-      if (storedTextColor != null && storedCurrencyColor != null && storedLifeLineColor != null && storedBoxColor != null && storedTimeBoxColor != null && storedQuestionText != null&&  storedIconColor != null) {
+      String? storedSecondColor = storage.read("second");
+      if (storedTextColor != null &&
+          storedCurrencyColor != null &&
+          storedLifeLineColor != null &&
+          storedBoxColor != null &&
+          storedTimeBoxColor != null &&
+          storedQuestionText != null &&
+          storedIconColor != null &&
+          storedSecondColor != null) {
         dataProvider.textColor = Color(int.parse(storedTextColor, radix: 16));
         dataProvider.currencyTextColor = Color(int.parse(storedCurrencyColor, radix: 16));
         dataProvider.lifeLineBoxColor = Color(int.parse(storedLifeLineColor, radix: 16));
@@ -50,6 +58,7 @@ class _splash_screenState extends State<splash_screen> {
         dataProvider.timeBoxColor = Color(int.parse(storedTimeBoxColor, radix: 16));
         dataProvider.questionTextColor = Color(int.parse(storedQuestionText, radix: 16));
         dataProvider.iconColor = Color(int.parse(storedIconColor, radix: 16));
+        dataProvider.second = Color(int.parse(storedSecondColor, radix: 16));
       } else {
         dataProvider.textColor = Colors.black;
         dataProvider.currencyTextColor = Colors.brown.shade700;
@@ -58,6 +67,7 @@ class _splash_screenState extends State<splash_screen> {
         dataProvider.timeBoxColor = Colors.brown.shade800;
         dataProvider.questionTextColor = Colors.black;
         dataProvider.iconColor = Colors.black;
+        dataProvider.second = Colors.black;
       }
       setState(() {
         isLoading = false;

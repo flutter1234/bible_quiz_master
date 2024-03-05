@@ -1562,6 +1562,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
                                                       dataProvider.iconColor = Colors.black;
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
+                                                      dataProvider.second = Colors.black;
+                                                      storage.write("second", dataProvider.second.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
 
                                                       setState(() {});
@@ -1608,6 +1610,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
                                                       dataProvider.iconColor = Colors.black;
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
+                                                      dataProvider.second = Colors.black;
+                                                      storage.write("second", dataProvider.second.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
 
                                                       setState(() {});
@@ -1661,6 +1665,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
                                                       dataProvider.iconColor = Colors.white;
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
+                                                      dataProvider.second = Colors.white;
+                                                      storage.write("second", dataProvider.second.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
 
                                                       setState(() {});
@@ -1680,17 +1686,17 @@ class _home_screenState extends State<home_screen> {
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
-                                                      dataProvider.backgroundImage = "assets/images/blue_theme/blue_bg_image.jpeg";
+                                                      dataProvider.backgroundImage = "assets/images/blue_theme/4bg2.jpeg";
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                      dataProvider.optionImage = "assets/images/blue_theme/op1.png";
+                                                      dataProvider.optionImage = "assets/images/blue_theme/theme4_option_image.png";
                                                       storage.write("optionImage", dataProvider.optionImage);
-                                                      dataProvider.correctOptionImage = "assets/images/black_theme/theme3_correct_image.png";
+                                                      dataProvider.correctOptionImage = "assets/images/blue_theme/theme4_correct_image.png";
                                                       storage.write("correctOptionImage", dataProvider.correctOptionImage);
-                                                      dataProvider.wrongOptionImage = "assets/images/black_theme/theme3_wrong_image.png";
+                                                      dataProvider.wrongOptionImage = "assets/images/blue_theme/theme4_wrong_image.png";
                                                       storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
                                                       dataProvider.questionImage = "assets/images/blue_theme/theme4_question_image.jpeg";
                                                       storage.write("questionImage", dataProvider.questionImage);
-                                                      dataProvider.lifeLineImage = "assets/images/black_theme/theme3_lifeLine_image.png";
+                                                      dataProvider.lifeLineImage = "assets/images/blue_theme/theme4_lifeline_image.png";
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
                                                       dataProvider.textColor = Colors.white;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
@@ -1706,6 +1712,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
                                                       dataProvider.iconColor = Colors.white;
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
+                                                      dataProvider.second = Colors.white;
+                                                      storage.write("second", dataProvider.second.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
                                                       setState(() {});
                                                     },

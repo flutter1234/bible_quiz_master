@@ -49,6 +49,7 @@ class Api extends ChangeNotifier {
   Color timeBoxColor =  Colors.brown.shade800;
   Color questionTextColor =  Colors.black;
   Color iconColor =  Colors.black;
+  Color second =  Colors.black;
 
   Future<void> getData() async {
     var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json");

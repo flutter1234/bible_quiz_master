@@ -462,7 +462,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                           '+20S',
                                           style: GoogleFonts.notoSans(
                                             fontSize: 10.sp,
-                                            color: Colors.black,
+                                            color: dataProvider.second,
                                             fontWeight: FontWeight.w900,
                                           ),
                                         ),
