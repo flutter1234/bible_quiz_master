@@ -990,7 +990,7 @@ class _home_screenState extends State<home_screen> {
                                       height: isIpad ? 20.sp : 26.sp,
                                       width: 90.w,
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                                        border: Border.all(width: 1.w, color: dataProvider.borderColor),
                                         color: dataProvider.currencyBoxColor,
                                         borderRadius: BorderRadius.circular(20.r),
                                       ),
@@ -1173,7 +1173,6 @@ class _home_screenState extends State<home_screen> {
                         //   ),
                         // ),
                         Spacer(),
-
                         Spacer(),
                       ],
                     ),
@@ -1196,7 +1195,7 @@ class _home_screenState extends State<home_screen> {
                                       padding: EdgeInsets.symmetric(horizontal: 25.sp),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color: HexColor('8c5d50'),
+                                          color: dataProvider.settingBoxColor,
                                           borderRadius: BorderRadius.circular(10.r),
                                         ),
                                         child: Column(
@@ -1205,7 +1204,7 @@ class _home_screenState extends State<home_screen> {
                                               height: isIpad ? 30.sp : 35.sp,
                                               width: 1.sw,
                                               decoration: BoxDecoration(
-                                                color: HexColor('6f473e'),
+                                                color: dataProvider.settingColor,
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(10.r),
                                                   topRight: Radius.circular(10.r),
@@ -1245,13 +1244,13 @@ class _home_screenState extends State<home_screen> {
                                                           width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
-                                                              image: AssetImage('assets/images/lifeline_image.png'),
+                                                              image: AssetImage(dataProvider.lifeLineImage),
                                                             ),
                                                           ),
                                                           child: Center(
                                                             child: Icon(
                                                               dataProvider.musicOn == true ? Icons.music_note_sharp : Icons.music_off_rounded,
-                                                              color: Colors.black,
+                                                              color: dataProvider.iconColor,
                                                               size: 28.sp,
                                                             ),
                                                           ),
@@ -1283,13 +1282,13 @@ class _home_screenState extends State<home_screen> {
                                                           width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
-                                                              image: AssetImage('assets/images/lifeline_image.png'),
+                                                              image: AssetImage(dataProvider.lifeLineImage),
                                                             ),
                                                           ),
                                                           child: Center(
                                                             child: Icon(
                                                               dataProvider.soundOn == true ? Icons.volume_up_rounded : Icons.volume_off_outlined,
-                                                              color: Colors.black,
+                                                              color: dataProvider.iconColor,
                                                               size: 28.sp,
                                                             ),
                                                           ),
@@ -1321,12 +1320,12 @@ class _home_screenState extends State<home_screen> {
                                                           width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
-                                                              image: AssetImage('assets/images/lifeline_image.png'),
+                                                              image: AssetImage(dataProvider.lifeLineImage),
                                                             ),
                                                           ),
                                                           child: Icon(
                                                             Icons.exit_to_app_rounded,
-                                                            color: Colors.black,
+                                                            color: dataProvider.iconColor,
                                                             size: 28.sp,
                                                           ),
                                                         ),
@@ -1358,12 +1357,12 @@ class _home_screenState extends State<home_screen> {
                                                           width: isIpad ? 45.sp : 50.sp,
                                                           decoration: BoxDecoration(
                                                             image: DecorationImage(
-                                                              image: AssetImage('assets/images/lifeline_image.png'),
+                                                              image: AssetImage(dataProvider.lifeLineImage),
                                                             ),
                                                           ),
                                                           child: Icon(
                                                             Icons.mail,
-                                                            color: Colors.black,
+                                                            color: dataProvider.iconColor,
                                                             size: 28.sp,
                                                           ),
                                                         ),
@@ -1470,7 +1469,7 @@ class _home_screenState extends State<home_screen> {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(width: 0.5.w, color: Colors.white),
-                                      color: HexColor('4e2d2a'),
+                                      color: dataProvider.settingBoxColor,
                                     ),
                                     child: Icon(
                                       Icons.close,
@@ -1584,6 +1583,12 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.second = Colors.black;
                                                       storage.write("second", dataProvider.second.value.toRadixString(16));
+                                                      dataProvider.borderColor = Colors.brown.shade700;
+                                                      storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
+                                                      dataProvider.settingColor = HexColor('6f473e');
+                                                      storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
+                                                      dataProvider.settingBoxColor = HexColor('8c5d50');
+                                                      storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
 
                                                       setState(() {});
@@ -1632,6 +1637,12 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.second = Colors.black;
                                                       storage.write("second", dataProvider.second.value.toRadixString(16));
+                                                      dataProvider.borderColor = Colors.white;
+                                                      storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
+                                                      dataProvider.settingColor = HexColor('14452F');
+                                                      storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
+                                                      dataProvider.settingBoxColor = HexColor('0F5132');
+                                                      storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
 
                                                       setState(() {});
@@ -1687,8 +1698,13 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.second = Colors.white;
                                                       storage.write("second", dataProvider.second.value.toRadixString(16));
+                                                      dataProvider.borderColor = Colors.white;
+                                                      storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
+                                                      dataProvider.settingColor = HexColor('616E7C');
+                                                      storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
+                                                      dataProvider.settingBoxColor = HexColor('3E4C59');
+                                                      storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
-
                                                       setState(() {});
                                                     },
                                                     child: Container(
@@ -1734,6 +1750,12 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
                                                       dataProvider.second = Colors.white;
                                                       storage.write("second", dataProvider.second.value.toRadixString(16));
+                                                      dataProvider.borderColor = Colors.white;
+                                                      storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
+                                                      dataProvider.settingColor = HexColor('4d2d61');
+                                                      storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
+                                                      dataProvider.settingBoxColor = HexColor('5d3a6f');
+                                                      storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
                                                       dataProvider.themeChangeDialog = false;
                                                       setState(() {});
                                                     },

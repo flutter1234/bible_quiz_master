@@ -45,11 +45,14 @@ class Api extends ChangeNotifier {
   Color textColor = Colors.black;
   Color currencyTextColor = Colors.brown.shade700;
   Color lifeLineBoxColor = Colors.brown.shade100;
-  Color currencyBoxColor =  HexColor('CFB595');
-  Color timeBoxColor =  Colors.brown.shade800;
-  Color questionTextColor =  Colors.black;
-  Color iconColor =  Colors.black;
-  Color second =  Colors.black;
+  Color currencyBoxColor = HexColor('CFB595');
+  Color timeBoxColor = Colors.brown.shade800;
+  Color questionTextColor = Colors.black;
+  Color iconColor = Colors.black;
+  Color second = Colors.black;
+  Color borderColor = Colors.brown.shade700;
+  Color settingColor = HexColor('6f473e');
+  Color settingBoxColor =  HexColor('8c5d50');
 
   Future<void> getData() async {
     var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json");
@@ -77,7 +80,7 @@ class Api extends ChangeNotifier {
 
   Future<void> launchurl() async {
     if (!await launchUrl(Uri.parse(url))) {
-        throw Exception('Could not launch ${Uri.parse(url)}');
+      throw Exception('Could not launch ${Uri.parse(url)}');
     }
   }
 

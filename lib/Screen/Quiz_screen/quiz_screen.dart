@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'dart:math' as math;
@@ -111,7 +109,7 @@ class _quiz_screenState extends State<quiz_screen> {
                           height: isIpad ? 20.sp : 26.sp,
                           width: 80.w,
                           decoration: BoxDecoration(
-                            border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                            border: Border.all(width: 1.w, color: dataProvider.borderColor),
                             color: dataProvider.currencyBoxColor,
                             borderRadius: BorderRadius.circular(20.r),
                           ),
@@ -161,7 +159,11 @@ class _quiz_screenState extends State<quiz_screen> {
                                 child: Text(
                                   '${start}',
                                   style: GoogleFonts.breeSerif(
-                                    fontSize: isSmall ? 20.sp : isIpad ? 18.sp:23.sp,
+                                    fontSize: isSmall
+                                        ? 20.sp
+                                        : isIpad
+                                            ? 18.sp
+                                            : 23.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -181,7 +183,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               height: isIpad ? 20.sp : 26.sp,
                               width: 90.w,
                               decoration: BoxDecoration(
-                                border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                                border: Border.all(width: 1.w, color: dataProvider.borderColor),
                                 color: dataProvider.currencyBoxColor,
                                 borderRadius: BorderRadius.circular(20.r),
                               ),
@@ -536,7 +538,7 @@ class _quiz_screenState extends State<quiz_screen> {
                             SizedBox(height: 2.h),
                             Container(
                               height: isIpad ? 13.sp : 15.sp,
-                              width: isIpad ?45.w:50.w,
+                              width: isIpad ? 45.w : 50.w,
                               decoration: BoxDecoration(
                                 color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
@@ -549,7 +551,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     textAlign: TextAlign.center,
                                     '100',
                                     style: GoogleFonts.notoSans(
-                                      fontSize: isIpad ?8.sp:10.sp,
+                                      fontSize: isIpad ? 8.sp : 10.sp,
                                       color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
@@ -610,7 +612,7 @@ class _quiz_screenState extends State<quiz_screen> {
                             SizedBox(height: 2.h),
                             Container(
                               height: isIpad ? 13.sp : 15.sp,
-                              width: isIpad ?45.w:50.w,
+                              width: isIpad ? 45.w : 50.w,
                               decoration: BoxDecoration(
                                 color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
@@ -623,7 +625,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     textAlign: TextAlign.center,
                                     '120',
                                     style: GoogleFonts.notoSans(
-                                      fontSize: isIpad ?8.sp:10.sp,
+                                      fontSize: isIpad ? 8.sp : 10.sp,
                                       color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
@@ -696,7 +698,7 @@ class _quiz_screenState extends State<quiz_screen> {
                             SizedBox(height: 2.h),
                             Container(
                               height: isIpad ? 13.sp : 15.sp,
-                              width: isIpad ?45.w:50.w,
+                              width: isIpad ? 45.w : 50.w,
                               decoration: BoxDecoration(
                                 color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
@@ -709,7 +711,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     textAlign: TextAlign.center,
                                     '200',
                                     style: GoogleFonts.notoSans(
-                                      fontSize: isIpad ?8.sp:10.sp,
+                                      fontSize: isIpad ? 8.sp : 10.sp,
                                       color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
@@ -752,7 +754,7 @@ class _quiz_screenState extends State<quiz_screen> {
                             SizedBox(height: 2.h),
                             Container(
                               height: isIpad ? 13.sp : 15.sp,
-                              width: isIpad ?45.w:50.w,
+                              width: isIpad ? 45.w : 50.w,
                               decoration: BoxDecoration(
                                 color: dataProvider.lifeLineBoxColor,
                                 borderRadius: BorderRadius.circular(3.r),
@@ -765,7 +767,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     textAlign: TextAlign.center,
                                     '50',
                                     style: GoogleFonts.notoSans(
-                                      fontSize: isIpad ?8.sp:10.sp,
+                                      fontSize: isIpad ? 8.sp : 10.sp,
                                       color: dataProvider.iconColor,
                                       fontWeight: FontWeight.w900,
                                     ),
@@ -813,10 +815,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     height: 26.sp,
                                     width: 90.w,
                                     decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1.w,
-                                        color: Colors.brown.shade900,
-                                      ),
+                                      border: Border.all(width: 1.w, color: dataProvider.borderColor),
                                       color: dataProvider.currencyBoxColor,
                                       borderRadius: BorderRadius.circular(20.r),
                                     ),
@@ -852,7 +851,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                   textAlign: TextAlign.center,
                                   "Don't give up, try to start challenging your winning streak!",
                                   style: GoogleFonts.breeSerif(
-                                    fontSize: isIpad ? 20.sp:23.sp,
+                                    fontSize: isIpad ? 20.sp : 23.sp,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -877,7 +876,7 @@ class _quiz_screenState extends State<quiz_screen> {
                               setState(() {});
                             },
                             child: Container(
-                              height: isIpad ? 50.sp:55.sp,
+                              height: isIpad ? 50.sp : 55.sp,
                               width: 200.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -894,13 +893,13 @@ class _quiz_screenState extends State<quiz_screen> {
                                         alignment: Alignment.centerLeft,
                                         child: Image(
                                           image: AssetImage('assets/images/single_diamond.png'),
-                                          height:isIpad  ? 20.sp:22.sp,
+                                          height: isIpad ? 20.sp : 22.sp,
                                         ),
                                       ),
                                       Text(
                                         " 80  Recovery",
                                         style: GoogleFonts.breeSerif(
-                                          fontSize: isIpad  ? 19.sp:22.sp,
+                                          fontSize: isIpad ? 19.sp : 22.sp,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w800,
                                         ),
@@ -967,7 +966,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     height: 26.sp,
                                     width: 90.w,
                                     decoration: BoxDecoration(
-                                      border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                                      border: Border.all(width: 1.w, color: dataProvider.borderColor),
                                       color: dataProvider.currencyBoxColor,
                                       borderRadius: BorderRadius.circular(20.r),
                                     ),
@@ -1090,11 +1089,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                     height: 26.sp,
                                     width: 90.w,
                                     decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1.w,
-                                        color: Colors.brown.shade900,
-                                      ),
-                                      color: HexColor('CFB595'),
+                                      border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                      color: dataProvider.currencyBoxColor,
                                       borderRadius: BorderRadius.circular(20.r),
                                     ),
                                     child: Center(
@@ -1102,7 +1098,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                         '${dataProvider.currency}',
                                         style: GoogleFonts.breeSerif(
                                           fontSize: 16.sp,
-                                          color: Colors.brown.shade700,
+                                          color: dataProvider.currencyTextColor,
                                           fontWeight: FontWeight.w800,
                                         ),
                                       ),
@@ -1126,7 +1122,7 @@ class _quiz_screenState extends State<quiz_screen> {
                             child: Container(
                               width: 1.sw,
                               decoration: BoxDecoration(
-                                image: DecorationImage(image: AssetImage('assets/images/quiz_bg_image.jpeg'), fit: BoxFit.fill),
+                                image: DecorationImage(image: AssetImage(dataProvider.backgroundImage), fit: BoxFit.fill),
                                 border: Border.all(width: 1.w, color: Colors.white),
                                 borderRadius: BorderRadius.circular(10.r),
                               ),
@@ -1157,11 +1153,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                       height: 30.sp,
                                       width: 130.w,
                                       decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1.w,
-                                          color: Colors.brown.shade700,
-                                        ),
-                                        color: HexColor('CFB595'),
+                                        border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                        color: dataProvider.currencyBoxColor,
                                         borderRadius: BorderRadius.circular(20.r),
                                       ),
                                       child: Center(
@@ -1169,7 +1162,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                           '${dataProvider.currency}',
                                           style: GoogleFonts.b612(
                                             fontSize: 18.sp,
-                                            color: Colors.brown.shade700,
+                                            color: dataProvider.currencyTextColor,
                                             fontWeight: FontWeight.w900,
                                           ),
                                         ),
