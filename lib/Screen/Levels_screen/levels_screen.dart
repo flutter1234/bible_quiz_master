@@ -7,7 +7,6 @@ import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class levels_screen extends StatefulWidget {
@@ -59,11 +58,12 @@ class _levels_screenState extends State<levels_screen> {
           ),
           child: Padding(
             padding: EdgeInsets.only(
-                top: isSmall
-                    ? 20.h
-                    : isIpad
-                        ? 15.h
-                        : 40.h),
+              top: isSmall
+                  ? 20.h
+                  : isIpad
+                      ? 15.h
+                      : 40.h,
+            ),
             child: Column(
               children: [
                 Padding(
@@ -78,7 +78,7 @@ class _levels_screenState extends State<levels_screen> {
                         child: Icon(
                           Icons.arrow_back_ios_new,
                           size: isIpad ? 22.sp : 25.sp,
-                          color: HexColor('CFB595'),
+                          color: Colors.white,
                         ),
                       ),
                       Spacer(),
@@ -100,7 +100,7 @@ class _levels_screenState extends State<levels_screen> {
                             height: isIpad ? 20.sp : 26.sp,
                             width: 90.w,
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1.w, color: Colors.brown.shade900),
+                              border: Border.all(width: 1.w, color: dataProvider.borderColor),
                               color: dataProvider.currencyBoxColor,
                               borderRadius: BorderRadius.circular(20.r),
                             ),
@@ -128,8 +128,6 @@ class _levels_screenState extends State<levels_screen> {
                     ],
                   ),
                 ),
-
-
                 Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.only(top: 15.h),
@@ -137,7 +135,7 @@ class _levels_screenState extends State<levels_screen> {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                         index == 3 ? NativeRN(parentContext: context) :SizedBox(),
+                          index == 3 ? NativeRN(parentContext: context) : SizedBox(),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 2.sp),
                             child: GestureDetector(
@@ -153,7 +151,7 @@ class _levels_screenState extends State<levels_screen> {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         fit: BoxFit.fill,
-                                        image: AssetImage('assets/images/theme1_option_image.png'),
+                                        image: AssetImage(dataProvider.optionImage),
                                       ),
                                     ),
                                     child: Row(
@@ -164,8 +162,8 @@ class _levels_screenState extends State<levels_screen> {
                                           child: Text(
                                             'Chapter ${index + 1}',
                                             style: GoogleFonts.breeSerif(
-                                              fontSize: isIpad ? 17.sp : 20.sp,
-                                              color: Colors.brown.shade700,
+                                              fontSize: isIpad ? 16.sp : 18.sp,
+                                              color: dataProvider.textColor,
                                               fontWeight: FontWeight.w800,
                                             ),
                                           ),
@@ -176,8 +174,8 @@ class _levels_screenState extends State<levels_screen> {
                                         Text(
                                           '${(index + 1) * 3 - 2} - ${(index + 1) * 3}',
                                           style: GoogleFonts.breeSerif(
-                                            fontSize: isIpad ? 17.sp : 20.sp,
-                                            color: Colors.brown.shade700,
+                                            fontSize: isIpad ? 16.sp : 18.sp,
+                                            color: dataProvider.textColor,
                                             fontWeight: FontWeight.w800,
                                           ),
                                         ),
@@ -187,7 +185,7 @@ class _levels_screenState extends State<levels_screen> {
                                             child: Icon(
                                               Icons.keyboard_arrow_up,
                                               size: 25.sp,
-                                              color: Colors.brown,
+                                              color: dataProvider.textColor,
                                             ),
                                           )
                                         } else ...{
@@ -196,7 +194,7 @@ class _levels_screenState extends State<levels_screen> {
                                             child: Icon(
                                               Icons.keyboard_arrow_down,
                                               size: 25.sp,
-                                              color: Colors.brown,
+                                              color: dataProvider.textColor,
                                             ),
                                           )
                                         }
@@ -235,8 +233,8 @@ class _levels_screenState extends State<levels_screen> {
                                                     height: isIpad ? 25.sp : 30.sp,
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(5.r),
-                                                      border: Border.all(width: 0.5, color: Colors.brown.shade400),
-                                                      color: Colors.white70,
+                                                      border: Border.all(width: 0.5, color: dataProvider.borderColor),
+                                                      color: dataProvider.currencyBoxColor,
                                                     ),
                                                     child: Padding(
                                                       padding: EdgeInsets.symmetric(horizontal: 20.sp),
@@ -246,9 +244,9 @@ class _levels_screenState extends State<levels_screen> {
                                                           Text(
                                                             '${dataProvider.bibleList['data'][index]['Chapter'][index2]['Levels']}',
                                                             style: GoogleFonts.breeSerif(
-                                                              fontSize: isIpad ? 17.sp : 20.sp,
-                                                              color: Colors.brown.shade700,
-                                                              fontWeight: FontWeight.w800,
+                                                              fontSize: isIpad ? 16.sp : 18.sp,
+                                                              color: dataProvider.currencyTextColor,
+                                                              fontWeight: FontWeight.w600,
                                                             ),
                                                           ),
                                                           Icon(
@@ -257,7 +255,9 @@ class _levels_screenState extends State<levels_screen> {
                                                                 : (index == 0 && index2 == 0)
                                                                     ? Icons.play_arrow
                                                                     : (index2 > 0 && (dataProvider.tempList[index][index2 - 1] == true)) ||
-                                                                            (index == 0 ? dataProvider.tempList[index][index2 - 1] == true : (dataProvider.tempList[index - 1][2] == true && index2 == 0))
+                                                                            (index == 0
+                                                                                ? dataProvider.tempList[index][index2 - 1] == true
+                                                                                : (dataProvider.tempList[index - 1][2] == true && index2 == 0))
                                                                         ? Icons.play_arrow
                                                                         : Icons.lock,
                                                             color: Colors.green,

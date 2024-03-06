@@ -82,7 +82,7 @@ class _quiz_screenState extends State<quiz_screen> {
   Widget build(BuildContext context) {
     Api dataProvider = Provider.of<Api>(context, listen: true);
     return BannerWrapper(
-      parentContext:  context,
+      parentContext: context,
       child: Scaffold(
         body: Stack(
           children: [
@@ -223,9 +223,9 @@ class _quiz_screenState extends State<quiz_screen> {
                         children: [
                           Container(
                             height: isSmall
-                                ? 150.sp
+                                ? 145.sp
                                 : isIpad
-                                    ? 120.sp
+                                    ? 110.sp
                                     : 180.sp,
                             width: 1.sw,
                             decoration: BoxDecoration(
@@ -331,7 +331,7 @@ class _quiz_screenState extends State<quiz_screen> {
                             hideindex1 = 0;
                           }
                           return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 3.sp),
+                            padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: isIpad ? 2.sp : 3.sp),
                             child: GestureDetector(
                               onTap: () {
                                 if (!answerTap) {
@@ -387,7 +387,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                     )
                                   : Container(
                                       height: isSmall
-                                          ? 65.sp
+                                          ? 62.sp
                                           : isIpad
                                               ? 48.sp
                                               : 70.sp,
@@ -396,7 +396,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                         image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: colorChange == true
-                                                ? index + 1 == dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
+                                                ? index + 1 ==
+                                                        dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
                                                     ? AssetImage(dataProvider.correctOptionImage)
                                                     : selectAnswer ==
                                                             dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index]
@@ -425,7 +426,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                                             dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
                                                         ? Colors.white
                                                         : selectAnswer ==
-                                                                dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index]
+                                                                dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
+                                                                    [index]
                                                             ? Colors.white
                                                             : dataProvider.textColor
                                                     : dataProvider.textColor,
@@ -443,7 +445,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                                     fontSize: isIpad ? 12.sp : 16.sp,
                                                     color: colorChange == true
                                                         ? index + 1 ==
-                                                                dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
+                                                                dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]
+                                                                    ['correct_answer']
                                                             ? Colors.white
                                                             : selectAnswer ==
                                                                     dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
@@ -466,7 +469,13 @@ class _quiz_screenState extends State<quiz_screen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.sp, vertical: isIpad ? 5.sp : 10.sp),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 25.sp,
+                          vertical: isIpad
+                              ? 5.sp
+                              : isSmall
+                                  ? 0.sp
+                                  : 10.sp),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -809,7 +818,11 @@ class _quiz_screenState extends State<quiz_screen> {
                       ),
                     ),
                     SizedBox(
-                      height: isIpad ? 7.h : 15.h,
+                      height: isIpad
+                          ? 0.h
+                          : isSmall
+                              ? 2.h
+                              : 15.h,
                     ),
                   ],
                 ),

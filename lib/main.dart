@@ -37,37 +37,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  // Widget build(BuildContext context) {
-  //   DartPingIOS.register();
-  //   double screenWidth = MediaQuery.of(context).size.width;
-  //   if (screenWidth > 600) {
-  //     isIpad = true;
-  //   } else if (screenWidth < 420) {
-  //     isSmall = true;
-  //   }
-  //   return MultiProvider(
-  //     providers: [
-  //       ChangeNotifierProvider(create: (context) => Api()),
-  //     ],
-  //     child: ScreenUtilInit(
-  //       designSize: const Size(360, 690),
-  //       minTextAdapt: true,
-  //       splitScreenMode: true,
-  //       builder: (context, child) {
-  //         return MaterialApp(
-  //           onGenerateRoute: r.Router.onRouteGenrator,
-  //           debugShowCheckedModeBanner: false,
-  //           theme: ThemeData(
-  //             scaffoldBackgroundColor: HexColor('#20483F'),
-  //           ),
-  //           home: splash_screen(),
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
+
   Widget build(BuildContext context) {
     DartPingIOS.register();
+    double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 600) {
+      isIpad = true;
+    } else if (screenWidth < 420) {
+      isSmall = true;
+    }
     return AdpluginProvider(
       child: AdLoader(
         child: MultiProvider(
@@ -75,9 +53,6 @@ class _MyAppState extends State<MyApp> {
             ChangeNotifierProvider(create: (context) => Api()),
           ],
           child: ScreenUtilInit(
-            designSize: const Size(360, 690),
-            minTextAdapt: true,
-            splitScreenMode: true,
             builder: (context, child) {
               return MaterialApp(
                 home: AdSplashScreen(
