@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:bible_quiz_master/AdPlugin/Ads/Banner/BannerWrapper.dart';
+import 'package:bible_quiz_master/AdPlugin/Ads/FullScreen/Ads.dart';
 import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/Screen/Levels_screen/levels_screen.dart';
 import 'package:bible_quiz_master/Screen/Quiz_screen/quiz_screen.dart';
@@ -951,230 +953,235 @@ class _home_screenState extends State<home_screen> {
               ),
               child: Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
+                  BannerWrapper(
+                    parentContext: context,
+                    child: Padding(
+                      padding: EdgeInsets.only(
                         top: isSmall
                             ? 25.h
                             : isIpad
                                 ? 20.h
-                                : 50.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  if (dataProvider.soundOn == true) {
-                                    dataProvider.initOnTap();
-                                  }
-                                  dataProvider.settingDialog = true;
-                                  setState(() {});
-                                },
-                                child: Icon(
-                                  Icons.settings,
-                                  size: isIpad ? 25.sp : 30.sp,
-                                  color: Colors.yellow.shade700,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 5.w),
-                                child: Stack(
-                                  alignment: Alignment.centerLeft,
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Container(
-                                      height: isIpad ? 20.sp : 26.sp,
-                                      width: 90.w,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                        color: dataProvider.currencyBoxColor,
-                                        borderRadius: BorderRadius.circular(20.r),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '${dataProvider.currency}',
-                                          style: GoogleFonts.breeSerif(
-                                            fontSize: isIpad ? 13.sp : 16.sp,
-                                            color: dataProvider.currencyTextColor,
-                                            fontWeight: FontWeight.w800,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: -12.w,
-                                      child: Image(
-                                        image: AssetImage('assets/images/single_diamond.png'),
-                                        height: isIpad ? 22.sp : 28.sp,
-                                        width: 35.w,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          height: isIpad ? 400.sp : 450.sp,
-                          width: 1.sw,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage('assets/images/bible_book_image.png'),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: 60.h),
-                            child: Column(
+                                : 50.h,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 10.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Spacer(),
-                                Spacer(),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 30.w, top: 35.h),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Stack(
-                                      alignment: Alignment.bottomCenter,
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              dataProvider.themeChangeDialog = true;
-                                            });
-                                          },
-                                          child: Image.asset(
-                                            'assets/images/theme_change.png',
-                                            height: 50.sp,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: -7.h,
-                                          child: Text(
-                                            "Theme",
-                                            style: GoogleFonts.nobile(
-                                              fontSize: 10.sp,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w900,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Spacer(),
                                 GestureDetector(
                                   onTap: () {
                                     if (dataProvider.soundOn == true) {
                                       dataProvider.initOnTap();
                                     }
-                                    Navigator.pushNamed(context, quiz_screen.routeName);
+                                    dataProvider.settingDialog = true;
+                                    setState(() {});
                                   },
-                                  child: Container(
-                                    height: isIpad ? 45.sp : 50.sp,
-                                    width: 180.w,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(width: 2.w, color: Colors.green.shade900),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter,
-                                        colors: [
-                                          HexColor('08A045'),
-                                          HexColor('6BBF59'),
-                                        ],
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.r),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "PLAY",
-                                        style: GoogleFonts.abyssinicaSil(
-                                          fontSize: isIpad ? 30.sp : 35.sp,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
+                                  child: Icon(
+                                    Icons.settings,
+                                    size: isIpad ? 25.sp : 30.sp,
+                                    color: Colors.yellow.shade700,
                                   ),
                                 ),
-                                SizedBox(height: 10.h),
-                                Stack(
-                                  alignment: Alignment.topRight,
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (dataProvider.tempData[dataProvider.difference]['collected'] == false) {
-                                          dialog = true;
-                                          setState(() {});
-                                        }
-                                      },
-                                      child: Container(
-                                        height: isIpad ? 45.sp : 50.sp,
-                                        width: 180.w,
+                                Padding(
+                                  padding: EdgeInsets.only(right: 5.w),
+                                  child: Stack(
+                                    alignment: Alignment.centerLeft,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Container(
+                                        height: isIpad ? 20.sp : 26.sp,
+                                        width: 90.w,
                                         decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 2.w,
-                                            color: Colors.amber.shade700,
-                                          ),
-                                          gradient: LinearGradient(
-                                            begin: Alignment.bottomCenter,
-                                            end: Alignment.topCenter,
-                                            colors: [
-                                              HexColor('e69b00'),
-                                              HexColor('e6b400'),
-                                            ],
-                                          ),
-                                          borderRadius: BorderRadius.circular(10.r),
+                                          border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                          color: dataProvider.currencyBoxColor,
+                                          borderRadius: BorderRadius.circular(20.r),
                                         ),
                                         child: Center(
                                           child: Text(
-                                            "Daily Challenge",
-                                            style: GoogleFonts.abyssinicaSil(
-                                              fontSize: isIpad ? 20.sp : 22.sp,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500,
+                                            '${dataProvider.currency}',
+                                            style: GoogleFonts.breeSerif(
+                                              fontSize: isIpad ? 13.sp : 16.sp,
+                                              color: dataProvider.currencyTextColor,
+                                              fontWeight: FontWeight.w800,
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    if (dataProvider.tempData[dataProvider.difference]['collected'] == true) ...{
                                       Positioned(
-                                        top: -10.h,
-                                        right: -10.w,
-                                        child: Image.asset(
-                                          "assets/images/lock_image.png",
-                                          height: 35.sp,
+                                        left: -12.w,
+                                        child: Image(
+                                          image: AssetImage('assets/images/single_diamond.png'),
+                                          height: isIpad ? 22.sp : 28.sp,
+                                          width: 35.w,
                                         ),
-                                      ),
-                                    }
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                        // Text(
-                        //   "Bible Quiz",
-                        //   style: GoogleFonts.russoOne(
-                        //     fontSize: 35.sp,
-                        //     color: Colors.amber.shade700,
-                        //     fontWeight: FontWeight.w800,
-                        //     // fontStyle: FontStyle.normal,
-                        //   ),
-                        // ),
-                        Spacer(),
-                        Spacer(),
-                      ],
+                          Spacer(),
+                          Container(
+                            height: isIpad ? 400.sp : 450.sp,
+                            width: 1.sw,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage('assets/images/bible_book_image.png'),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 60.h),
+                              child: Column(
+                                children: [
+                                  Spacer(),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 30.w, top: 35.h),
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Stack(
+                                        alignment: Alignment.bottomCenter,
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                dataProvider.themeChangeDialog = true;
+                                              });
+                                            },
+                                            child: Image.asset(
+                                              'assets/images/theme_change.png',
+                                              height: 50.sp,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: -7.h,
+                                            child: Text(
+                                              "Theme",
+                                              style: GoogleFonts.nobile(
+                                                fontSize: 10.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      AdsRN().showFullScreen(
+                                        context: context,
+                                        onComplete: () {
+                                          if (dataProvider.soundOn == true) {
+                                            dataProvider.initOnTap();
+                                          }
+                                          Navigator.pushNamed(context, quiz_screen.routeName);
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      height: isIpad ? 45.sp : 50.sp,
+                                      width: 180.w,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 2.w, color: Colors.green.shade900),
+                                        gradient: LinearGradient(
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter,
+                                          colors: [
+                                            HexColor('08A045'),
+                                            HexColor('6BBF59'),
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.r),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "PLAY",
+                                          style: GoogleFonts.abyssinicaSil(
+                                            fontSize: isIpad ? 30.sp : 35.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Stack(
+                                    alignment: Alignment.topRight,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (dataProvider.tempData[dataProvider.difference]['collected'] == false) {
+                                            AdsRN().showFullScreen(
+                                              context: context,
+                                              onComplete: () {
+                                                dialog = true;
+                                                setState(() {});
+                                              },
+                                            );
+                                          }
+                                        },
+                                        child: Container(
+                                          height: isIpad ? 45.sp : 50.sp,
+                                          width: 180.w,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 2.w,
+                                              color: Colors.amber.shade700,
+                                            ),
+                                            gradient: LinearGradient(
+                                              begin: Alignment.bottomCenter,
+                                              end: Alignment.topCenter,
+                                              colors: [
+                                                HexColor('e69b00'),
+                                                HexColor('e6b400'),
+                                              ],
+                                            ),
+                                            borderRadius: BorderRadius.circular(10.r),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Daily Challenge",
+                                              style: GoogleFonts.abyssinicaSil(
+                                                fontSize: isIpad ? 20.sp : 22.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      if (dataProvider.tempData[dataProvider.difference]['collected'] == true) ...{
+                                        Positioned(
+                                          top: -10.h,
+                                          right: -10.w,
+                                          child: Image.asset(
+                                            "assets/images/lock_image.png",
+                                            height: 35.sp,
+                                          ),
+                                        ),
+                                      }
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Spacer(),
+                        ],
+                      ),
                     ),
                   ),
                   dataProvider.settingDialog == true
@@ -1454,7 +1461,7 @@ class _home_screenState extends State<home_screen> {
                               ),
                               Positioned(
                                 right: 15.w,
-                                top: isIpad ? 1.sh / 3.6 : 1.sh / 2.9,
+                                top: isIpad ? 1.sh / 3.6 : 230.h,
                                 child: GestureDetector(
                                   onTap: () {
                                     if (dataProvider.soundOn == true) {

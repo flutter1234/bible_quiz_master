@@ -35,6 +35,7 @@ class Api extends ChangeNotifier {
   List wrongAnswersDetailsList = [];
   List correctAnswersDetailsList = [];
   bool themeChangeDialog = false;
+  bool isLoading = true;
 
   String backgroundImage = "assets/images/quiz_bg_image.jpeg";
   String optionImage = "assets/images/theme1_option_image.png";

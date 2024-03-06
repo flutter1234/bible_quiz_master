@@ -17,19 +17,10 @@ class splash_screen extends StatefulWidget {
 }
 
 class _splash_screenState extends State<splash_screen> {
-  bool isLoading = true;
-  String backgroundImage = "";
-
-  @override
-  void initState() {
-    fetchData();
-    super.initState();
-  }
-
-  fetchData() {
+  Future<void> fetchData() async {
     Api dataProvider = Provider.of<Api>(context, listen: false);
     context.read<Api>().getData().then((value) {
-      backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
+      dataProvider.backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
       dataProvider.optionImage = storage.read("optionImage") ?? dataProvider.optionImage;
       dataProvider.correctOptionImage = storage.read("correctOptionImage") ?? dataProvider.correctOptionImage;
       dataProvider.wrongOptionImage = storage.read("wrongOptionImage") ?? dataProvider.wrongOptionImage;
@@ -66,8 +57,8 @@ class _splash_screenState extends State<splash_screen> {
         dataProvider.iconColor = Color(int.parse(storedIconColor, radix: 16));
         dataProvider.second = Color(int.parse(storedSecondColor, radix: 16));
         dataProvider.borderColor = Color(int.parse(storedBorderColor, radix: 16));
-        dataProvider.settingColor = Color(int.parse(storedBorderColor, radix: 16));
-        dataProvider.settingBoxColor = Color(int.parse(storedBorderColor, radix: 16));
+        dataProvider.settingColor = Color(int.parse(storedSettingColor, radix: 16));
+        dataProvider.settingBoxColor = Color(int.parse(storedSettingBoxColor, radix: 16));
       } else {
         dataProvider.textColor = Colors.black;
         dataProvider.currencyTextColor = Colors.brown.shade700;
@@ -82,22 +73,23 @@ class _splash_screenState extends State<splash_screen> {
         dataProvider.settingBoxColor = HexColor('8c5d50');
       }
       setState(() {
-        isLoading = false;
+        dataProvider.isLoading = false;
       });
-      dataProvider.backgroundImage = backgroundImage;
-      context.read<Api>().multiQuiz().then((value) {
-        Future.delayed(Duration(seconds: 1)).then((value) {
-          Navigator.pushReplacementNamed(context, home_screen.routeName);
-        });
-      });
+      context.read<Api>().multiQuiz();
     });
+  }
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Api dataProvider = Provider.of<Api>(context, listen: true);
     return Scaffold(
-      body: isLoading
+      body: dataProvider.isLoading
           ? Container(
               height: double.infinity,
               width: double.infinity,

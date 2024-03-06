@@ -36,8 +36,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
   @override
   // Widget build(BuildContext context) {
   //   DartPingIOS.register();
@@ -92,14 +90,14 @@ class _MyAppState extends State<MyApp> {
                       );
                     },
                     servers: const [
-                      "miracocopepsi.com",
-                      // "coinspinmaster.com",
+                      // "miracocopepsi.com",
+                      "coinspinmaster.com",
                       // "trailerspot4k.com",
                     ],
                     jsonUrl: const [
-                      "https://miracocopepsi.com/admin/mayur/coc/office/github/ads_demo.json",
-                      "https://coinspinmaster.com/raj/ios/anime/json/main.json",
-                      "https://trailerspot4k.com/raj/ios/anime/json/main.json"
+                      // "https://miracocopepsi.com/admin/mayur/coc/office/github/ads_demo.json",
+                      "https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json",
+                      // "https://trailerspot4k.com/raj/ios/anime/json/main.json"
                     ],
                     version: '1.0.0',
                     child: const splash_screen()),
@@ -116,5 +114,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
 }
