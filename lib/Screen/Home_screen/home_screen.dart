@@ -1706,7 +1706,7 @@ class _home_screenState extends State<home_screen> {
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
-                                                      dataProvider.backgroundImage = "assets/images/blue_theme/blue_bg_image.jpeg";
+                                                      dataProvider.backgroundImage = "assets/images/blue_theme/theme4_bg_image.jpeg";
                                                       storage.write("backgroundImage", dataProvider.backgroundImage);
                                                       dataProvider.optionImage = "assets/images/blue_theme/theme4_option_image.png";
                                                       storage.write("optionImage", dataProvider.optionImage);
@@ -1745,7 +1745,7 @@ class _home_screenState extends State<home_screen> {
                                                         border: Border.all(width: 1.w, color: Colors.white),
                                                         image: DecorationImage(
                                                           fit: BoxFit.fill,
-                                                          image: AssetImage('assets/images/blue_theme/blue_bg_image.jpeg'),
+                                                          image: AssetImage('assets/images/blue_theme/theme4_bg_image.jpeg'),
                                                         ),
                                                       ),
                                                     ),
