@@ -75,7 +75,9 @@ class _splash_screenState extends State<splash_screen> {
       setState(() {
         dataProvider.isLoading = false;
       });
-      context.read<Api>().multiQuiz();
+      context.read<Api>().multiQuiz().then((value) {
+        context.read<Api>().spinData();
+      });
     });
   }
 
