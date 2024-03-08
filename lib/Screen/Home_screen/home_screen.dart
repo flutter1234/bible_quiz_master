@@ -345,7 +345,7 @@ class _home_screenState extends State<home_screen> {
                                                                 'Day 3',
                                                                 style: GoogleFonts.abhayaLibre(
                                                                   fontSize: isIpad ? 13.sp : 16.sp,
-                                                                  color:  dataProvider.difference == 2 ? Colors.black : Colors.white,
+                                                                  color: dataProvider.difference == 2 ? Colors.black : Colors.white,
                                                                   fontWeight: FontWeight.w900,
                                                                   fontStyle: FontStyle.normal,
                                                                 ),
@@ -364,7 +364,7 @@ class _home_screenState extends State<home_screen> {
                                                           '+140',
                                                           style: GoogleFonts.abhayaLibre(
                                                             fontSize: isIpad ? 15.sp : 18.sp,
-                                                            color:dataProvider.difference == 2 ? Colors.black : Colors.white,
+                                                            color: dataProvider.difference == 2 ? Colors.black : Colors.white,
                                                             fontWeight: FontWeight.w900,
                                                             fontStyle: FontStyle.normal,
                                                           ),
@@ -510,7 +510,7 @@ class _home_screenState extends State<home_screen> {
                                                                   'Day 5',
                                                                   style: GoogleFonts.abhayaLibre(
                                                                     fontSize: isIpad ? 13.sp : 16.sp,
-                                                                    color:  dataProvider.difference == 4 ? Colors.black : Colors.white,
+                                                                    color: dataProvider.difference == 4 ? Colors.black : Colors.white,
                                                                     fontWeight: FontWeight.w900,
                                                                     fontStyle: FontStyle.normal,
                                                                   ),
@@ -608,7 +608,7 @@ class _home_screenState extends State<home_screen> {
                                                             '+200',
                                                             style: GoogleFonts.abhayaLibre(
                                                               fontSize: isIpad ? 15.sp : 18.sp,
-                                                              color:  dataProvider.difference == 5 ? Colors.black : Colors.white,
+                                                              color: dataProvider.difference == 5 ? Colors.black : Colors.white,
                                                               fontWeight: FontWeight.w900,
                                                               fontStyle: FontStyle.normal,
                                                             ),
@@ -699,7 +699,7 @@ class _home_screenState extends State<home_screen> {
                                                                     'x200',
                                                                     style: GoogleFonts.abhayaLibre(
                                                                       fontSize: isIpad ? 15.sp : 18.sp,
-                                                                      color:  dataProvider.difference == 6 ? Colors.black : Colors.white,
+                                                                      color: dataProvider.difference == 6 ? Colors.black : Colors.white,
                                                                       fontWeight: FontWeight.w900,
                                                                       fontStyle: FontStyle.normal,
                                                                     ),
@@ -725,7 +725,7 @@ class _home_screenState extends State<home_screen> {
                                                                     'x300',
                                                                     style: GoogleFonts.abhayaLibre(
                                                                       fontSize: isIpad ? 15.sp : 18.sp,
-                                                                      color:  dataProvider.difference == 6 ? Colors.black : Colors.white,
+                                                                      color: dataProvider.difference == 6 ? Colors.black : Colors.white,
                                                                       fontWeight: FontWeight.w900,
                                                                       fontStyle: FontStyle.normal,
                                                                     ),
@@ -1227,7 +1227,11 @@ class _home_screenState extends State<home_screen> {
                                                 child: Text(
                                                   "SETTING",
                                                   style: GoogleFonts.notoSans(
-                                                    fontSize: isIpad ? 20.sp : 25.sp,
+                                                    fontSize: isIpad
+                                                        ? 20.sp
+                                                        : isSmall
+                                                            ? 19.sp
+                                                            : 25.sp,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -1467,7 +1471,7 @@ class _home_screenState extends State<home_screen> {
                               ),
                               Positioned(
                                 right: 15.w,
-                                top: isIpad ? 1.sh / 3.6 : 230.h,
+                                top: isIpad ? 195.h: isSmall ? 210.h:230.h,
                                 child: GestureDetector(
                                   onTap: () {
                                     if (dataProvider.soundOn == true) {

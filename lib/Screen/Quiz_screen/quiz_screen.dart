@@ -821,7 +821,7 @@ class _quiz_screenState extends State<quiz_screen> {
                       height: isIpad
                           ? 0.h
                           : isSmall
-                              ? 2.h
+                              ? 8.h
                               : 15.h,
                     ),
                   ],
