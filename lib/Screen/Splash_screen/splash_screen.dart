@@ -1,5 +1,4 @@
 import 'package:bible_quiz_master/Provider/api_provider.dart';
-import 'package:bible_quiz_master/Screen/Home_screen/home_screen.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

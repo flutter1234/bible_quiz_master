@@ -5,6 +5,7 @@ import 'package:bible_quiz_master/AdPlugin/Ads/FullScreen/Ads.dart';
 import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/Screen/Levels_screen/levels_screen.dart';
 import 'package:bible_quiz_master/Screen/Quiz_screen/quiz_screen.dart';
+import 'package:bible_quiz_master/Screen/gems_collect_screen/gems_collect_screen.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -1176,6 +1177,46 @@ class _home_screenState extends State<home_screen> {
                                         ),
                                       }
                                     ],
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  GestureDetector(
+                                    onTap: () {
+                                      AdsRN().showFullScreen(
+                                        context: context,
+                                        onComplete: () {
+                                          if (dataProvider.soundOn == true) {
+                                            dataProvider.initOnTap();
+                                          }
+                                          Navigator.pushNamed(context, gems_collect_screen.routeName);
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      height: isIpad ? 45.sp : 50.sp,
+                                      width: 180.w,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                        gradient: LinearGradient(
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter,
+                                          colors: [
+                                            HexColor('08A045'),
+                                            HexColor('6BBF59'),
+                                          ],
+                                        ),
+                                        borderRadius: BorderRadius.circular(10.r),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Spin",
+                                          style: GoogleFonts.abyssinicaSil(
+                                            fontSize: isIpad ? 30.sp : 35.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
