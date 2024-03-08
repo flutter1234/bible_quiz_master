@@ -670,14 +670,13 @@ class _quiz_screenState extends State<quiz_screen> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  AdsRN().showFullScreen(
-                                    context: context,
-                                    onComplete: () {
-                                      if (dataProvider.currency >= 200) {
-                                        if (dataProvider.soundOn == true) {
-                                          dataProvider.initLifeLine();
-                                        }
-
+                                  if (dataProvider.currency >= 200) {
+                                    if (dataProvider.soundOn == true) {
+                                      dataProvider.initLifeLine();
+                                    }
+                                    AdsRN().showFullScreen(
+                                      context: context,
+                                      onComplete: () {
                                         if (questionIndex < dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'].length - 1) {
                                           setState(() {
                                             Future.delayed(Duration(seconds: 2)).then((value) {
@@ -693,15 +692,16 @@ class _quiz_screenState extends State<quiz_screen> {
                                             setState(() {});
                                           });
                                         }
-                                        colorChange = true;
-                                        dataProvider.currency = dataProvider.currency - 200;
-                                        storage.write("currency", dataProvider.currency);
-                                        setState(() {});
-                                      } else {
-                                        print("Dialog");
-                                      }
-                                    },
-                                  );
+                                      },
+                                    );
+
+                                    colorChange = true;
+                                    dataProvider.currency = dataProvider.currency - 200;
+                                    storage.write("currency", dataProvider.currency);
+                                    setState(() {});
+                                  } else {
+                                    print("Dialog");
+                                  }
                                 },
                                 child: Container(
                                   height: isSmall

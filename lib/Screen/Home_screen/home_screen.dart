@@ -1098,7 +1098,7 @@ class _home_screenState extends State<home_screen> {
                                       height: isIpad ? 45.sp : 50.sp,
                                       width: 180.w,
                                       decoration: BoxDecoration(
-                                        border: Border.all(width: 2.w, color: Colors.green.shade900),
+                                        border: Border.all(width: 1.w, color: dataProvider.borderColor),
                                         gradient: LinearGradient(
                                           begin: Alignment.bottomCenter,
                                           end: Alignment.topCenter,
@@ -1142,10 +1142,7 @@ class _home_screenState extends State<home_screen> {
                                           height: isIpad ? 45.sp : 50.sp,
                                           width: 180.w,
                                           decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 2.w,
-                                              color: Colors.amber.shade700,
-                                            ),
+                                            border: Border.all(width: 1.w, color: dataProvider.borderColor),
                                             gradient: LinearGradient(
                                               begin: Alignment.bottomCenter,
                                               end: Alignment.topCenter,
@@ -1226,12 +1223,12 @@ class _home_screenState extends State<home_screen> {
                                               child: Center(
                                                 child: Text(
                                                   "SETTING",
-                                                  style: GoogleFonts.notoSans(
+                                                  style: GoogleFonts.lato(
                                                     fontSize: isIpad
                                                         ? 20.sp
                                                         : isSmall
                                                             ? 19.sp
-                                                            : 25.sp,
+                                                            : 22.sp,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -1274,8 +1271,8 @@ class _home_screenState extends State<home_screen> {
                                                         ),
                                                         Text(
                                                           "Music",
-                                                          style: GoogleFonts.acme(
-                                                            fontSize: isIpad ? 14.sp : 16.sp,
+                                                          style: GoogleFonts.lato(
+                                                            fontSize: isIpad ? 12.sp : 14.sp,
                                                             color: Colors.white70,
                                                             fontWeight: FontWeight.w900,
                                                           ),
@@ -1312,8 +1309,8 @@ class _home_screenState extends State<home_screen> {
                                                         ),
                                                         Text(
                                                           "Sound",
-                                                          style: GoogleFonts.acme(
-                                                            fontSize: isIpad ? 14.sp : 16.sp,
+                                                          style: GoogleFonts.lato(
+                                                            fontSize: isIpad ? 12.sp : 14.sp,
                                                             color: Colors.white70,
                                                             fontWeight: FontWeight.w900,
                                                           ),
@@ -1349,8 +1346,8 @@ class _home_screenState extends State<home_screen> {
                                                       ),
                                                       Text(
                                                         "Exit App",
-                                                        style: GoogleFonts.acme(
-                                                          fontSize: isIpad ? 14.sp : 16.sp,
+                                                        style: GoogleFonts.lato(
+                                                          fontSize: isIpad ? 12.sp : 14.sp,
                                                           color: Colors.white70,
                                                           fontWeight: FontWeight.w900,
                                                         ),
@@ -1386,8 +1383,8 @@ class _home_screenState extends State<home_screen> {
                                                       ),
                                                       Text(
                                                         "Support",
-                                                        style: GoogleFonts.acme(
-                                                          fontSize: isIpad ? 14.sp : 16.sp,
+                                                        style: GoogleFonts.lato(
+                                                          fontSize: isIpad ? 12.sp : 14.sp,
                                                           color: Colors.white70,
                                                           fontWeight: FontWeight.w900,
                                                         ),
@@ -1423,12 +1420,12 @@ class _home_screenState extends State<home_screen> {
                                                     children: [
                                                       Icon(
                                                         Icons.list,
-                                                        size: isIpad ? 25.sp : 28.sp,
+                                                        size: isIpad ? 22.sp : 25.sp,
                                                         color: Colors.white,
                                                       ),
                                                       Text(
-                                                        " Levels",
-                                                        style: GoogleFonts.breeSerif(
+                                                        "Levels",
+                                                        style: GoogleFonts.lato(
                                                           fontSize: isIpad ? 18.sp : 22.sp,
                                                           color: Colors.white,
                                                           fontWeight: FontWeight.w800,
@@ -1450,8 +1447,8 @@ class _home_screenState extends State<home_screen> {
                                               },
                                               child: Text(
                                                 "Privacy Policy",
-                                                style: GoogleFonts.abyssinicaSil(
-                                                  fontSize: isIpad ? 16.sp : 18.sp,
+                                                style: GoogleFonts.lato(
+                                                  fontSize: isIpad ? 14.sp : 16.sp,
                                                   color: Colors.white60,
                                                   fontWeight: FontWeight.w900,
                                                 ),
@@ -1471,7 +1468,11 @@ class _home_screenState extends State<home_screen> {
                               ),
                               Positioned(
                                 right: 15.w,
-                                top: isIpad ? 195.h: isSmall ? 210.h:230.h,
+                                top: isIpad
+                                    ? 195.h
+                                    : isSmall
+                                        ? 210.h
+                                        : 230.h,
                                 child: GestureDetector(
                                   onTap: () {
                                     if (dataProvider.soundOn == true) {

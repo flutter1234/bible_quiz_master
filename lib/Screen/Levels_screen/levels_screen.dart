@@ -206,6 +206,7 @@ class _levels_screenState extends State<levels_screen> {
                                           height: isIpad ? 85.sp : 100.sp,
                                           child: ListView.builder(
                                             padding: EdgeInsets.zero,
+                                            physics: NeverScrollableScrollPhysics(),
                                             itemCount: dataProvider.bibleList['data'][index]['Chapter'].length,
                                             itemBuilder: (context, index2) {
                                               return Padding(
@@ -225,7 +226,6 @@ class _levels_screenState extends State<levels_screen> {
                                                           Navigator.pushNamed(context, quiz_screen.routeName);
                                                         },
                                                       );
-
                                                       setState(() {});
                                                     }
                                                   },
@@ -233,7 +233,7 @@ class _levels_screenState extends State<levels_screen> {
                                                     height: isIpad ? 25.sp : 30.sp,
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(5.r),
-                                                      border: Border.all(width: 0.5, color: dataProvider.borderColor),
+                                                      border: Border.all(width: 0.5.w, color: dataProvider.borderColor),
                                                       color: dataProvider.currencyBoxColor,
                                                     ),
                                                     child: Padding(
