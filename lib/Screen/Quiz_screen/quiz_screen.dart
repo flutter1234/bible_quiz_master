@@ -54,6 +54,8 @@ class _quiz_screenState extends State<quiz_screen> {
 
     timeHandle();
     dataProvider.currency = storage.read("currency") ?? 0;
+    dataProvider.wrongAnswersDetailsList = storage.read("wrongAnswersDetailsList") ?? [];
+    dataProvider.correctAnswersDetailsList = storage.read("correctAnswersDetailsList") ?? [];
 
     if (dataProvider.passLevel) {
     } else {
@@ -343,6 +345,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                       }
                                       colorChange = true;
                                       answerTap = true;
+                                      storeCorrectAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
+                                      print("correctAnswer =========>>>>${dataProvider.correctAnswersDetailsList}");
                                       timer.cancel();
                                       Future.delayed(Duration(seconds: 2)).then((value) {
                                         colorChange = false;
@@ -363,6 +367,8 @@ class _quiz_screenState extends State<quiz_screen> {
                                       }
                                       colorChange = true;
                                       answerTap = true;
+                                      storeWrongAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
+                                      print("wrongAnswer =========>>>>${dataProvider.wrongAnswersDetailsList}");
                                       timer.cancel();
                                       Future.delayed(Duration(seconds: 2)).then((value) {
                                         falseDialog = true;

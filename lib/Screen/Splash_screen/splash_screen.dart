@@ -36,6 +36,9 @@ class _splash_screenState extends State<splash_screen> {
       String? storedBorderColor = storage.read("borderColor");
       String? storedSettingColor = storage.read("settingColor");
       String? storedSettingBoxColor = storage.read("settingBoxColor");
+      String? storedQuColor = storage.read("quColor");
+      String? storedSeColor = storage.read("seColor");
+      String? storedNoseColor = storage.read("noSeColor");
       if (storedTextColor != null &&
           storedCurrencyColor != null &&
           storedLifeLineColor != null &&
@@ -46,7 +49,10 @@ class _splash_screenState extends State<splash_screen> {
           storedSecondColor != null &&
           storedBorderColor != null &&
           storedSettingColor != null &&
-          storedSettingBoxColor != null) {
+          storedSettingBoxColor != null &&
+          storedQuColor != null &&
+          storedSeColor != null &&
+          storedNoseColor != null) {
         dataProvider.textColor = Color(int.parse(storedTextColor, radix: 16));
         dataProvider.currencyTextColor = Color(int.parse(storedCurrencyColor, radix: 16));
         dataProvider.lifeLineBoxColor = Color(int.parse(storedLifeLineColor, radix: 16));
@@ -58,6 +64,9 @@ class _splash_screenState extends State<splash_screen> {
         dataProvider.borderColor = Color(int.parse(storedBorderColor, radix: 16));
         dataProvider.settingColor = Color(int.parse(storedSettingColor, radix: 16));
         dataProvider.settingBoxColor = Color(int.parse(storedSettingBoxColor, radix: 16));
+        dataProvider.quColor = Color(int.parse(storedQuColor, radix: 16));
+        dataProvider.seColor = Color(int.parse(storedSeColor, radix: 16));
+        dataProvider.noSeColor = Color(int.parse(storedNoseColor, radix: 16));
       } else {
         dataProvider.textColor = Colors.black;
         dataProvider.currencyTextColor = Colors.brown.shade700;
@@ -70,13 +79,14 @@ class _splash_screenState extends State<splash_screen> {
         dataProvider.borderColor = Colors.brown.shade700;
         dataProvider.settingColor = HexColor('6f473e');
         dataProvider.settingBoxColor = HexColor('8c5d50');
+        dataProvider.quColor = Colors.white;
+        dataProvider.seColor =  HexColor('7a4231');
+        dataProvider.noSeColor = HexColor('975942');
       }
       setState(() {
         dataProvider.isLoading = false;
       });
-      context.read<Api>().multiQuiz().then((value) {
-        context.read<Api>().spinData();
-      });
+      context.read<Api>().multiQuiz();
     });
   }
 

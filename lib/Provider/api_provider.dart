@@ -54,6 +54,10 @@ class Api extends ChangeNotifier {
   Color borderColor = Colors.brown.shade700;
   Color settingColor = HexColor('6f473e');
   Color settingBoxColor = HexColor('8c5d50');
+  Color quColor = Colors.white;
+  Color seColor = HexColor('7a4231');
+  Color noSeColor = HexColor('975942');
+  String questionTrue = 'Correct';
 
   Future<void> getData() async {
     var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json");
@@ -77,6 +81,7 @@ class Api extends ChangeNotifier {
     notifyListeners();
     // print('bibleList ==========>>>>>>${bibleList}');
   }
+
   Future<void> spinData() async {
     spinJson = mainData['assets']['spinJson'];
     var url = Uri.parse(spinJson);
@@ -88,6 +93,7 @@ class Api extends ChangeNotifier {
     notifyListeners();
     // print('spinList ==========>>>>>>${spinList['data']}');
   }
+
   Future<void> launchurl() async {
     if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch ${Uri.parse(url)}');

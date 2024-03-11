@@ -1,8 +1,10 @@
+import 'package:bible_quiz_master/Screen/History_screen/history_screen.dart';
 import 'package:bible_quiz_master/Screen/Home_screen/home_screen.dart';
 import 'package:bible_quiz_master/Screen/Levels_screen/levels_screen.dart';
 import 'package:bible_quiz_master/Screen/Quiz_screen/quiz_screen.dart';
 import 'package:bible_quiz_master/Screen/Splash_screen/splash_screen.dart';
 import 'package:bible_quiz_master/Screen/gems_collect_screen/gems_collect_screen.dart';
+import 'package:bible_quiz_master/Screen/gems_collect_screen/gems_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class Router {
@@ -32,6 +34,16 @@ class Router {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const gems_collect_screen(),
+        );
+      case history_screen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const history_screen(),
+        );
+      case gems_details_screen.routeName:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const gems_details_screen(),
         );
       default:
         return MaterialPageRoute(
