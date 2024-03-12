@@ -58,8 +58,8 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
         child: isLoading
             ? Center(
                 child: Container(
-                  height: 40.sp,
-                  width: 40.sp,
+                  height: 38.sp,
+                  width: 38.sp,
                   child: CircularProgressIndicator(
                     color: Colors.white,
                   ),
