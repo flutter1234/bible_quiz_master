@@ -1051,8 +1051,10 @@ class _home_screenState extends State<home_screen> {
                               ),
                             ),
                           ),
+                          Spacer(),
+
                           Padding(
-                            padding: EdgeInsets.only(right: 15.w, top: 40.h),
+                            padding: EdgeInsets.only(right: 15.w),
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Stack(
@@ -1108,6 +1110,30 @@ class _home_screenState extends State<home_screen> {
                                   color: Colors.yellow.shade800,
                                   'assets/images/history_image.png',
                                   height: 40.sp,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          Padding(
+                            padding: EdgeInsets.only(right: 15.w, top: 20.h),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                onTap: () {
+                                  AdsRN().showFullScreen(
+                                    context: context,
+                                    onComplete: () {
+                                      dialog = true;
+                                      setState(() {});
+                                    },
+                                  );
+                                  setState(() {});
+                                },
+                                child: Image.asset(
+                                  'assets/images/daily_gems_image.png',
+                                  height: 45.sp,
                                   fit: BoxFit.fill,
                                 ),
                               ),

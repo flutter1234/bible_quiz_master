@@ -17,6 +17,8 @@ class gems_collect_screen extends StatefulWidget {
 
 class _gems_collect_screenState extends State<gems_collect_screen> {
   bool isLoading = true;
+  bool showDate = false;
+  int dateIndex = 0;
 
   @override
   void initState() {
@@ -101,7 +103,7 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                   ? Padding(
                                       padding: EdgeInsets.all(5.sp),
                                       child: Container(
-                                        height: 65.sp,
+                                        height: 60.sp,
                                         width: 1.sw,
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
@@ -109,8 +111,15 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                             fit: BoxFit.fill,
                                           ),
                                         ),
-                                        child: Center(
-                                          child: Text(
+                                        child: ExpansionTile(
+                                          onExpansionChanged: (value) {
+                                            showDate = value;
+                                            dateIndex = index;
+                                            setState(() {});
+                                            print("showDate ====${showDate}");
+                                          },
+                                          tilePadding: EdgeInsets.only(left: 120.w, top: 5.h, right: 5.w),
+                                          title: Text(
                                             '${dataProvider.spinList['data'][index]['spinDate']}',
                                             style: GoogleFonts.abyssinicaSil(
                                               fontSize: isIpad ? 30.sp : 22.sp,
@@ -118,70 +127,80 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                               fontWeight: FontWeight.w700,
                                             ),
                                           ),
+                                          trailing: Padding(
+                                            padding: EdgeInsets.only(right: 40.w),
+                                            child: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              size: 25.sp,
+                                              color: dataProvider.textColor,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     )
                                   : SizedBox.shrink(),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      gems_details_screen.routeName,
-                                      arguments: {
-                                        "gemsDetail": dataProvider.spinList['data'][index],
-                                        "Date": dataProvider.spinList['data'][index]['spinDate'],
-                                      },
-                                    );
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    height: 60.sp,
-                                    width: 390.w,
-                                    decoration: BoxDecoration(
-                                      color: dataProvider.currencyBoxColor,
-                                      border: Border.all(width: 2.w, color: dataProvider.borderColor),
-                                      borderRadius: BorderRadius.circular(5.r),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Center(
-                                            child: Image(
-                                              image: AssetImage('assets/images/single_diamond.png'),
-                                              height: 40.sp,
-                                              width: 40.sp,
+                              showDate == true && dateIndex == index
+                                  ? Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            gems_details_screen.routeName,
+                                            arguments: {
+                                              "gemsDetail": dataProvider.spinList['data'][index],
+                                              "Date": dataProvider.spinList['data'][index]['spinDate'],
+                                            },
+                                          );
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          height: 55.sp,
+                                          width: 390.w,
+                                          decoration: BoxDecoration(
+                                            color: dataProvider.currencyBoxColor,
+                                            border: Border.all(width: 2.w, color: dataProvider.borderColor),
+                                            borderRadius: BorderRadius.circular(5.r),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Center(
+                                                  child: Image(
+                                                    image: AssetImage('assets/images/single_diamond.png'),
+                                                    height: 40.sp,
+                                                    width: 40.sp,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 20.w,
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '${dataProvider.spinList['data'][index]['subject']}',
+                                                    style: GoogleFonts.adamina(
+                                                      fontSize: 18.sp,
+                                                      color: dataProvider.second,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontStyle: FontStyle.normal,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.arrow_forward_ios_sharp,
+                                                  color: dataProvider.second,
+                                                  size: 25.sp,
+                                                )
+                                              ],
                                             ),
                                           ),
-                                          SizedBox(
-                                            width: 20.w,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              '${dataProvider.spinList['data'][index]['subject']}',
-                                              style: GoogleFonts.adamina(
-                                                fontSize: 18.sp,
-                                                color: dataProvider.second,
-                                                fontWeight: FontWeight.w700,
-                                                fontStyle: FontStyle.normal,
-                                              ),
-                                            ),
-                                          ),
-                                          Icon(
-                                            Icons.arrow_forward_ios_sharp,
-                                            color: dataProvider.second,
-                                            size: 25.sp,
-                                          )
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                                    )
+                                  : SizedBox(),
                             ],
                           );
                         },

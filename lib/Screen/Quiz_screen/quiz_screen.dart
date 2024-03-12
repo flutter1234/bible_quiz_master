@@ -99,11 +99,12 @@ class _quiz_screenState extends State<quiz_screen> {
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                    top: isSmall
-                        ? 20.h
-                        : isIpad
-                            ? 13.h
-                            : 40.h),
+                  top: isSmall
+                      ? 20.h
+                      : isIpad
+                          ? 13.h
+                          : 40.h,
+                ),
                 child: Column(
                   children: [
                     Padding(
@@ -346,7 +347,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                       colorChange = true;
                                       answerTap = true;
                                       storeCorrectAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
-                                      print("correctAnswer =========>>>>${dataProvider.correctAnswersDetailsList}");
+                                      // print("correctAnswer =========>>>>${dataProvider.correctAnswersDetailsList}");
                                       timer.cancel();
                                       Future.delayed(Duration(seconds: 2)).then((value) {
                                         colorChange = false;
@@ -368,7 +369,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                       colorChange = true;
                                       answerTap = true;
                                       storeWrongAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
-                                      print("wrongAnswer =========>>>>${dataProvider.wrongAnswersDetailsList}");
+                                      // print("wrongAnswer =========>>>>${dataProvider.wrongAnswersDetailsList}");
                                       timer.cancel();
                                       Future.delayed(Duration(seconds: 2)).then((value) {
                                         falseDialog = true;

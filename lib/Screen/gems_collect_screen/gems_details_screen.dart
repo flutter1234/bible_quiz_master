@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class gems_details_screen extends StatefulWidget {
   static const routeName = '/gems_details_screen';
@@ -142,8 +143,8 @@ class _gems_details_screenState extends State<gems_details_screen> {
                   height: 220.sp,
                   width: 390.w,
                   decoration: BoxDecoration(
-                    color: dataProvider.second,
-                    border: Border.all(width: 2.w, color: Colors.white),
+                    color: dataProvider.currencyBoxColor,
+                    border: Border.all(width: 1.w, color: Colors.white),
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Padding(
@@ -162,33 +163,81 @@ class _gems_details_screenState extends State<gems_details_screen> {
                 ),
               ),
               Spacer(),
-              GestureDetector(
-                onTap: () async {
-                  dataProvider.currency = dataProvider.currency + int.parse(dataAll['gemsDetail']['codeUrl']);
-                  print("currency ===========>>>${dataProvider.currency}");
-                  await storage.write("currency", dataProvider.currency);
-                  setState(() {});
-                },
-                child: Container(
-                  height: 45.sp,
-                  width: 160.w,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      'Collect Now',
-                      style: GoogleFonts.lora(
-                        fontSize: 22.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w900,
-                        fontStyle: FontStyle.normal,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        Share.share('${dataAll['gemsDetail']['detail']}');
+                        setState(() {});
+                      },
+                      child: Container(
+                        height: 60.sp,
+                        width: 140.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1.w, color: Colors.white),
+                          color: Colors.green.shade800,
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(
+                              Icons.share,
+                              size: 25.sp,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              textAlign: TextAlign.center,
+                              'Share',
+                              style: GoogleFonts.lora(
+                                fontSize: 20.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontStyle: FontStyle.normal,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () async {
+                        dataProvider.currency = dataProvider.currency + int.parse(dataAll['gemsDetail']['codeUrl']);
+                        await storage.write("currency", dataProvider.currency);
+                        setState(() {});
+                      },
+                      child: Container(
+                        height: 60.sp,
+                        width: 140.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1.w, color: Colors.white),
+                          color: Colors.green.shade800,
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Image(
+                              image: AssetImage('assets/images/single_diamond.png'),
+                              height: 24.sp,
+                            ),
+                            Text(
+                              'Collect',
+                              style: GoogleFonts.lora(
+                                fontSize: 20.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontStyle: FontStyle.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 30.h)

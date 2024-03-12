@@ -49,6 +49,7 @@ dependencies:
   step_progress_indicator: ^1.0.2
   just_audio: ^0.9.36
   intl:
+  share_plus: ^7.2.2
   #ads
   dio: ^5.3.3
   flutter_hooks: ^0.20.3
