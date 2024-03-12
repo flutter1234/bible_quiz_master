@@ -1034,26 +1034,25 @@ class _home_screenState extends State<home_screen> {
                           Padding(
                             padding: EdgeInsets.only(top: 10.h),
                             child: Container(
-                              height: 130.sp,
-                              width: 160.w,
+                              height: 180.sp,
+                              width: 300.w,
                               decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: Offset(0, 3),
-                                  ),
-                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.black.withOpacity(0.2),
+                                //     spreadRadius: 5,
+                                //     blurRadius: 7,
+                                //     offset: Offset(0, 3),
+                                //   ),
+                                // ],
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage('assets/images/home_book_image.png'),
+                                  image: AssetImage('assets/images/home_quiz_book.png'),
                                 ),
                               ),
                             ),
                           ),
                           Spacer(),
-
                           Padding(
                             padding: EdgeInsets.only(right: 15.w),
                             child: Align(

@@ -1,10 +1,8 @@
-import 'package:bible_quiz_master/AdPlugin/MainJson/MainJson.dart';
 import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class splash_screen extends StatefulWidget {
@@ -19,7 +17,6 @@ class splash_screen extends StatefulWidget {
 class _splash_screenState extends State<splash_screen> {
   Future<void> fetchData() async {
     Api dataProvider = Provider.of<Api>(context, listen: false);
-
     dataProvider.backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
     dataProvider.optionImage = storage.read("optionImage") ?? dataProvider.optionImage;
     dataProvider.correctOptionImage = storage.read("correctOptionImage") ?? dataProvider.correctOptionImage;
@@ -84,14 +81,16 @@ class _splash_screenState extends State<splash_screen> {
       dataProvider.seColor = HexColor('7a4231');
       dataProvider.noSeColor = HexColor('975942');
     }
-    setState(() {
-      dataProvider.isLoading = false;
-    });
   }
 
   @override
   void initState() {
-    fetchData();
+    Api dataProvider = Provider.of<Api>(context, listen: false);
+
+    fetchData().then((value) {
+      dataProvider.isLoading = false;
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -114,22 +113,20 @@ class _splash_screenState extends State<splash_screen> {
                   image: AssetImage(dataProvider.backgroundImage),
                 ),
               ),
-              child: Stack(
-                alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: isIpad ? 50.sp : 30.sp),
                     child: Image.asset(
-                      height: isIpad ? 400.sp : 450.sp,
+                      height: isIpad
+                          ? 230.sp
+                          : isSmall
+                              ? 280.sp
+                              : 300.sp,
                       width: 1.sw,
                       "assets/images/bible_book_image.png",
                       fit: BoxFit.fill,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: isIpad ? 50.h : 150.h),
-                    child: Lottie.asset(
-                      alignment: Alignment.bottomCenter,
-                      'assets/Lottie/Animation.json',
                     ),
                   ),
                 ],
