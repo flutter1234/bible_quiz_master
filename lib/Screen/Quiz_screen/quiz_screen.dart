@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:bible_quiz_master/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:bible_quiz_master/AdPlugin/Ads/FullScreen/Ads.dart';
+import 'package:bible_quiz_master/AdPlugin/MainJson/MainJson.dart';
 import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,7 @@ class quiz_screen extends StatefulWidget {
 }
 
 class _quiz_screenState extends State<quiz_screen> {
+  bool isLoading = true;
   int start = 30;
   int totalStepCount = 30;
   int questionIndex = 0;
@@ -50,28 +53,32 @@ class _quiz_screenState extends State<quiz_screen> {
 
   @override
   void initState() {
-    Api dataProvider = Provider.of<Api>(context, listen: false);
-
-    timeHandle();
-    dataProvider.currency = storage.read("currency") ?? 0;
-    dataProvider.wrongAnswersDetailsList = storage.read("wrongAnswersDetailsList") ?? [];
-    dataProvider.correctAnswersDetailsList = storage.read("correctAnswersDetailsList") ?? [];
-
-    if (dataProvider.passLevel) {
-    } else {
-      dataProvider.levelIndex = storage.read("levelIndex") ?? 0;
-      dataProvider.chapterIndex = storage.read("chapterIndex") ?? 0;
-
-      print("${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'].length}");
-    }
-
-    dataProvider.tempList = storage.read("tempList") ??
-        List.generate(
-          dataProvider.bibleList['data'].length,
-          (chapterIndex) => List.generate(dataProvider.bibleList['data'][chapterIndex]['Chapter'].length, (listIndex) => false),
-        );
-    // print("tempList =========>>>>>${dataProvider.tempList}");
+    dataLoad().then((value) {
+      isLoading = false;
+    });
     super.initState();
+  }
+
+  Future<void> dataLoad() async {
+    Api dataProvider = Provider.of<Api>(context, listen: false);
+    context.read<Api>().multiQuiz(context.read<MainJson>().data!['assets']['multiQuiz']).then(
+      (value) {
+        timeHandle();
+        dataProvider.currency = storage.read("currency") ?? 0;
+        dataProvider.wrongAnswersDetailsList = storage.read("wrongAnswersDetailsList") ?? [];
+        dataProvider.correctAnswersDetailsList = storage.read("correctAnswersDetailsList") ?? [];
+        if (dataProvider.passLevel) {
+        } else {
+          dataProvider.levelIndex = storage.read("levelIndex") ?? 0;
+          dataProvider.chapterIndex = storage.read("chapterIndex") ?? 0;
+        }
+        dataProvider.tempList = storage.read("tempList") ??
+            List.generate(
+              dataProvider.bibleList['data'].length,
+              (chapterIndex) => List.generate(dataProvider.bibleList['data'][chapterIndex]['Chapter'].length, (listIndex) => false),
+            );
+      },
+    );
   }
 
   @override
@@ -97,743 +104,861 @@ class _quiz_screenState extends State<quiz_screen> {
                   image: AssetImage(dataProvider.backgroundImage),
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: isSmall
-                      ? 20.h
-                      : isIpad
-                          ? 13.h
-                          : 40.h,
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.sp),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: isIpad ? 20.sp : 26.sp,
-                            width: 80.w,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                              color: dataProvider.currencyBoxColor,
-                              borderRadius: BorderRadius.circular(20.r),
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Levels']}',
-                                style: GoogleFonts.breeSerif(
-                                  fontSize: isIpad ? 12.sp : 16.sp,
-                                  color: dataProvider.currencyTextColor,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          CircularStepProgressIndicator(
-                            totalSteps: totalStepCount,
-                            circularDirection: CircularDirection.counterclockwise,
-                            currentStep: start,
-                            padding: math.pi / 60,
-                            unselectedColor: Colors.black,
-                            selectedColor: Colors.yellow.shade700,
-                            selectedStepSize: 3.sp,
-                            unselectedStepSize: 3.sp,
-                            width: isSmall
-                                ? 50.sp
-                                : isIpad
-                                    ? 45.sp
-                                    : 55.sp,
-                            height: isSmall
-                                ? 50.sp
-                                : isIpad
-                                    ? 45.sp
-                                    : 55.sp,
-                            child: Padding(
-                              padding: EdgeInsets.all(2.sp),
-                              child: Container(
-                                height: 50.sp,
-                                width: 50.w,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: dataProvider.timeBoxColor,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '${start}',
-                                    style: GoogleFonts.breeSerif(
-                                      fontSize: isSmall
-                                          ? 20.sp
-                                          : isIpad
-                                              ? 18.sp
-                                              : 23.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 1.w,
-                          ),
-                          Stack(
-                            alignment: Alignment.centerLeft,
-                            clipBehavior: Clip.none,
-                            children: [
-                              Container(
-                                height: isIpad ? 20.sp : 26.sp,
-                                width: 90.w,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                  color: dataProvider.currencyBoxColor,
-                                  borderRadius: BorderRadius.circular(20.r),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '${dataProvider.currency}',
-                                    style: GoogleFonts.breeSerif(
-                                      fontSize: isIpad ? 13.sp : 16.sp,
-                                      color: dataProvider.currencyTextColor,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                left: -12.w,
-                                child: Image(
-                                  image: AssetImage('assets/images/single_diamond.png'),
-                                  height: isIpad ? 22.sp : 28.sp,
-                                  width: 35.w,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
+              child: isLoading
+                  ? Center(
+                      child: Container(
+                        height: 40.sp,
+                        width: 40.sp,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: isSmall ? 25.h : 30.h),
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        clipBehavior: Clip.none,
+                    )
+                  : Padding(
+                      padding: EdgeInsets.only(
+                        top: isSmall
+                            ? 20.h
+                            : isIpad
+                                ? 13.h
+                                : 40.h,
+                      ),
+                      child: Column(
                         children: [
-                          Container(
-                            height: isSmall
-                                ? 145.sp
-                                : isIpad
-                                    ? 110.sp
-                                    : 180.sp,
-                            width: 1.sw,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(dataProvider.questionImage),
-                              ),
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 22.sp),
-                                child: Text(
-                                  textAlign: TextAlign.center,
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                  '${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['question']}',
-                                  style: GoogleFonts.raleway(
-                                    fontSize: isSmall
-                                        ? 18.sp
-                                        : isIpad
-                                            ? 15.sp
-                                            : 20.sp,
-                                    color: dataProvider.questionTextColor,
-                                    fontWeight: FontWeight.w800,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5.sp),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: isIpad ? 20.sp : 26.sp,
+                                  width: 80.w,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                    color: dataProvider.currencyBoxColor,
+                                    borderRadius: BorderRadius.circular(20.r),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: isSmall
-                                ? -25.h
-                                : isIpad
-                                    ? -30.h
-                                    : -25.h,
-                            child: Container(
-                              height: isSmall
-                                  ? 60.sp
-                                  : isIpad
-                                      ? 50.sp
-                                      : 70.sp,
-                              width: isIpad ? 180.w : 220.w,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/question_index.png'),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(bottom: 5.h),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      textAlign: TextAlign.center,
-                                      'Question',
-                                      style: GoogleFonts.raleway(
-                                        fontSize: isSmall
-                                            ? 14.sp
-                                            : isIpad
-                                                ? 10.sp
-                                                : 16.sp,
-                                        color: Colors.white,
+                                  child: Center(
+                                    child: Text(
+                                      '${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Levels']}',
+                                      style: GoogleFonts.breeSerif(
+                                        fontSize: isIpad ? 12.sp : 16.sp,
+                                        color: dataProvider.currencyTextColor,
                                         fontWeight: FontWeight.w800,
                                       ),
                                     ),
-                                    Text(
-                                      textAlign: TextAlign.center,
-                                      '${questionIndex + 1}/${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'].length}',
-                                      style: GoogleFonts.aBeeZee(
-                                        fontSize: isSmall
-                                            ? 16.sp
-                                            : isIpad
-                                                ? 13.sp
-                                                : 18.sp,
-                                        color: Colors.yellow,
-                                        fontWeight: FontWeight.w900,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        padding: EdgeInsets.only(top: isIpad ? 5.h : 15.h),
-                        itemCount: dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'].length,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          int trueIndex = dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer'] - 1;
-                          int hideindex1 = 0;
-                          if (trueIndex == 0) {
-                            hideindex1 = 1;
-                          } else if (trueIndex == 1) {
-                            hideindex1 = 2;
-                          } else if (trueIndex == 2) {
-                            hideindex1 = 3;
-                          } else if (trueIndex == 3) {
-                            hideindex1 = 0;
-                          }
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: isIpad ? 2.sp : 3.sp),
-                            child: GestureDetector(
-                              onTap: () {
-                                if (!answerTap) {
-                                  setState(() {
-                                    selectAnswer = dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index];
-                                    if (dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer'] == index + 1) {
-                                      if (dataProvider.soundOn == true) {
-                                        dataProvider.initCorrect();
-                                      }
-                                      colorChange = true;
-                                      answerTap = true;
-                                      storeCorrectAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
-                                      // print("correctAnswer =========>>>>${dataProvider.correctAnswersDetailsList}");
-                                      timer.cancel();
-                                      Future.delayed(Duration(seconds: 2)).then((value) {
-                                        colorChange = false;
-                                        answerTap = false;
-                                        halfOption = false;
-                                        if (questionIndex < dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'].length - 1) {
-                                          questionIndex++;
-                                          start = 30;
-                                          timeHandle();
-                                        } else {
-                                          levelComplete = true;
-                                        }
-                                        setState(() {});
-                                      });
-                                    } else {
-                                      if (dataProvider.soundOn == true) {
-                                        dataProvider.initWrong();
-                                      }
-                                      colorChange = true;
-                                      answerTap = true;
-                                      storeWrongAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
-                                      // print("wrongAnswer =========>>>>${dataProvider.wrongAnswersDetailsList}");
-                                      timer.cancel();
-                                      Future.delayed(Duration(seconds: 2)).then((value) {
-                                        falseDialog = true;
-                                        halfOption = false;
-                                        setState(() {});
-                                      });
-                                    }
-                                  });
-                                }
-                              },
-                              child: halfOption == true && (hideindex1 == index)
-                                  ? IgnorePointer(
-                                      ignoring: true,
-                                      child: Container(
-                                        height: isSmall
-                                            ? 65.sp
-                                            : isIpad
-                                                ? 48.sp
-                                                : 70.sp,
-                                        color: Colors.transparent,
-                                      ),
-                                    )
-                                  : Container(
-                                      height: isSmall
-                                          ? 62.sp
-                                          : isIpad
-                                              ? 48.sp
-                                              : 70.sp,
-                                      width: 1.sw,
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                CircularStepProgressIndicator(
+                                  totalSteps: totalStepCount,
+                                  circularDirection: CircularDirection.counterclockwise,
+                                  currentStep: start,
+                                  padding: math.pi / 60,
+                                  unselectedColor: Colors.black,
+                                  selectedColor: Colors.yellow.shade700,
+                                  selectedStepSize: 3.sp,
+                                  unselectedStepSize: 3.sp,
+                                  width: isSmall
+                                      ? 50.sp
+                                      : isIpad
+                                          ? 45.sp
+                                          : 55.sp,
+                                  height: isSmall
+                                      ? 50.sp
+                                      : isIpad
+                                          ? 45.sp
+                                          : 55.sp,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.sp),
+                                    child: Container(
+                                      height: 50.sp,
+                                      width: 50.w,
                                       decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: colorChange == true
-                                                ? index + 1 ==
-                                                        dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
-                                                    ? AssetImage(dataProvider.correctOptionImage)
-                                                    : selectAnswer ==
-                                                            dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index]
-                                                        ? AssetImage(dataProvider.wrongOptionImage)
-                                                        : AssetImage(dataProvider.optionImage)
-                                                : AssetImage(dataProvider.optionImage)),
-                                        // color: colorChange == true
-                                        //     ? index + 1 == levelQuestion[nextQuestion]['correct_answer']
-                                        //         ? Colors.green
-                                        //         : selectAnswer == levelQuestion[nextQuestion]['answers'][index]
-                                        //             ? Colors.red
-                                        //             : HexColor('57356a')
-                                        //     : HexColor('57356a'),
-                                        // borderRadius: BorderRadius.circular(5.r),
+                                        shape: BoxShape.circle,
+                                        color: dataProvider.timeBoxColor,
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 50.w),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              "${ABCD[index]} : ",
-                                              style: GoogleFonts.raleway(
-                                                fontSize: isIpad ? 15.sp : 20.sp,
-                                                color: colorChange == true
-                                                    ? index + 1 ==
-                                                            dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
-                                                        ? Colors.white
-                                                        : selectAnswer ==
-                                                                dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
-                                                                    [index]
-                                                            ? Colors.white
-                                                            : dataProvider.textColor
-                                                    : dataProvider.textColor,
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsets.only(right: isIpad ? 50.w : 35.w),
-                                                child: Text(
-                                                  maxLines: 2,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  "${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index]}",
-                                                  style: GoogleFonts.raleway(
-                                                    fontSize: isIpad ? 12.sp : 16.sp,
-                                                    color: colorChange == true
-                                                        ? index + 1 ==
-                                                                dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]
-                                                                    ['correct_answer']
-                                                            ? Colors.white
-                                                            : selectAnswer ==
-                                                                    dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
-                                                                        [index]
-                                                                ? Colors.white
-                                                                : dataProvider.textColor
-                                                        : dataProvider.textColor,
-                                                    fontWeight: FontWeight.w900,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                      child: Center(
+                                        child: Text(
+                                          '${start}',
+                                          style: GoogleFonts.breeSerif(
+                                            fontSize: isSmall
+                                                ? 20.sp
+                                                : isIpad
+                                                    ? 18.sp
+                                                    : 23.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w800,
+                                          ),
                                         ),
                                       ),
                                     ),
+                                  ),
+                                ),
+                                SizedBox(width: 1.w),
+                                Stack(
+                                  alignment: Alignment.centerLeft,
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
+                                      height: isIpad ? 20.sp : 26.sp,
+                                      width: 90.w,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                        color: dataProvider.currencyBoxColor,
+                                        borderRadius: BorderRadius.circular(20.r),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '${dataProvider.currency}',
+                                          style: GoogleFonts.breeSerif(
+                                            fontSize: isIpad ? 13.sp : 16.sp,
+                                            color: dataProvider.currencyTextColor,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: -12.w,
+                                      child: Image(
+                                        image: AssetImage('assets/images/single_diamond.png'),
+                                        height: isIpad ? 22.sp : 28.sp,
+                                        width: 35.w,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 25.sp,
-                          vertical: isIpad
-                              ? 5.sp
-                              : isSmall
-                                  ? 0.sp
-                                  : 10.sp),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  AdsRN().showFullScreen(
-                                    context: context,
-                                    onComplete: () {
-                                      if (dataProvider.currency >= 100) {
-                                        if (dataProvider.soundOn == true) {
-                                          dataProvider.initLifeLine();
-                                        }
-                                        start += 20;
-                                        totalStepCount += 20;
-                                        dataProvider.currency = dataProvider.currency - 100;
-                                        storage.write("currency", dataProvider.currency);
-                                        setState(() {});
-                                      } else {
-                                        print("Dialog");
-                                      }
-                                    },
-                                  );
-
-                                  setState(() {});
-                                },
-                                child: Container(
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: isSmall ? 25.h : 30.h),
+                            child: Stack(
+                              alignment: Alignment.topCenter,
+                              clipBehavior: Clip.none,
+                              children: [
+                                Container(
                                   height: isSmall
-                                      ? 45.sp
+                                      ? 145.sp
                                       : isIpad
-                                          ? 35.sp
-                                          : 50.sp,
-                                  width: isSmall
-                                      ? 45.sp
-                                      : isIpad
-                                          ? 35.sp
-                                          : 50.sp,
+                                          ? 110.sp
+                                          : 180.sp,
+                                  width: 1.sw,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(dataProvider.lifeLineImage),
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(dataProvider.questionImage),
                                     ),
                                   ),
                                   child: Center(
-                                    child: Stack(
-                                      alignment: Alignment.bottomCenter,
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        Icon(
-                                          Icons.timer_outlined,
-                                          color: dataProvider.iconColor,
-                                          size: isIpad ? 23.sp : 26.sp,
-                                        ),
-                                        Positioned(
-                                          top: isSmall
-                                              ? 22.h
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 22.sp),
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        '${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['question']}',
+                                        style: GoogleFonts.raleway(
+                                          fontSize: isSmall
+                                              ? 18.sp
                                               : isIpad
-                                                  ? 24.h
-                                                  : 18.h,
-                                          child: Text(
+                                                  ? 15.sp
+                                                  : 20.sp,
+                                          color: dataProvider.questionTextColor,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: isSmall
+                                      ? -25.h
+                                      : isIpad
+                                          ? -30.h
+                                          : -25.h,
+                                  child: Container(
+                                    height: isSmall
+                                        ? 60.sp
+                                        : isIpad
+                                            ? 50.sp
+                                            : 70.sp,
+                                    width: isIpad ? 180.w : 220.w,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage('assets/images/question_index.png'),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(bottom: 5.h),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
                                             textAlign: TextAlign.center,
-                                            '+20S',
-                                            style: GoogleFonts.notoSans(
+                                            'Question',
+                                            style: GoogleFonts.raleway(
                                               fontSize: isSmall
-                                                  ? 9.sp
+                                                  ? 14.sp
                                                   : isIpad
-                                                      ? 8.sp
-                                                      : 10.sp,
-                                              color: dataProvider.second,
+                                                      ? 10.sp
+                                                      : 16.sp,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            '${questionIndex + 1}/${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'].length}',
+                                            style: GoogleFonts.aBeeZee(
+                                              fontSize: isSmall
+                                                  ? 16.sp
+                                                  : isIpad
+                                                      ? 13.sp
+                                                      : 18.sp,
+                                              color: Colors.yellow,
                                               fontWeight: FontWeight.w900,
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 2.h),
-                              Container(
-                                height: isIpad ? 13.sp : 15.sp,
-                                width: isIpad ? 45.w : 50.w,
-                                decoration: BoxDecoration(
-                                  color: dataProvider.lifeLineBoxColor,
-                                  borderRadius: BorderRadius.circular(3.r),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      textAlign: TextAlign.center,
-                                      '100',
-                                      style: GoogleFonts.notoSans(
-                                        fontSize: isIpad ? 8.sp : 10.sp,
-                                        color: dataProvider.iconColor,
-                                        fontWeight: FontWeight.w900,
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(width: 2.w),
-                                    Image(
-                                      image: AssetImage('assets/images/single_diamond.png'),
-                                      height: 12.sp,
-                                      width: 12.w,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  AdsRN().showFullScreen(
-                                    context: context,
-                                    onComplete: () {
-                                      if (dataProvider.currency >= 120) {
-                                        if (dataProvider.soundOn == true) {
-                                          dataProvider.initLifeLine();
-                                        }
-                                        halfOption = true;
-                                        dataProvider.currency = dataProvider.currency - 120;
-                                        storage.write("currency", dataProvider.currency);
-                                        setState(() {});
-                                      } else {
-                                        print("Dialog");
-                                      }
-                                    },
-                                  );
-
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  height: isSmall
-                                      ? 45.sp
-                                      : isIpad
-                                          ? 35.sp
-                                          : 50.sp,
-                                  width: isSmall
-                                      ? 45.sp
-                                      : isIpad
-                                          ? 35.sp
-                                          : 50.sp,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(dataProvider.lifeLineImage),
-                                    ),
                                   ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.format_color_fill_rounded,
-                                      color: dataProvider.iconColor,
-                                      size: isIpad ? 20.sp : 30.sp,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 2.h),
-                              Container(
-                                height: isIpad ? 13.sp : 15.sp,
-                                width: isIpad ? 45.w : 50.w,
-                                decoration: BoxDecoration(
-                                  color: dataProvider.lifeLineBoxColor,
-                                  borderRadius: BorderRadius.circular(3.r),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      textAlign: TextAlign.center,
-                                      '120',
-                                      style: GoogleFonts.notoSans(
-                                        fontSize: isIpad ? 8.sp : 10.sp,
-                                        color: dataProvider.iconColor,
-                                        fontWeight: FontWeight.w900,
-                                      ),
-                                    ),
-                                    SizedBox(width: 2.w),
-                                    Image(
-                                      image: AssetImage('assets/images/single_diamond.png'),
-                                      height: 12.sp,
-                                      width: 12.w,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  if (dataProvider.currency >= 200) {
-                                    if (dataProvider.soundOn == true) {
-                                      dataProvider.initLifeLine();
-                                    }
-                                    AdsRN().showFullScreen(
-                                      context: context,
-                                      onComplete: () {
-                                        if (questionIndex < dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'].length - 1) {
-                                          setState(() {
+                          Expanded(
+                            child: ListView.builder(
+                              padding: EdgeInsets.only(top: isIpad ? 5.h : 15.h),
+                              itemCount: dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'].length,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                int trueIndex = dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer'] - 1;
+                                int hideindex1 = 0;
+                                if (trueIndex == 0) {
+                                  hideindex1 = 1;
+                                } else if (trueIndex == 1) {
+                                  hideindex1 = 2;
+                                } else if (trueIndex == 2) {
+                                  hideindex1 = 3;
+                                } else if (trueIndex == 3) {
+                                  hideindex1 = 0;
+                                }
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: isIpad ? 2.sp : 3.sp),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (!answerTap) {
+                                        setState(() {
+                                          selectAnswer = dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index];
+                                          if (dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer'] == index + 1) {
+                                            if (dataProvider.soundOn == true) {
+                                              dataProvider.initCorrect();
+                                            }
+                                            colorChange = true;
+                                            answerTap = true;
+                                            storeCorrectAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
+                                            // print("correctAnswer =========>>>>${dataProvider.correctAnswersDetailsList}");
+                                            timer.cancel();
                                             Future.delayed(Duration(seconds: 2)).then((value) {
                                               colorChange = false;
                                               answerTap = false;
-                                              questionIndex++;
+                                              halfOption = false;
+                                              if (questionIndex < dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'].length - 1) {
+                                                questionIndex++;
+                                                start = 30;
+                                                timeHandle();
+                                              } else {
+                                                levelComplete = true;
+                                              }
                                               setState(() {});
                                             });
-                                          });
+                                          } else {
+                                            if (dataProvider.soundOn == true) {
+                                              dataProvider.initWrong();
+                                            }
+                                            colorChange = true;
+                                            answerTap = true;
+                                            storeWrongAnswerDetails(dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]);
+                                            // print("wrongAnswer =========>>>>${dataProvider.wrongAnswersDetailsList}");
+                                            timer.cancel();
+                                            Future.delayed(Duration(seconds: 2)).then((value) {
+                                              falseDialog = true;
+                                              halfOption = false;
+                                              setState(() {});
+                                            });
+                                          }
+                                        });
+                                      }
+                                    },
+                                    child: halfOption == true && (hideindex1 == index)
+                                        ? IgnorePointer(
+                                            ignoring: true,
+                                            child: Container(
+                                              height: isSmall
+                                                  ? 65.sp
+                                                  : isIpad
+                                                      ? 48.sp
+                                                      : 70.sp,
+                                              color: Colors.transparent,
+                                            ),
+                                          )
+                                        : Container(
+                                            height: isSmall
+                                                ? 62.sp
+                                                : isIpad
+                                                    ? 48.sp
+                                                    : 70.sp,
+                                            width: 1.sw,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: colorChange == true
+                                                      ? index + 1 ==
+                                                              dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
+                                                          ? AssetImage(dataProvider.correctOptionImage)
+                                                          : selectAnswer ==
+                                                                  dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
+                                                                      [index]
+                                                              ? AssetImage(dataProvider.wrongOptionImage)
+                                                              : AssetImage(dataProvider.optionImage)
+                                                      : AssetImage(dataProvider.optionImage)),
+                                              // color: colorChange == true
+                                              //     ? index + 1 == levelQuestion[nextQuestion]['correct_answer']
+                                              //         ? Colors.green
+                                              //         : selectAnswer == levelQuestion[nextQuestion]['answers'][index]
+                                              //             ? Colors.red
+                                              //             : HexColor('57356a')
+                                              //     : HexColor('57356a'),
+                                              // borderRadius: BorderRadius.circular(5.r),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.only(left: 50.w),
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "${ABCD[index]} : ",
+                                                    style: GoogleFonts.raleway(
+                                                      fontSize: isIpad ? 15.sp : 20.sp,
+                                                      color: colorChange == true
+                                                          ? index + 1 ==
+                                                                  dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]
+                                                                      ['correct_answer']
+                                                              ? Colors.white
+                                                              : selectAnswer ==
+                                                                      dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]
+                                                                          ['answers'][index]
+                                                                  ? Colors.white
+                                                                  : dataProvider.textColor
+                                                          : dataProvider.textColor,
+                                                      fontWeight: FontWeight.w900,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(right: isIpad ? 50.w : 35.w),
+                                                      child: Text(
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        "${dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers'][index]}",
+                                                        style: GoogleFonts.raleway(
+                                                          fontSize: isIpad ? 12.sp : 16.sp,
+                                                          color: colorChange == true
+                                                              ? index + 1 ==
+                                                                      dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]
+                                                                          ['correct_answer']
+                                                                  ? Colors.white
+                                                                  : selectAnswer ==
+                                                                          dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]
+                                                                              ['answers'][index]
+                                                                      ? Colors.white
+                                                                      : dataProvider.textColor
+                                                              : dataProvider.textColor,
+                                                          fontWeight: FontWeight.w900,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 25.sp,
+                              vertical: isIpad
+                                  ? 5.sp
+                                  : isSmall
+                                      ? 0.sp
+                                      : 10.sp,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        AdsRN().showFullScreen(
+                                          context: context,
+                                          onComplete: () {
+                                            if (dataProvider.currency >= 100) {
+                                              if (dataProvider.soundOn == true) {
+                                                dataProvider.initLifeLine();
+                                              }
+                                              start += 20;
+                                              totalStepCount += 20;
+                                              dataProvider.currency = dataProvider.currency - 100;
+                                              storage.write("currency", dataProvider.currency);
+                                              setState(() {});
+                                            } else {
+                                              print("Dialog");
+                                            }
+                                          },
+                                        );
+                                        setState(() {});
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            height: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            width: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(dataProvider.lifeLineImage),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Stack(
+                                                alignment: Alignment.bottomCenter,
+                                                clipBehavior: Clip.none,
+                                                children: [
+                                                  Icon(
+                                                    Icons.timer_outlined,
+                                                    color: dataProvider.iconColor,
+                                                    size: isIpad ? 23.sp : 26.sp,
+                                                  ),
+                                                  Positioned(
+                                                    top: isSmall
+                                                        ? 22.h
+                                                        : isIpad
+                                                            ? 24.h
+                                                            : 18.h,
+                                                    child: Text(
+                                                      textAlign: TextAlign.center,
+                                                      '+20S',
+                                                      style: GoogleFonts.notoSans(
+                                                        fontSize: isSmall
+                                                            ? 9.sp
+                                                            : isIpad
+                                                                ? 8.sp
+                                                                : 10.sp,
+                                                        color: dataProvider.second,
+                                                        fontWeight: FontWeight.w900,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          if (dataProvider.currency < 100)
+                                            ClipRRect(
+                                              child: BackdropFilter(
+                                                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                                                child: Container(
+                                                  height: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  width: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  color: Colors.black.withOpacity(0),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.h),
+                                    Container(
+                                      height: isIpad ? 13.sp : 15.sp,
+                                      width: isIpad ? 45.w : 50.w,
+                                      decoration: BoxDecoration(
+                                        color: dataProvider.lifeLineBoxColor,
+                                        borderRadius: BorderRadius.circular(3.r),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            '100',
+                                            style: GoogleFonts.notoSans(
+                                              fontSize: isIpad ? 8.sp : 10.sp,
+                                              color: dataProvider.iconColor,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                          SizedBox(width: 2.w),
+                                          Image(
+                                            image: AssetImage('assets/images/single_diamond.png'),
+                                            height: 12.sp,
+                                            width: 12.w,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        AdsRN().showFullScreen(
+                                          context: context,
+                                          onComplete: () {
+                                            if (dataProvider.currency >= 120) {
+                                              if (dataProvider.soundOn == true) {
+                                                dataProvider.initLifeLine();
+                                              }
+                                              halfOption = true;
+                                              dataProvider.currency = dataProvider.currency - 120;
+                                              storage.write("currency", dataProvider.currency);
+                                              setState(() {});
+                                            } else {
+                                              print("Dialog");
+                                            }
+                                          },
+                                        );
+
+                                        setState(() {});
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            height: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            width: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(dataProvider.lifeLineImage),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.format_color_fill_rounded,
+                                                color: dataProvider.iconColor,
+                                                size: isIpad ? 20.sp : 30.sp,
+                                              ),
+                                            ),
+                                          ),
+                                          if (dataProvider.currency < 120)
+                                            ClipRRect(
+                                              child: BackdropFilter(
+                                                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                                                child: Container(
+                                                  height: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  width: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  color: Colors.black.withOpacity(0),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.h),
+                                    Container(
+                                      height: isIpad ? 13.sp : 15.sp,
+                                      width: isIpad ? 45.w : 50.w,
+                                      decoration: BoxDecoration(
+                                        color: dataProvider.lifeLineBoxColor,
+                                        borderRadius: BorderRadius.circular(3.r),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            '120',
+                                            style: GoogleFonts.notoSans(
+                                              fontSize: isIpad ? 8.sp : 10.sp,
+                                              color: dataProvider.iconColor,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                          SizedBox(width: 2.w),
+                                          Image(
+                                            image: AssetImage('assets/images/single_diamond.png'),
+                                            height: 12.sp,
+                                            width: 12.w,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (dataProvider.currency >= 200) {
+                                          if (dataProvider.soundOn == true) {
+                                            dataProvider.initLifeLine();
+                                          }
+                                          AdsRN().showFullScreen(
+                                            context: context,
+                                            onComplete: () {
+                                              if (questionIndex < dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'].length - 1) {
+                                                timer.cancel();
+                                                setState(() {
+                                                  Future.delayed(Duration(seconds: 2)).then((value) {
+                                                    colorChange = false;
+                                                    answerTap = false;
+                                                    questionIndex++;
+                                                    start = 30;
+                                                    timeHandle();
+                                                    setState(() {});
+                                                  });
+                                                });
+                                              } else {
+                                                Future.delayed(Duration(seconds: 2)).then((value) {
+                                                  levelComplete = true;
+                                                  setState(() {});
+                                                });
+                                              }
+                                            },
+                                          );
+                                          colorChange = true;
+                                          dataProvider.currency = dataProvider.currency - 200;
+                                          storage.write("currency", dataProvider.currency);
+                                          setState(() {});
                                         } else {
-                                          Future.delayed(Duration(seconds: 2)).then((value) {
-                                            levelComplete = true;
-                                            setState(() {});
-                                          });
+                                          print("Dialog");
                                         }
                                       },
-                                    );
-
-                                    colorChange = true;
-                                    dataProvider.currency = dataProvider.currency - 200;
-                                    storage.write("currency", dataProvider.currency);
-                                    setState(() {});
-                                  } else {
-                                    print("Dialog");
-                                  }
-                                },
-                                child: Container(
-                                  height: isSmall
-                                      ? 45.sp
-                                      : isIpad
-                                          ? 35.sp
-                                          : 50.sp,
-                                  width: isSmall
-                                      ? 45.sp
-                                      : isIpad
-                                          ? 35.sp
-                                          : 50.sp,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(dataProvider.lifeLineImage),
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.light_mode_sharp,
-                                    color: dataProvider.iconColor,
-                                    size: isIpad ? 25.sp : 30.sp,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 2.h),
-                              Container(
-                                height: isIpad ? 13.sp : 15.sp,
-                                width: isIpad ? 45.w : 50.w,
-                                decoration: BoxDecoration(
-                                  color: dataProvider.lifeLineBoxColor,
-                                  borderRadius: BorderRadius.circular(3.r),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      textAlign: TextAlign.center,
-                                      '200',
-                                      style: GoogleFonts.notoSans(
-                                        fontSize: isIpad ? 8.sp : 10.sp,
-                                        color: dataProvider.iconColor,
-                                        fontWeight: FontWeight.w900,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            height: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            width: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(dataProvider.lifeLineImage),
+                                              ),
+                                            ),
+                                            child: Icon(
+                                              Icons.light_mode_sharp,
+                                              color: dataProvider.iconColor,
+                                              size: isIpad ? 25.sp : 30.sp,
+                                            ),
+                                          ),
+                                          if (dataProvider.currency < 200)
+                                            ClipRRect(
+                                              child: BackdropFilter(
+                                                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                                                child: Container(
+                                                  height: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  width: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  color: Colors.black.withOpacity(0),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(width: 2.w),
-                                    Image(
-                                      image: AssetImage('assets/images/single_diamond.png'),
-                                      height: 12.sp,
-                                      width: 12.w,
-                                    ),
+                                    SizedBox(height: 2.h),
+                                    Container(
+                                      height: isIpad ? 13.sp : 15.sp,
+                                      width: isIpad ? 45.w : 50.w,
+                                      decoration: BoxDecoration(
+                                        color: dataProvider.lifeLineBoxColor,
+                                        borderRadius: BorderRadius.circular(3.r),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            '200',
+                                            style: GoogleFonts.notoSans(
+                                              fontSize: isIpad ? 8.sp : 10.sp,
+                                              color: dataProvider.iconColor,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                          SizedBox(width: 2.w),
+                                          Image(
+                                            image: AssetImage('assets/images/single_diamond.png'),
+                                            height: 12.sp,
+                                            width: 12.w,
+                                          ),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                              )
-                            ],
+                                Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (context.read<MainJson>().data![context.read<MainJson>().version]['globalConfig']['globalAdFlag'] == true) {
+                                          AdsRN().showFullScreen(
+                                            context: context,
+                                            onComplete: () {
+                                              dataProvider.currency = dataProvider.currency + 50;
+                                              storage.write("currency", dataProvider.currency);
+                                            },
+                                          );
+                                        }
+                                        setState(() {});
+                                      },
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            height: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            width: isSmall
+                                                ? 45.sp
+                                                : isIpad
+                                                    ? 35.sp
+                                                    : 50.sp,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(dataProvider.lifeLineImage),
+                                              ),
+                                            ),
+                                            child: Icon(
+                                              Icons.video_call_outlined,
+                                              color: dataProvider.iconColor,
+                                              size: isIpad ? 25.sp : 30.sp,
+                                            ),
+                                          ),
+                                          if (context.read<MainJson>().data![context.read<MainJson>().version]['globalConfig']['globalAdFlag'] == false)
+                                            ClipRRect(
+                                              child: BackdropFilter(
+                                                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                                                child: Container(
+                                                  height: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  width: isSmall
+                                                      ? 45.sp
+                                                      : isIpad
+                                                          ? 35.sp
+                                                          : 50.sp,
+                                                  color: Colors.black.withOpacity(0),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.h),
+                                    Container(
+                                      height: isIpad ? 13.sp : 15.sp,
+                                      width: isIpad ? 45.w : 50.w,
+                                      decoration: BoxDecoration(
+                                        color: dataProvider.lifeLineBoxColor,
+                                        borderRadius: BorderRadius.circular(3.r),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            '50',
+                                            style: GoogleFonts.notoSans(
+                                              fontSize: isIpad ? 8.sp : 10.sp,
+                                              color: dataProvider.iconColor,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                          SizedBox(width: 2.w),
+                                          Image(
+                                            image: AssetImage('assets/images/single_diamond.png'),
+                                            height: 12.sp,
+                                            width: 12.w,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              Container(
-                                height: isSmall
-                                    ? 45.sp
-                                    : isIpad
-                                        ? 35.sp
-                                        : 50.sp,
-                                width: isSmall
-                                    ? 45.sp
-                                    : isIpad
-                                        ? 35.sp
-                                        : 50.sp,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(dataProvider.lifeLineImage),
-                                  ),
-                                ),
-                                child: Icon(
-                                  Icons.video_call_outlined,
-                                  color: dataProvider.iconColor,
-                                  size: isIpad ? 25.sp : 30.sp,
-                                ),
-                              ),
-                              SizedBox(height: 2.h),
-                              Container(
-                                height: isIpad ? 13.sp : 15.sp,
-                                width: isIpad ? 45.w : 50.w,
-                                decoration: BoxDecoration(
-                                  color: dataProvider.lifeLineBoxColor,
-                                  borderRadius: BorderRadius.circular(3.r),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      textAlign: TextAlign.center,
-                                      '50',
-                                      style: GoogleFonts.notoSans(
-                                        fontSize: isIpad ? 8.sp : 10.sp,
-                                        color: dataProvider.iconColor,
-                                        fontWeight: FontWeight.w900,
-                                      ),
-                                    ),
-                                    SizedBox(width: 2.w),
-                                    Image(
-                                      image: AssetImage('assets/images/single_diamond.png'),
-                                      height: 12.sp,
-                                      width: 12.w,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
+                          SizedBox(
+                            height: isIpad
+                                ? 0.h
+                                : isSmall
+                                    ? 8.h
+                                    : 15.h,
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: isIpad
-                          ? 0.h
-                          : isSmall
-                              ? 8.h
-                              : 15.h,
-                    ),
-                  ],
-                ),
-              ),
             ),
             falseDialog == true
                 ? Scaffold(

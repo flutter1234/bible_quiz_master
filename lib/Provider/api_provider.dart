@@ -6,7 +6,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Api extends ChangeNotifier {
-  Map mainData = {};
+  // Map mainData = {};
   String quizJson = "";
   Map bibleList = {};
   String spinJson = "";
@@ -58,21 +58,22 @@ class Api extends ChangeNotifier {
   Color seColor = HexColor('7a4231');
   Color noSeColor = HexColor('975942');
   String questionTrue = 'Correct';
+  List collectList = [];
 
-  Future<void> getData() async {
-    var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json");
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      mainData = jsonDecode(response.body);
-      notifyListeners();
-    }
-    notifyListeners();
-    // print('mainData ==========>>>>>>${mainData}');
-  }
+  // Future<void> getData() async {
+  //   var url = Uri.parse("https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json");
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     print("response ====>>${response.body}");
+  //     mainData = jsonDecode(response.body);
+  //     notifyListeners();
+  //   }
+  //   notifyListeners();
+  //   // print('mainData ==========>>>>>>${mainData}');
+  // }
 
-  Future<void> multiQuiz() async {
-    quizJson = mainData['assets']['multiQuiz'];
-    var url = Uri.parse(quizJson);
+  Future<void> multiQuiz(var Url) async {
+    var url = Uri.parse(Url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       bibleList = jsonDecode(response.body);
@@ -82,9 +83,9 @@ class Api extends ChangeNotifier {
     // print('bibleList ==========>>>>>>${bibleList}');
   }
 
-  Future<void> spinData() async {
-    spinJson = mainData['assets']['spinJson'];
-    var url = Uri.parse(spinJson);
+  Future<void> spinData(var Url) async {
+
+    var url = Uri.parse(Url);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       spinList = jsonDecode(response.body);

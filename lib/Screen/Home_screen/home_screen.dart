@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:bible_quiz_master/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:bible_quiz_master/AdPlugin/Ads/FullScreen/Ads.dart';
+import 'package:bible_quiz_master/AdPlugin/MainJson/MainJson.dart';
 import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/Screen/History_screen/history_screen.dart';
 import 'package:bible_quiz_master/Screen/Levels_screen/levels_screen.dart';
@@ -1454,7 +1455,7 @@ class _home_screenState extends State<home_screen> {
                                                             dataProvider.initOnTap();
                                                           }
                                                           setState(() {
-                                                            dataProvider.url = dataProvider.mainData['assets']['contactUs'];
+                                                            dataProvider.url = context.read<MainJson>().data!['assets']['contactUs'];
                                                           });
                                                           dataProvider.launchurl();
                                                         },
@@ -1533,7 +1534,7 @@ class _home_screenState extends State<home_screen> {
                                             GestureDetector(
                                               onTap: () {
                                                 setState(() {
-                                                  dataProvider.url = dataProvider.mainData['assets']['privacyPolicy'];
+                                                  dataProvider.url = context.read<MainJson>().data!['assets']['privacyPolicy'];
                                                 });
                                                 dataProvider.launchurl();
                                               },
