@@ -1034,8 +1034,8 @@ class _home_screenState extends State<home_screen> {
                           Padding(
                             padding: EdgeInsets.only(top: 10.h),
                             child: Container(
-                              height: 100.sp,
-                              width: 140.w,
+                              height: 130.sp,
+                              width: 160.w,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(

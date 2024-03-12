@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bible_quiz_master/AdPlugin/Ads/FullScreen/Ads.dart';
 import 'package:bible_quiz_master/AdPlugin/Ads/Native/NativeRN.dart';
 import 'package:bible_quiz_master/AdPlugin/MainJson/MainJson.dart';
@@ -58,8 +60,8 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
         child: isLoading
             ? Center(
                 child: Container(
-                  height: 38.sp,
-                  width: 38.sp,
+                  height: 40.sp,
+                  width: 40.sp,
                   child: CircularProgressIndicator(
                     color: Colors.white,
                   ),
@@ -181,67 +183,86 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                     },
                                                   );
                                                 },
-                                                child: Container(
-                                                  height: 50.sp,
-                                                  width: 390.w,
-                                                  decoration: BoxDecoration(
-                                                    color: dataProvider.currencyBoxColor,
-                                                    border: Border.all(width: 2.w, color: dataProvider.borderColor),
-                                                    borderRadius: BorderRadius.circular(5.r),
-                                                  ),
-                                                  child: Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [
-                                                        if (int.parse(tempData[index2]['codeUrl']) <= 10) ...{
-                                                          Center(
-                                                            child: Image(
-                                                              image: AssetImage('assets/images/single_diamond.png'),
-                                                              height: 40.sp,
-                                                              width: 40.sp,
+                                                child: Stack(
+                                                  children: [
+                                                    Container(
+                                                      height: 50.sp,
+                                                      width: 390.w,
+                                                      decoration: BoxDecoration(
+                                                        color: dataProvider.currencyBoxColor,
+                                                        border: Border.all(width: 2.w, color: dataProvider.borderColor),
+                                                        borderRadius: BorderRadius.circular(5.r),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            if (int.parse(tempData[index2]['codeUrl']) <= 10) ...{
+                                                              Center(
+                                                                child: Image(
+                                                                  image: AssetImage('assets/images/single_diamond.png'),
+                                                                  height: 40.sp,
+                                                                  width: 40.sp,
+                                                                ),
+                                                              ),
+                                                            } else if (int.parse(tempData[index2]['codeUrl']) <= 25) ...{
+                                                              Center(
+                                                                child: Image(
+                                                                  image: AssetImage('assets/images/multi_diamond.png'),
+                                                                  height: 40.sp,
+                                                                  width: 40.sp,
+                                                                ),
+                                                              ),
+                                                            } else ...{
+                                                              Center(
+                                                                child: Image(
+                                                                  image: AssetImage('assets/images/chest_diamond.png'),
+                                                                  height: 40.sp,
+                                                                  width: 40.sp,
+                                                                ),
+                                                              ),
+                                                            },
+                                                            SizedBox(
+                                                              width: 20.w,
                                                             ),
-                                                          ),
-                                                        } else if (int.parse(tempData[index2]['codeUrl']) <= 25) ...{
-                                                          Center(
-                                                            child: Image(
-                                                              image: AssetImage('assets/images/multi_diamond.png'),
-                                                              height: 40.sp,
-                                                              width: 40.sp,
+                                                            Expanded(
+                                                              child: Text(
+                                                                '${tempData[index2]['subject']}',
+                                                                style: GoogleFonts.adamina(
+                                                                  fontSize: 18.sp,
+                                                                  color: dataProvider.second,
+                                                                  fontWeight: FontWeight.w700,
+                                                                  fontStyle: FontStyle.normal,
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
-                                                        } else ...{
-                                                          Center(
-                                                            child: Image(
-                                                              image: AssetImage('assets/images/chest_diamond.png'),
-                                                              height: 40.sp,
-                                                              width: 40.sp,
-                                                            ),
-                                                          ),
-                                                        },
-                                                        SizedBox(
-                                                          width: 20.w,
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            '${tempData[index2]['subject']}',
-                                                            style: GoogleFonts.adamina(
-                                                              fontSize: 18.sp,
+                                                            Icon(
+                                                              Icons.arrow_forward_ios_sharp,
                                                               color: dataProvider.second,
-                                                              fontWeight: FontWeight.w700,
-                                                              fontStyle: FontStyle.normal,
-                                                            ),
-                                                          ),
+                                                              size: 25.sp,
+                                                            )
+                                                          ],
                                                         ),
-                                                        Icon(
-                                                          Icons.arrow_forward_ios_sharp,
-                                                          color: dataProvider.second,
-                                                          size: 25.sp,
-                                                        )
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
+                                                    dataProvider.collectList.contains(tempData[index2]['id'])
+                                                        ? Container(
+                                                            child: ClipRRect(
+                                                              borderRadius: BorderRadius.circular(5.r),
+                                                              child: BackdropFilter(
+                                                                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                                                                child: Container(
+                                                                  height: 50.sp,
+                                                                  width: 390.w,
+                                                                  color: Colors.black.withOpacity(0),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : SizedBox(),
+                                                  ],
                                                 ),
                                               ),
                                             );
@@ -388,19 +409,8 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                   ),
                                                 ),
                                               ),
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  AdsRN().showFullScreen(
-                                                    context: context,
-                                                    onComplete: () async {
-                                                      dataProvider.currency = dataProvider.currency + int.parse(dateDetails['codeUrl']);
-                                                      await storage.write("currency", dataProvider.currency);
-                                                      claimDialog = false;
-                                                      setState(() {});
-                                                    },
-                                                  );
-                                                },
-                                                child: Container(
+                                              if(dataProvider.collectList.contains(dateDetails['id']))...{
+                                                Container(
                                                   height: 50.sp,
                                                   width: 120.w,
                                                   decoration: BoxDecoration(
@@ -416,7 +426,7 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                         height: 22.sp,
                                                       ),
                                                       Text(
-                                                        'Collect',
+                                                        'Collected',
                                                         style: GoogleFonts.lora(
                                                           fontSize: 18.sp,
                                                           color: Colors.white,
@@ -427,7 +437,52 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                     ],
                                                   ),
                                                 ),
-                                              ),
+                                              }else...{
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    AdsRN().showFullScreen(
+                                                      context: context,
+                                                      onComplete: () async {
+                                                        dataProvider.currency = dataProvider.currency + int.parse(dateDetails['codeUrl']);
+                                                        await storage.write("currency", dataProvider.currency);
+                                                        dataProvider.collectList.add(dateDetails['id']);
+                                                        storage.write("collectList", dataProvider.collectList);
+                                                        print("collectList ==============>>>${dataProvider.collectList}");
+
+                                                        claimDialog = false;
+                                                        setState(() {});
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    height: 50.sp,
+                                                    width: 120.w,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(width: 1.w, color: Colors.white),
+                                                      color: Colors.green.shade800,
+                                                      borderRadius: BorderRadius.circular(8.r),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        Image(
+                                                          image: AssetImage('assets/images/single_diamond.png'),
+                                                          height: 22.sp,
+                                                        ),
+                                                        Text(
+                                                          'Collect',
+                                                          style: GoogleFonts.lora(
+                                                            fontSize: 18.sp,
+                                                            color: Colors.white,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontStyle: FontStyle.normal,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              }
                                             ],
                                           ),
                                         ],
