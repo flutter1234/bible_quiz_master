@@ -162,6 +162,9 @@ class _levels_screenState extends State<levels_screen> {
                                   padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 2.sp),
                                   child: GestureDetector(
                                     onTap: () {
+                                      if (dataProvider.soundOn == true) {
+                                        dataProvider.initOnTap();
+                                      }
                                       levelShowList[index] = !levelShowList[index];
                                       setState(() {});
                                     },
@@ -242,6 +245,9 @@ class _levels_screenState extends State<levels_screen> {
                                                             dataProvider.passLevel = dataProvider.tempList[index][index2];
                                                             dataProvider.levelIndex = index2;
                                                             dataProvider.chapterIndex = index;
+                                                            if (dataProvider.soundOn == true) {
+                                                              dataProvider.initOnTap();
+                                                            }
                                                             AdsRN().showFullScreen(
                                                               context: context,
                                                               onComplete: () {

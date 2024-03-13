@@ -84,7 +84,6 @@ class Api extends ChangeNotifier {
   }
 
   Future<void> spinData(var Url) async {
-
     var url = Uri.parse(Url);
     var response = await http.get(url);
     if (response.statusCode == 200) {

@@ -37,7 +37,9 @@ class _home_screenState extends State<home_screen> {
     dataProvider.currency = storage.read("currency") ?? 0;
     storeData().then((value) {
       firstData().then((value) {
-        setState(() {});
+        fetchData().then((value) {
+          setState(() {});
+        });
       });
     });
     if (dataProvider.musicOn == true) {
@@ -689,7 +691,7 @@ class _home_screenState extends State<home_screen> {
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
                                                             Container(
-                                                              width: isIpad ? 115.w : 130.w,
+                                                              width: isIpad ? 115.w : 120.w,
                                                               child: Row(
                                                                 children: [
                                                                   Image(
@@ -715,7 +717,7 @@ class _home_screenState extends State<home_screen> {
                                                               color: Colors.black54,
                                                             ),
                                                             Container(
-                                                              width: isIpad ? 115.w : 130.w,
+                                                              width: isIpad ? 115.w : 120.w,
                                                               child: Row(
                                                                 children: [
                                                                   Image(
@@ -927,6 +929,9 @@ class _home_screenState extends State<home_screen> {
                         : 150.h,
                 child: GestureDetector(
                   onTap: () {
+                    if (dataProvider.soundOn == true) {
+                      dataProvider.initOnTap();
+                    }
                     dialogOpen = true;
                     dialog = false;
                     setState(() {});
@@ -1034,17 +1039,9 @@ class _home_screenState extends State<home_screen> {
                           Padding(
                             padding: EdgeInsets.only(top: 10.h),
                             child: Container(
-                              height: 180.sp,
-                              width: 300.w,
+                              height: isIpad ? 130.sp : 180.sp,
+                              width: isIpad ? 250.w : 300.w,
                               decoration: BoxDecoration(
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: Colors.black.withOpacity(0.2),
-                                //     spreadRadius: 5,
-                                //     blurRadius: 7,
-                                //     offset: Offset(0, 3),
-                                //   ),
-                                // ],
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
                                   image: AssetImage('assets/images/home_quiz_book.png'),
@@ -1064,12 +1061,15 @@ class _home_screenState extends State<home_screen> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
+                                        if (dataProvider.soundOn == true) {
+                                          dataProvider.initOnTap();
+                                        }
                                         dataProvider.themeChangeDialog = true;
                                       });
                                     },
                                     child: Image.asset(
                                       'assets/images/theme_change.png',
-                                      height: 50.sp,
+                                      height: isIpad ? 40.sp : 50.sp,
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -1109,13 +1109,16 @@ class _home_screenState extends State<home_screen> {
                                 child: Image.asset(
                                   color: Colors.yellow.shade800,
                                   'assets/images/history_image.png',
-                                  height: 40.sp,
+                                  height: isIpad
+                                      ? 35.sp
+                                      : isSmall
+                                          ? 45.sp
+                                          : 45.sp,
                                   fit: BoxFit.fill,
                                 ),
                               ),
                             ),
                           ),
-
                           Padding(
                             padding: EdgeInsets.only(right: 15.w, top: 20.h),
                             child: Align(
@@ -1125,6 +1128,9 @@ class _home_screenState extends State<home_screen> {
                                   AdsRN().showFullScreen(
                                     context: context,
                                     onComplete: () {
+                                      if (dataProvider.soundOn == true) {
+                                        dataProvider.initOnTap();
+                                      }
                                       dialog = true;
                                       setState(() {});
                                     },
@@ -1133,7 +1139,7 @@ class _home_screenState extends State<home_screen> {
                                 },
                                 child: Image.asset(
                                   'assets/images/daily_gems_image.png',
-                                  height: 45.sp,
+                                  height: isIpad ? 40.sp : 45.sp,
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -1180,61 +1186,6 @@ class _home_screenState extends State<home_screen> {
                             ),
                           ),
                           SizedBox(height: 10.h),
-                          // Stack(
-                          //   alignment: Alignment.topRight,
-                          //   clipBehavior: Clip.none,
-                          //   children: [
-                          //     GestureDetector(
-                          //       onTap: () {
-                          //         if (dataProvider.tempData[dataProvider.difference]['collected'] == false) {
-                          //           AdsRN().showFullScreen(
-                          //             context: context,
-                          //             onComplete: () {
-                          //               dialog = true;
-                          //               setState(() {});
-                          //             },
-                          //           );
-                          //         }
-                          //       },
-                          //       child: Container(
-                          //         height: isIpad ? 45.sp : 50.sp,
-                          //         width: 180.w,
-                          //         decoration: BoxDecoration(
-                          //           border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                          //           gradient: LinearGradient(
-                          //             begin: Alignment.bottomCenter,
-                          //             end: Alignment.topCenter,
-                          //             colors: [
-                          //               HexColor('e69b00'),
-                          //               HexColor('e6b400'),
-                          //             ],
-                          //           ),
-                          //           borderRadius: BorderRadius.circular(10.r),
-                          //         ),
-                          //         child: Center(
-                          //           child: Text(
-                          //             "Daily Challenge",
-                          //             style: GoogleFonts.abyssinicaSil(
-                          //               fontSize: isIpad ? 20.sp : 22.sp,
-                          //               color: Colors.white,
-                          //               fontWeight: FontWeight.w500,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     if (dataProvider.tempData[dataProvider.difference]['collected'] == true) ...{
-                          //       Positioned(
-                          //         top: -10.h,
-                          //         right: -10.w,
-                          //         child: Image.asset(
-                          //           "assets/images/lock_image.png",
-                          //           height: 35.sp,
-                          //         ),
-                          //       ),
-                          //     }
-                          //   ],
-                          // )
                           GestureDetector(
                             onTap: () {
                               AdsRN().showFullScreen(
@@ -1652,6 +1603,9 @@ class _home_screenState extends State<home_screen> {
                                                     GestureDetector(
                                                       onTap: () {
                                                         setState(() {
+                                                          if (dataProvider.soundOn == true) {
+                                                            dataProvider.initOnTap();
+                                                          }
                                                           dataProvider.themeChangeDialog = false;
                                                         });
                                                       },
@@ -1931,978 +1885,76 @@ class _home_screenState extends State<home_screen> {
               ),
             ),
           );
+  }
 
-/*    Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage(dataProvider.backgroundImage),
-          ),
-        ),
-        child: Stack(
-          children: [
-            BannerWrapper(
-              parentContext: context,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: isSmall
-                      ? 25.h
-                      : isIpad
-                          ? 20.h
-                          : 50.h,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              if (dataProvider.soundOn == true) {
-                                dataProvider.initOnTap();
-                              }
-                              dataProvider.settingDialog = true;
-                              setState(() {});
-                            },
-                            child: Icon(
-                              Icons.settings,
-                              size: isIpad ? 25.sp : 30.sp,
-                              color: Colors.yellow.shade700,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 5.w),
-                            child: Stack(
-                              alignment: Alignment.centerLeft,
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  height: isIpad ? 20.sp : 26.sp,
-                                  width: 90.w,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                    color: dataProvider.currencyBoxColor,
-                                    borderRadius: BorderRadius.circular(20.r),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '${dataProvider.currency}',
-                                      style: GoogleFonts.breeSerif(
-                                        fontSize: isIpad ? 13.sp : 16.sp,
-                                        color: dataProvider.currencyTextColor,
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: -12.w,
-                                  child: Image(
-                                    image: AssetImage('assets/images/single_diamond.png'),
-                                    height: isIpad ? 22.sp : 28.sp,
-                                    width: 35.w,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Spacer(),
-                    Container(
-                      height: isIpad ? 400.sp : 450.sp,
-                      width: 1.sw,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('assets/images/bible_book_image.png'),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 60.h),
-                        child: Column(
-                          children: [
-                            Spacer(),
-                            Spacer(),
-                            Padding(
-                              padding: EdgeInsets.only(left: 30.w, top: 35.h),
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Stack(
-                                  alignment: Alignment.bottomCenter,
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          dataProvider.themeChangeDialog = true;
-                                        });
-                                      },
-                                      child: Image.asset(
-                                        'assets/images/theme_change.png',
-                                        height: 50.sp,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: -7.h,
-                                      child: Text(
-                                        "Theme",
-                                        style: GoogleFonts.nobile(
-                                          fontSize: 10.sp,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-                            GestureDetector(
-                              onTap: () {
-                                AdsRN().showFullScreen(
-                                  context: context,
-                                  onComplete: () {
-                                    if (dataProvider.soundOn == true) {
-                                      dataProvider.initOnTap();
-                                    }
-                                    Navigator.pushNamed(context, quiz_screen.routeName);
-                                  },
-                                );
-                              },
-                              child: Container(
-                                height: isIpad ? 45.sp : 50.sp,
-                                width: 180.w,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                    colors: [
-                                      HexColor('08A045'),
-                                      HexColor('6BBF59'),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.r),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "PLAY",
-                                    style: GoogleFonts.abyssinicaSil(
-                                      fontSize: isIpad ? 30.sp : 35.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            Stack(
-                              alignment: Alignment.topRight,
-                              clipBehavior: Clip.none,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    if (dataProvider.tempData[dataProvider.difference]['collected'] == false) {
-                                      AdsRN().showFullScreen(
-                                        context: context,
-                                        onComplete: () {
-                                          dialog = true;
-                                          setState(() {});
-                                        },
-                                      );
-                                    }
-                                  },
-                                  child: Container(
-                                    height: isIpad ? 45.sp : 50.sp,
-                                    width: 180.w,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter,
-                                        colors: [
-                                          HexColor('e69b00'),
-                                          HexColor('e6b400'),
-                                        ],
-                                      ),
-                                      borderRadius: BorderRadius.circular(10.r),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Daily Challenge",
-                                        style: GoogleFonts.abyssinicaSil(
-                                          fontSize: isIpad ? 20.sp : 22.sp,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                if (dataProvider.tempData[dataProvider.difference]['collected'] == true) ...{
-                                  Positioned(
-                                    top: -10.h,
-                                    right: -10.w,
-                                    child: Image.asset(
-                                      "assets/images/lock_image.png",
-                                      height: 35.sp,
-                                    ),
-                                  ),
-                                }
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                            GestureDetector(
-                              onTap: () {
-                                AdsRN().showFullScreen(
-                                  context: context,
-                                  onComplete: () {
-                                    if (dataProvider.soundOn == true) {
-                                      dataProvider.initOnTap();
-                                    }
-                                    Navigator.pushNamed(context, gems_collect_screen.routeName);
-                                  },
-                                );
-                              },
-                              child: Container(
-                                height: isIpad ? 45.sp : 50.sp,
-                                width: 180.w,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                    colors: [
-                                      HexColor('08A045'),
-                                      HexColor('6BBF59'),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.r),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Spin",
-                                    style: GoogleFonts.abyssinicaSil(
-                                      fontSize: isIpad ? 30.sp : 35.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            GestureDetector(
-                              onTap: () {
-                                AdsRN().showFullScreen(
-                                  context: context,
-                                  onComplete: () {
-                                    if (dataProvider.soundOn == true) {
-                                      dataProvider.initOnTap();
-                                    }
-                                    Navigator.pushNamed(context, history_screen.routeName);
-                                  },
-                                );
-                              },
-                              child: Container(
-                                height: isIpad ? 45.sp : 30.sp,
-                                width: 180.w,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                    colors: [
-                                      HexColor('08A045'),
-                                      HexColor('6BBF59'),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.r),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "History",
-                                    style: GoogleFonts.abyssinicaSil(
-                                      fontSize: isIpad ? 30.sp : 20.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Spacer(),
-                  ],
-                ),
-              ),
-            ),
-            dataProvider.settingDialog == true
-                ? Scaffold(
-                    backgroundColor: Colors.black54.withOpacity(0.8),
-                    body: Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: 1.sh,
-                          width: 1.sw,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 25.sp),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: dataProvider.settingBoxColor,
-                                    borderRadius: BorderRadius.circular(10.r),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        height: isIpad ? 30.sp : 35.sp,
-                                        width: 1.sw,
-                                        decoration: BoxDecoration(
-                                          color: dataProvider.settingColor,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10.r),
-                                            topRight: Radius.circular(10.r),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "SETTING",
-                                            style: GoogleFonts.lato(
-                                              fontSize: isIpad
-                                                  ? 20.sp
-                                                  : isSmall
-                                                      ? 19.sp
-                                                      : 22.sp,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                dataProvider.musicOn = !dataProvider.musicOn;
-                                                storage.write("musicOn", dataProvider.musicOn);
-                                                if (dataProvider.musicOn == true) {
-                                                  dataProvider.audioPlayerBackground.play();
-                                                } else {
-                                                  dataProvider.audioPlayerBackground.pause();
-                                                }
-                                                setState(() {});
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    height: isIpad ? 45.sp : 50.sp,
-                                                    width: isIpad ? 45.sp : 50.sp,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: AssetImage(dataProvider.lifeLineImage),
-                                                      ),
-                                                    ),
-                                                    child: Center(
-                                                      child: Icon(
-                                                        dataProvider.musicOn == true ? Icons.music_note_sharp : Icons.music_off_rounded,
-                                                        color: dataProvider.iconColor,
-                                                        size: 28.sp,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "Music",
-                                                    style: GoogleFonts.lato(
-                                                      fontSize: isIpad ? 12.sp : 14.sp,
-                                                      color: Colors.white70,
-                                                      fontWeight: FontWeight.w900,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                dataProvider.soundOn = !dataProvider.soundOn;
-                                                storage.write("soundOn", dataProvider.soundOn);
-                                                if (dataProvider.soundOn == true) {
-                                                  dataProvider.initOnTap();
-                                                }
-                                                setState(() {});
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    height: isIpad ? 45.sp : 50.sp,
-                                                    width: isIpad ? 45.sp : 50.sp,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: AssetImage(dataProvider.lifeLineImage),
-                                                      ),
-                                                    ),
-                                                    child: Center(
-                                                      child: Icon(
-                                                        dataProvider.soundOn == true ? Icons.volume_up_rounded : Icons.volume_off_outlined,
-                                                        color: dataProvider.iconColor,
-                                                        size: 28.sp,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "Sound",
-                                                    style: GoogleFonts.lato(
-                                                      fontSize: isIpad ? 12.sp : 14.sp,
-                                                      color: Colors.white70,
-                                                      fontWeight: FontWeight.w900,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Column(
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (dataProvider.soundOn == true) {
-                                                      dataProvider.initOnTap();
-                                                    }
-                                                    setState(() {
-                                                      exit(0);
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: isIpad ? 45.sp : 50.sp,
-                                                    width: isIpad ? 45.sp : 50.sp,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: AssetImage(dataProvider.lifeLineImage),
-                                                      ),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.exit_to_app_rounded,
-                                                      color: dataProvider.iconColor,
-                                                      size: 28.sp,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "Exit App",
-                                                  style: GoogleFonts.lato(
-                                                    fontSize: isIpad ? 12.sp : 14.sp,
-                                                    color: Colors.white70,
-                                                    fontWeight: FontWeight.w900,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    if (dataProvider.soundOn == true) {
-                                                      dataProvider.initOnTap();
-                                                    }
-                                                    setState(() {
-                                                      dataProvider.url = dataProvider.mainData['assets']['contactUs'];
-                                                    });
-                                                    dataProvider.launchurl();
-                                                  },
-                                                  child: Container(
-                                                    height: isIpad ? 45.sp : 50.sp,
-                                                    width: isIpad ? 45.sp : 50.sp,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: AssetImage(dataProvider.lifeLineImage),
-                                                      ),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.mail,
-                                                      color: dataProvider.iconColor,
-                                                      size: 28.sp,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "Support",
-                                                  style: GoogleFonts.lato(
-                                                    fontSize: isIpad ? 12.sp : 14.sp,
-                                                    color: Colors.white70,
-                                                    fontWeight: FontWeight.w900,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (dataProvider.soundOn == true) {
-                                            dataProvider.initOnTap();
-                                          }
-                                          dataProvider.settingDialog = false;
-                                          Navigator.pushNamed(context, levels_screen.routeName);
-
-                                          setState(() {});
-                                        },
-                                        child: Container(
-                                          height: isIpad ? 40.sp : 45.sp,
-                                          width: 200.w,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage('assets/images/recovery_image.png'),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Icon(
-                                                  Icons.list,
-                                                  size: isIpad ? 22.sp : 25.sp,
-                                                  color: Colors.white,
-                                                ),
-                                                Text(
-                                                  "Levels",
-                                                  style: GoogleFonts.lato(
-                                                    fontSize: isIpad ? 18.sp : 22.sp,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w800,
-                                                  ),
-                                                ),
-                                                SizedBox(width: 15.w)
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: isIpad ? 5.h : 20.h),
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            dataProvider.url = dataProvider.mainData['assets']['privacyPolicy'];
-                                          });
-                                          dataProvider.launchurl();
-                                        },
-                                        child: Text(
-                                          "Privacy Policy",
-                                          style: GoogleFonts.lato(
-                                            fontSize: isIpad ? 14.sp : 16.sp,
-                                            color: Colors.white60,
-                                            fontWeight: FontWeight.w900,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 100.sp),
-                                        child: Container(height: 0.8.h, color: Colors.white),
-                                      ),
-                                      SizedBox(height: 10.h)
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          right: 15.w,
-                          top: isIpad
-                              ? 195.h
-                              : isSmall
-                                  ? 210.h
-                                  : 230.h,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (dataProvider.soundOn == true) {
-                                dataProvider.initOnTap();
-                              }
-                              dataProvider.settingDialog = false;
-                              setState(() {});
-                            },
-                            child: Container(
-                              height: isIpad ? 25.sp : 30.sp,
-                              width: isIpad ? 25.sp : 30.sp,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(width: 0.5.w, color: Colors.white),
-                                color: dataProvider.settingBoxColor,
-                              ),
-                              child: Icon(
-                                Icons.close,
-                                color: Colors.yellow,
-                                size: isIpad ? 20.sp : 25.sp,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                : SizedBox(),
-            dataProvider.themeChangeDialog == true
-                ? Scaffold(
-                    backgroundColor: Colors.black54.withOpacity(0.6),
-                    body: Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: 1.sh,
-                          width: 1.sw,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 25.sp),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 2.w, color: Colors.white),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        HexColor('446879'),
-                                        HexColor('608da2'),
-                                        HexColor('8eb1b2'),
-                                      ],
-                                    ),
-                                    borderRadius: BorderRadius.circular(10.r),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        height: isIpad ? 30.sp : 40.sp,
-                                        width: 1.sw,
-                                        decoration: BoxDecoration(
-                                          color: HexColor('253f4b'),
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10.r),
-                                            topRight: Radius.circular(10.r),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SizedBox(width: 25.w),
-                                              Text(
-                                                "THEME",
-                                                style: GoogleFonts.lato(
-                                                  fontSize: isIpad ? 18.sp : 22.sp,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    dataProvider.themeChangeDialog = false;
-                                                  });
-                                                },
-                                                child: Icon(
-                                                  Icons.close,
-                                                  size: isIpad ? 25.sp : 28.sp,
-                                                  color: Colors.white,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: isIpad ? 8.sp : 10.sp),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                dataProvider.backgroundImage = "assets/images/quiz_bg_image.jpeg";
-                                                storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                dataProvider.optionImage = "assets/images/theme1_option_image.png";
-                                                storage.write("optionImage", dataProvider.optionImage);
-                                                dataProvider.correctOptionImage = "assets/images/theme1_option_green.png";
-                                                storage.write("correctOptionImage", dataProvider.correctOptionImage);
-                                                dataProvider.wrongOptionImage = "assets/images/theme1_option_red.png";
-                                                storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
-                                                dataProvider.questionImage = "assets/images/theme1_question_image.jpeg";
-                                                storage.write("questionImage", dataProvider.questionImage);
-                                                dataProvider.lifeLineImage = "assets/images/lifeline_image.png";
-                                                storage.write("lifeLineImage", dataProvider.lifeLineImage);
-                                                dataProvider.textColor = Colors.black;
-                                                storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
-                                                dataProvider.lifeLineBoxColor = Colors.brown.shade100;
-                                                storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyBoxColor = HexColor('CFB595');
-                                                storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyTextColor = Colors.brown.shade700;
-                                                storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
-                                                dataProvider.timeBoxColor = Colors.brown.shade800;
-                                                storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
-                                                dataProvider.questionTextColor = Colors.black;
-                                                storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
-                                                dataProvider.iconColor = Colors.black;
-                                                storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
-                                                dataProvider.second = Colors.black;
-                                                storage.write("second", dataProvider.second.value.toRadixString(16));
-                                                dataProvider.borderColor = Colors.brown.shade700;
-                                                storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
-                                                dataProvider.settingColor = HexColor('6f473e');
-                                                storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
-                                                dataProvider.settingBoxColor = HexColor('8c5d50');
-                                                storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
-                                                dataProvider.quColor = Colors.white;
-                                                storage.write("quColor", dataProvider.quColor.value.toRadixString(16));
-                                                dataProvider.seColor = HexColor('7a4231');
-                                                storage.write("seColor", dataProvider.seColor.value.toRadixString(16));
-                                                dataProvider.noSeColor = HexColor('975942');
-                                                storage.write("noSeColor", dataProvider.noSeColor.value.toRadixString(16));
-                                                dataProvider.themeChangeDialog = false;
-
-                                                setState(() {});
-                                              },
-                                              child: Container(
-                                                height: isIpad ? 150.sp : 170.sp,
-                                                width: 140.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(width: 1.w, color: Colors.white),
-                                                  borderRadius: BorderRadius.circular(10.r),
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: AssetImage('assets/images/quiz_bg_image.jpeg'),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                dataProvider.backgroundImage = "assets/images/green_theme/green_bg_image.jpeg";
-                                                storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                dataProvider.optionImage = "assets/images/green_theme/theme2_option_image.png";
-                                                storage.write("optionImage", dataProvider.optionImage);
-                                                dataProvider.correctOptionImage = "assets/images/green_theme/theme2_correct_answer.png";
-                                                storage.write("correctOptionImage", dataProvider.correctOptionImage);
-                                                dataProvider.wrongOptionImage = "assets/images/green_theme/theme2_wrong_answer.png";
-                                                storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
-                                                dataProvider.questionImage = "assets/images/green_theme/theme2_question_image.png";
-                                                storage.write("questionImage", dataProvider.questionImage);
-                                                dataProvider.lifeLineImage = "assets/images/green_theme/theme2_lifeLine_image.png";
-                                                storage.write("lifeLineImage", dataProvider.lifeLineImage);
-                                                dataProvider.textColor = Colors.white;
-                                                storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
-                                                dataProvider.lifeLineBoxColor = HexColor('EDC967');
-                                                storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyBoxColor = HexColor('AE8625');
-                                                storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyTextColor = Colors.white;
-                                                storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
-                                                dataProvider.timeBoxColor = HexColor('AE8625');
-                                                storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
-                                                dataProvider.timeBoxColor = HexColor('AE8625');
-                                                dataProvider.questionTextColor = Colors.black;
-                                                storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
-                                                dataProvider.iconColor = Colors.black;
-                                                storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
-                                                dataProvider.second = Colors.black;
-                                                storage.write("second", dataProvider.second.value.toRadixString(16));
-                                                dataProvider.borderColor = Colors.white;
-                                                storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
-                                                dataProvider.settingColor = HexColor('14452F');
-                                                storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
-                                                dataProvider.settingBoxColor = HexColor('0F5132');
-                                                storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
-                                                dataProvider.quColor = Colors.white;
-                                                storage.write("quColor", dataProvider.quColor.value.toRadixString(16));
-                                                dataProvider.seColor = HexColor('3a4c40');
-                                                storage.write("seColor", dataProvider.seColor.value.toRadixString(16));
-                                                dataProvider.noSeColor = HexColor('507963');
-                                                storage.write("noSeColor", dataProvider.noSeColor.value.toRadixString(16));
-                                                dataProvider.themeChangeDialog = false;
-
-                                                setState(() {});
-                                              },
-                                              child: Container(
-                                                height: isIpad ? 150.sp : 170.sp,
-                                                width: 140.w,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.r),
-                                                  border: Border.all(width: 1.w, color: Colors.white),
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: AssetImage('assets/images/green_theme/green_bg_image.jpeg'),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: isIpad ? 8.sp : 10.sp),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                dataProvider.backgroundImage = "assets/images/black_theme/black_bg_image.jpeg";
-                                                storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                dataProvider.optionImage = "assets/images/black_theme/theme3_option_image.png";
-                                                storage.write("optionImage", dataProvider.optionImage);
-                                                dataProvider.correctOptionImage = "assets/images/black_theme/theme3_correct_image.png";
-                                                storage.write("correctOptionImage", dataProvider.correctOptionImage);
-                                                dataProvider.wrongOptionImage = "assets/images/black_theme/theme3_wrong_image.png";
-                                                storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
-                                                dataProvider.questionImage = "assets/images/black_theme/theme3_question_image.png";
-                                                storage.write("questionImage", dataProvider.questionImage);
-                                                dataProvider.lifeLineImage = "assets/images/black_theme/theme3_lifeLine_image.png";
-                                                storage.write("lifeLineImage", dataProvider.lifeLineImage);
-                                                dataProvider.textColor = Colors.black;
-                                                storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
-                                                dataProvider.lifeLineBoxColor = Colors.black54;
-                                                storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyBoxColor = Colors.black54;
-                                                storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyTextColor = Colors.white;
-                                                storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
-                                                dataProvider.timeBoxColor = Colors.black;
-                                                storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
-                                                dataProvider.questionTextColor = Colors.white;
-                                                storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
-                                                dataProvider.iconColor = Colors.white;
-                                                storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
-                                                dataProvider.second = Colors.white;
-                                                storage.write("second", dataProvider.second.value.toRadixString(16));
-                                                dataProvider.borderColor = Colors.white;
-                                                storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
-                                                dataProvider.settingColor = HexColor('616E7C');
-                                                storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
-                                                dataProvider.settingBoxColor = HexColor('3E4C59');
-                                                storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
-                                                dataProvider.quColor = Colors.black;
-                                                storage.write("quColor", dataProvider.quColor.value.toRadixString(16));
-                                                dataProvider.seColor = HexColor('5C6B73');
-                                                storage.write("seColor", dataProvider.seColor.value.toRadixString(16));
-                                                dataProvider.noSeColor = HexColor('CED0CE');
-                                                storage.write("noSeColor", dataProvider.noSeColor.value.toRadixString(16));
-                                                dataProvider.themeChangeDialog = false;
-                                                setState(() {});
-                                              },
-                                              child: Container(
-                                                height: isIpad ? 150.sp : 170.sp,
-                                                width: 140.w,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(width: 1.w, color: Colors.white),
-                                                  borderRadius: BorderRadius.circular(10.r),
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: AssetImage('assets/images/black_theme/black_bg_image.jpeg'),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                dataProvider.backgroundImage = "assets/images/blue_theme/theme4_bg_image.jpeg";
-                                                storage.write("backgroundImage", dataProvider.backgroundImage);
-                                                dataProvider.optionImage = "assets/images/blue_theme/theme4_option_image.png";
-                                                storage.write("optionImage", dataProvider.optionImage);
-                                                dataProvider.correctOptionImage = "assets/images/blue_theme/theme4_correct_image.png";
-                                                storage.write("correctOptionImage", dataProvider.correctOptionImage);
-                                                dataProvider.wrongOptionImage = "assets/images/blue_theme/theme4_wrong_image.png";
-                                                storage.write("wrongOptionImage", dataProvider.wrongOptionImage);
-                                                dataProvider.questionImage = "assets/images/blue_theme/theme4_question_image1.jpeg";
-                                                storage.write("questionImage", dataProvider.questionImage);
-                                                dataProvider.lifeLineImage = "assets/images/blue_theme/theme4_lifeline_image.png";
-                                                storage.write("lifeLineImage", dataProvider.lifeLineImage);
-                                                dataProvider.textColor = Colors.white;
-                                                storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
-                                                dataProvider.lifeLineBoxColor = Colors.black54;
-                                                storage.write("lifeLineBoxColor", dataProvider.lifeLineBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyBoxColor = Colors.black54;
-                                                storage.write("currencyBoxColor", dataProvider.currencyBoxColor.value.toRadixString(16));
-                                                dataProvider.currencyTextColor = Colors.white;
-                                                storage.write("currencyTextColor", dataProvider.currencyTextColor.value.toRadixString(16));
-                                                dataProvider.timeBoxColor = Colors.black;
-                                                storage.write("timeBoxColor", dataProvider.timeBoxColor.value.toRadixString(16));
-                                                dataProvider.questionTextColor = Colors.white;
-                                                storage.write("questionTextColor", dataProvider.questionTextColor.value.toRadixString(16));
-                                                dataProvider.iconColor = Colors.white;
-                                                storage.write("iconColor", dataProvider.iconColor.value.toRadixString(16));
-                                                dataProvider.second = Colors.white;
-                                                storage.write("second", dataProvider.second.value.toRadixString(16));
-                                                dataProvider.borderColor = Colors.white;
-                                                storage.write("borderColor", dataProvider.borderColor.value.toRadixString(16));
-                                                dataProvider.settingColor = HexColor('4d2d61');
-                                                storage.write("settingColor", dataProvider.settingColor.value.toRadixString(16));
-                                                dataProvider.settingBoxColor = HexColor('5d3a6f');
-                                                storage.write("settingBoxColor", dataProvider.settingBoxColor.value.toRadixString(16));
-                                                dataProvider.quColor = Colors.white;
-                                                storage.write("quColor", dataProvider.quColor.value.toRadixString(16));
-                                                dataProvider.seColor = HexColor('442858');
-                                                storage.write("seColor", dataProvider.seColor.value.toRadixString(16));
-                                                dataProvider.noSeColor = HexColor('725483');
-                                                storage.write("noSeColor", dataProvider.noSeColor.value.toRadixString(16));
-                                                dataProvider.themeChangeDialog = false;
-                                                setState(() {});
-                                              },
-                                              child: Container(
-                                                height: isIpad ? 150.sp : 170.sp,
-                                                width: 140.w,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10.r),
-                                                  border: Border.all(width: 1.w, color: Colors.white),
-                                                  image: DecorationImage(
-                                                    fit: BoxFit.fill,
-                                                    image: AssetImage('assets/images/blue_theme/theme4_bg_image.jpeg'),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : SizedBox(),
-          ],
-        ),
-      ),
-    );*/
+  Future<void> fetchData() async {
+    Api dataProvider = Provider.of<Api>(context, listen: false);
+    dataProvider.backgroundImage = storage.read("backgroundImage") ?? dataProvider.backgroundImage;
+    dataProvider.optionImage = storage.read("optionImage") ?? dataProvider.optionImage;
+    dataProvider.correctOptionImage = storage.read("correctOptionImage") ?? dataProvider.correctOptionImage;
+    dataProvider.wrongOptionImage = storage.read("wrongOptionImage") ?? dataProvider.wrongOptionImage;
+    dataProvider.questionImage = storage.read("questionImage") ?? dataProvider.questionImage;
+    dataProvider.lifeLineImage = storage.read("lifeLineImage") ?? dataProvider.lifeLineImage;
+    String? storedTextColor = storage.read("textColor");
+    String? storedCurrencyColor = storage.read("currencyTextColor");
+    String? storedLifeLineColor = storage.read("lifeLineBoxColor");
+    String? storedBoxColor = storage.read("currencyBoxColor");
+    String? storedTimeBoxColor = storage.read("timeBoxColor");
+    String? storedQuestionText = storage.read("questionTextColor");
+    String? storedIconColor = storage.read("iconColor");
+    String? storedSecondColor = storage.read("second");
+    String? storedBorderColor = storage.read("borderColor");
+    String? storedSettingColor = storage.read("settingColor");
+    String? storedSettingBoxColor = storage.read("settingBoxColor");
+    String? storedQuColor = storage.read("quColor");
+    String? storedSeColor = storage.read("seColor");
+    String? storedNoseColor = storage.read("noSeColor");
+    if (storedTextColor != null &&
+        storedCurrencyColor != null &&
+        storedLifeLineColor != null &&
+        storedBoxColor != null &&
+        storedTimeBoxColor != null &&
+        storedQuestionText != null &&
+        storedIconColor != null &&
+        storedSecondColor != null &&
+        storedBorderColor != null &&
+        storedSettingColor != null &&
+        storedSettingBoxColor != null &&
+        storedQuColor != null &&
+        storedSeColor != null &&
+        storedNoseColor != null) {
+      dataProvider.textColor = Color(int.parse(storedTextColor, radix: 16));
+      dataProvider.currencyTextColor = Color(int.parse(storedCurrencyColor, radix: 16));
+      dataProvider.lifeLineBoxColor = Color(int.parse(storedLifeLineColor, radix: 16));
+      dataProvider.currencyBoxColor = Color(int.parse(storedBoxColor, radix: 16));
+      dataProvider.timeBoxColor = Color(int.parse(storedTimeBoxColor, radix: 16));
+      dataProvider.questionTextColor = Color(int.parse(storedQuestionText, radix: 16));
+      dataProvider.iconColor = Color(int.parse(storedIconColor, radix: 16));
+      dataProvider.second = Color(int.parse(storedSecondColor, radix: 16));
+      dataProvider.borderColor = Color(int.parse(storedBorderColor, radix: 16));
+      dataProvider.settingColor = Color(int.parse(storedSettingColor, radix: 16));
+      dataProvider.settingBoxColor = Color(int.parse(storedSettingBoxColor, radix: 16));
+      dataProvider.quColor = Color(int.parse(storedQuColor, radix: 16));
+      dataProvider.seColor = Color(int.parse(storedSeColor, radix: 16));
+      dataProvider.noSeColor = Color(int.parse(storedNoseColor, radix: 16));
+    } else {
+      dataProvider.textColor = Colors.black;
+      dataProvider.currencyTextColor = Colors.brown.shade700;
+      dataProvider.lifeLineBoxColor = Colors.brown.shade100;
+      dataProvider.currencyBoxColor = HexColor('CFB595');
+      dataProvider.timeBoxColor = Colors.brown.shade800;
+      dataProvider.questionTextColor = Colors.black;
+      dataProvider.iconColor = Colors.black;
+      dataProvider.second = Colors.black;
+      dataProvider.borderColor = Colors.brown.shade700;
+      dataProvider.settingColor = HexColor('6f473e');
+      dataProvider.settingBoxColor = HexColor('8c5d50');
+      dataProvider.quColor = Colors.white;
+      dataProvider.seColor = HexColor('7a4231');
+      dataProvider.noSeColor = HexColor('975942');
+    }
+    setState(() {
+      dataProvider.isLoading = false;
+    });
   }
 }

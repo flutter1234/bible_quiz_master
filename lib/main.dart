@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   runApp(MyApp());
   await GetStorage.init();
+  print('GetStorage initialized successfully');
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

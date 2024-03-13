@@ -135,29 +135,30 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                           fit: BoxFit.fill,
                                         ),
                                       ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50.r),
-                                        child: ExpansionTile(
-                                          onExpansionChanged: (value) {
-                                            showData[index] = value;
-                                            setState(() {});
-                                          },
-                                          tilePadding: EdgeInsets.only(left: 120.w, top: isIpad ? 15.h : 5.h, right: 5.w),
-                                          title: Text(
-                                            '${showDate[index]}',
-                                            style: GoogleFonts.abyssinicaSil(
-                                              fontSize: isIpad ? 20.sp : 22.sp,
-                                              color: dataProvider.textColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
+                                      child: ExpansionTile(
+                                        shape:CircleBorder(),
+                                        onExpansionChanged: (value) {
+                                          if (dataProvider.soundOn == true) {
+                                            dataProvider.initOnTap();
+                                          }
+                                          showData[index] = value;
+                                          setState(() {});
+                                        },
+                                        tilePadding: EdgeInsets.only(left: 120.w, top: isIpad ? 15.h : 5.h, right: 5.w),
+                                        title: Text(
+                                          '${showDate[index]}',
+                                          style: GoogleFonts.abyssinicaSil(
+                                            fontSize: isIpad ? 20.sp : 22.sp,
+                                            color: dataProvider.textColor,
+                                            fontWeight: FontWeight.w700,
                                           ),
-                                          trailing: Padding(
-                                            padding: EdgeInsets.only(right: 40.w),
-                                            child: Icon(
-                                              showData[index] == true ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                                              size: 25.sp,
-                                              color: dataProvider.textColor,
-                                            ),
+                                        ),
+                                        trailing: Padding(
+                                          padding: EdgeInsets.only(right: 40.w),
+                                          child: Icon(
+                                            showData[index] == true ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                                            size: 25.sp,
+                                            color: dataProvider.textColor,
                                           ),
                                         ),
                                       ),
@@ -409,7 +410,7 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                   ),
                                                 ),
                                               ),
-                                              if(dataProvider.collectList.contains(dateDetails['id']))...{
+                                              if (dataProvider.collectList.contains(dateDetails['id'])) ...{
                                                 Container(
                                                   height: 50.sp,
                                                   width: 120.w,
@@ -437,7 +438,7 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                     ],
                                                   ),
                                                 ),
-                                              }else...{
+                                              } else ...{
                                                 GestureDetector(
                                                   onTap: () async {
                                                     AdsRN().showFullScreen(
