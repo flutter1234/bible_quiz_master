@@ -1039,8 +1039,8 @@ class _home_screenState extends State<home_screen> {
                           Padding(
                             padding: EdgeInsets.only(top: 10.h),
                             child: Container(
-                              height: isIpad ? 130.sp : 180.sp,
-                              width: isIpad ? 250.w : 300.w,
+                              height: isIpad ? 130.sp : 220.sp,
+                              width: isIpad ? 250.w : 250.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   fit: BoxFit.fill,

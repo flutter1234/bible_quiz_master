@@ -518,8 +518,6 @@ class _quiz_screenState extends State<quiz_screen> {
                                               dataProvider.currency = dataProvider.currency - 100;
                                               storage.write("currency", dataProvider.currency);
                                               setState(() {});
-                                            } else {
-                                              print("Dialog");
                                             }
                                           },
                                         );
