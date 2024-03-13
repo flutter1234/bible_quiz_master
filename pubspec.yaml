@@ -44,7 +44,6 @@ dependencies:
   google_fonts: ^5.1.0
   readmore: ^2.2.0
   get_storage: ^2.1.1
-  lottie: ^3.0.0
   button_animations: ^2.0.0+3
   step_progress_indicator: ^1.0.2
   just_audio: ^0.9.36
@@ -89,7 +88,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/Lottie/
     - assets/Sound/
     - assets/images/green_theme/
     - assets/images/black_theme/
