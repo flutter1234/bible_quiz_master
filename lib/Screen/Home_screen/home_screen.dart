@@ -45,6 +45,8 @@ class _home_screenState extends State<home_screen> {
     if (dataProvider.musicOn == true) {
       dataProvider.initAudioPlayer();
     }
+    print("tempData =======>>>${dataProvider.tempData}");
+
     super.initState();
   }
 
@@ -74,6 +76,7 @@ class _home_screenState extends State<home_screen> {
           {'day': 7, 'coins': 500, 'collected': false},
         ],
       );
+
     }
   }
 
@@ -102,15 +105,28 @@ class _home_screenState extends State<home_screen> {
 
       if (dataProvider.difference >= 7) {
         dataProvider.difference = 0;
-        dataProvider.tempData = [
-          {'day': 1, 'coins': 100, 'collected': false},
-          {'day': 2, 'coins': 120, 'collected': false},
-          {'day': 3, 'coins': 140, 'collected': false},
-          {'day': 4, 'coins': 160, 'collected': false},
-          {'day': 6, 'coins': 200, 'collected': false},
-          {'day': 5, 'coins': 180, 'collected': false},
-          {'day': 7, 'coins': 500, 'collected': false},
-        ];
+        storage.write(
+          "Reward",
+          [
+            {'day': 1, 'coins': 100, 'collected': false},
+            {'day': 2, 'coins': 120, 'collected': false},
+            {'day': 3, 'coins': 140, 'collected': false},
+            {'day': 4, 'coins': 160, 'collected': false},
+            {'day': 5, 'coins': 180, 'collected': false},
+            {'day': 6, 'coins': 200, 'collected': false},
+            {'day': 7, 'coins': 500, 'collected': false},
+          ],
+        );
+        dataProvider.tempData = storage.read("Reward") ??
+            [
+              {'day': 1, 'coins': 100, 'collected': false},
+              {'day': 2, 'coins': 120, 'collected': false},
+              {'day': 3, 'coins': 140, 'collected': false},
+              {'day': 4, 'coins': 160, 'collected': false},
+              {'day': 5, 'coins': 180, 'collected': false},
+              {'day': 6, 'coins': 200, 'collected': false},
+              {'day': 7, 'coins': 500, 'collected': false},
+            ];
         String currentDate = DateFormat("yyyy-MM-dd").format(todayDate);
         storage.write("WeekDate", currentDate);
       }
@@ -1039,8 +1055,8 @@ class _home_screenState extends State<home_screen> {
                           Padding(
                             padding: EdgeInsets.only(top: 10.h),
                             child: Container(
-                              height: isIpad ? 130.sp : 220.sp,
-                              width: isIpad ? 250.w : 250.w,
+                              height: isIpad ? 150.sp : 220.sp,
+                              width: isIpad ? 220.w : 250.w,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   fit: BoxFit.fill,
