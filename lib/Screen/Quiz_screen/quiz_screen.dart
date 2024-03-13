@@ -8,6 +8,7 @@ import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'dart:math' as math;
@@ -106,12 +107,9 @@ class _quiz_screenState extends State<quiz_screen> {
               ),
               child: isLoading
                   ? Center(
-                      child: Container(
-                        height: 40.sp,
-                        width: 40.sp,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
+                      child: LoadingAnimationWidget.threeArchedCircle(
+                        color: Colors.white,
+                        size: isIpad ? 40.sp : 50.sp,
                       ),
                     )
                   : Padding(

@@ -2,7 +2,7 @@ import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 class splash_screen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _splash_screenState extends State<splash_screen> {
   void initState() {
     Api dataProvider = Provider.of<Api>(context, listen: false);
 
-    Future.delayed(Duration(milliseconds: 50)).then((value) {
+    Future.delayed(Duration(milliseconds: 150)).then((value) {
       dataProvider.isLoading = false;
       setState(() {});
     });
@@ -68,14 +68,12 @@ class _splash_screenState extends State<splash_screen> {
                     ],
                   ),
                 ),
-                Lottie.asset(
-                  height: isIpad
-                      ? 120.sp
-                      : isSmall
-                          ? 160.sp
-                          : 180.sp,
-                  alignment: Alignment.bottomCenter,
-                  'assets/Lottie/Animation.json',
+                Padding(
+                  padding: EdgeInsets.only(bottom: 70.h),
+                  child: LoadingAnimationWidget.threeRotatingDots(
+                    color: Colors.white,
+                    size: isIpad ? 40.sp : 50.sp,
+                  ),
                 ),
               ],
             ),

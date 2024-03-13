@@ -8,6 +8,7 @@ import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -59,12 +60,9 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
         ),
         child: isLoading
             ? Center(
-                child: Container(
-                  height: 40.sp,
-                  width: 40.sp,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
+                child: LoadingAnimationWidget.threeArchedCircle(
+                  color: Colors.white,
+                  size: isIpad ? 40.sp : 50.sp,
                 ),
               )
             : Stack(
@@ -136,7 +134,7 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                         ),
                                       ),
                                       child: ExpansionTile(
-                                        shape:CircleBorder(),
+                                        shape: CircleBorder(),
                                         onExpansionChanged: (value) {
                                           if (dataProvider.soundOn == true) {
                                             dataProvider.initOnTap();

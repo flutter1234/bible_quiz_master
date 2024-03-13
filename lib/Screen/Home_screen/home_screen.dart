@@ -696,7 +696,7 @@ class _home_screenState extends State<home_screen> {
                                                                 children: [
                                                                   Image(
                                                                     height: 60.sp,
-                                                                    width: 70.w,
+                                                                    width: 60.w,
                                                                     image: AssetImage("assets/images/multi_diamond.png"),
                                                                   ),
                                                                   Text(
@@ -722,7 +722,7 @@ class _home_screenState extends State<home_screen> {
                                                                 children: [
                                                                   Image(
                                                                     height: 60.sp,
-                                                                    width: 75.w,
+                                                                    width: 60.w,
                                                                     image: AssetImage("assets/images/chest_diamond.png"),
                                                                   ),
                                                                   Text(
@@ -1159,27 +1159,31 @@ class _home_screenState extends State<home_screen> {
                               );
                             },
                             child: Container(
-                              height: isIpad ? 45.sp : 45.sp,
+                              height: isIpad ? 45.sp : 50.sp,
                               width: 200.w,
                               decoration: BoxDecoration(
-                                border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [
-                                    HexColor('08A045'),
-                                    HexColor('6BBF59'),
-                                  ],
-                                ),
+                                image: DecorationImage(image: AssetImage('assets/images/play_button.png'), fit: BoxFit.fill),
+                                // border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                // gradient: LinearGradient(
+                                //   begin: Alignment.bottomCenter,
+                                //   end: Alignment.topCenter,
+                                //   colors: [
+                                //     HexColor('08A045'),
+                                //     HexColor('6BBF59'),
+                                //   ],
+                                // ),
                                 borderRadius: BorderRadius.circular(30.r),
                               ),
                               child: Center(
                                 child: Text(
-                                  "PLAY",
-                                  style: GoogleFonts.lora(
-                                    fontSize: isIpad ? 30.sp : 28.sp,
+                                  "Play",
+                                  style: TextStyle(
+                                    fontSize: isIpad ? 30.sp : 26.sp,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w700,
+                                    shadows: [
+                                      Shadow(color: Colors.black, offset: Offset(4, 2), blurRadius: 2),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -1199,27 +1203,31 @@ class _home_screenState extends State<home_screen> {
                               );
                             },
                             child: Container(
-                              height: isIpad ? 45.sp : 45.sp,
+                              height: isIpad ? 45.sp : 50.sp,
                               width: 200.w,
                               decoration: BoxDecoration(
-                                border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                                gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [
-                                    HexColor('e69b00'),
-                                    HexColor('e6b400'),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(30.r),
+                                image: DecorationImage(image: AssetImage('assets/images/collect_button.png'), fit: BoxFit.fill),
+                                // border: Border.all(width: 1.w, color: dataProvider.borderColor),
+                                // gradient: LinearGradient(
+                                //   begin: Alignment.bottomCenter,
+                                //   end: Alignment.topCenter,
+                                //   colors: [
+                                //     HexColor('e69b00'),
+                                //     HexColor('e6b400'),
+                                //   ],
+                                // ),
+                                // borderRadius: BorderRadius.circular(30.r),
                               ),
                               child: Center(
                                 child: Text(
                                   "Collect",
-                                  style: GoogleFonts.abyssinicaSil(
-                                    fontSize: isIpad ? 30.sp : 30.sp,
+                                  style: TextStyle(
+                                    fontSize: isIpad ? 30.sp : 26.sp,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w700,
+                                    shadows: [
+                                      Shadow(color: Colors.black, offset: Offset(4, 2), blurRadius: 2),
+                                    ],
                                   ),
                                 ),
                               ),
