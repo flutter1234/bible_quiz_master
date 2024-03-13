@@ -43,7 +43,7 @@ class Api extends ChangeNotifier {
   String wrongOptionImage = "assets/images/theme1_option_red.png";
   String questionImage = "assets/images/theme1_question_image.jpeg";
   String lifeLineImage = "assets/images/lifeline_image.png";
-  String spinBoxImage = "assets/images/black_theme/theme3_spinBox.png";
+  String spinBoxImage = "assets/images/green_theme/theme2_spinBox.png";
   Color textColor = Colors.black;
   Color currencyTextColor = Colors.brown.shade700;
   Color lifeLineBoxColor = Colors.brown.shade100;
