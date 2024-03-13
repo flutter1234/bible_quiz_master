@@ -8,6 +8,7 @@ import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -285,224 +286,218 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                             Container(
                               color: Colors.black54,
                               child: Center(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 30.sp),
-                                  child: Stack(
-                                    alignment: Alignment.topCenter,
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      Container(
-                                        height: 250.sp,
-                                        width: 1.sw,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(width: 1.w, color: Colors.white),
-                                          borderRadius: BorderRadius.circular(15.r),
-                                          image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: AssetImage(dataProvider.backgroundImage),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 10.sp),
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Spacer(),
-                                              Spacer(),
-                                              Text(
-                                                '${dateDetails['subject']}',
-                                                style: GoogleFonts.adamina(
-                                                  fontSize: 20.sp,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                                      child: Stack(
+                                        alignment: Alignment.topCenter,
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          Container(
+                                            width: 1.sw,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                fit: BoxFit.fill,
+                                                image: AssetImage(dataProvider.spinBoxImage),
                                               ),
-                                              Spacer(),
-                                              Text(
-                                                '${dateDetails['spinDate']}',
-                                                style: GoogleFonts.adamina(
-                                                  fontSize: 18.sp,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                              ),
-                                              Spacer(),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                                                child: Text(
-                                                  '${dateDetails['detail']}',
-                                                  style: GoogleFonts.adamina(
-                                                    fontSize: 12.sp,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontStyle: FontStyle.normal,
-                                                  ),
-                                                ),
-                                              ),
-                                              Spacer(),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 25.sp),
+                                              child: Column(
                                                 children: [
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      Share.share('${dateDetails['detail']}');
-                                                      setState(() {});
-                                                    },
-                                                    child: Container(
-                                                      height: 50.sp,
-                                                      width: 120.w,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(width: 1.w, color: Colors.white),
-                                                        color: Colors.green.shade800,
-                                                        borderRadius: BorderRadius.circular(8.r),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                        children: [
-                                                          Icon(
-                                                            Icons.share,
-                                                            size: 22.sp,
-                                                            color: Colors.white,
-                                                          ),
-                                                          Text(
-                                                            textAlign: TextAlign.center,
-                                                            'Share',
-                                                            style: GoogleFonts.lora(
-                                                              fontSize: isSmall ? 16.sp : 18.sp,
-                                                              color: Colors.white,
-                                                              fontWeight: FontWeight.w700,
-                                                              fontStyle: FontStyle.normal,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                  SizedBox(height: 10.h),
+                                                  Text(
+                                                    '${dateDetails['subject']}',
+                                                    style: GoogleFonts.adamina(
+                                                      fontSize: 20.sp,
+                                                      color: dataProvider.second,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontStyle: FontStyle.normal,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10.h),
+                                                  Text(
+                                                    '${dateDetails['spinDate']}',
+                                                    style: GoogleFonts.adamina(
+                                                      fontSize: 18.sp,
+                                                      color: dataProvider.second,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontStyle: FontStyle.normal,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10.h),
+                                                  Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                                                    child: Text(
+                                                      '${dateDetails['detail']}',
+                                                      style: GoogleFonts.adamina(
+                                                        fontSize: 12.sp,
+                                                        color: dataProvider.second,
+                                                        fontWeight: FontWeight.w500,
+                                                        fontStyle: FontStyle.normal,
                                                       ),
                                                     ),
                                                   ),
-                                                  if (dataProvider.collectList.contains(dateDetails['id'])) ...{
-                                                    Container(
-                                                      height: 50.sp,
-                                                      width: 120.w,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(width: 1.w, color: Colors.white),
-                                                        color: Colors.green.shade800,
-                                                        borderRadius: BorderRadius.circular(8.r),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                        children: [
-                                                          Image(
-                                                            image: AssetImage('assets/images/single_diamond.png'),
-                                                            height: 22.sp,
-                                                          ),
-                                                          Text(
-                                                            'Collected',
-                                                            style: GoogleFonts.lora(
-                                                              fontSize: isSmall ? 16.sp : 18.sp,
-                                                              color: Colors.white,
-                                                              fontWeight: FontWeight.w700,
-                                                              fontStyle: FontStyle.normal,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  } else ...{
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        AdsRN().showFullScreen(
-                                                          context: context,
-                                                          onComplete: () async {
-                                                            dataProvider.currency = dataProvider.currency + int.parse(dateDetails['codeUrl']);
-                                                            await storage.write("currency", dataProvider.currency);
-                                                            dataProvider.collectList.add(dateDetails['id']);
-                                                            storage.write("collectList", dataProvider.collectList);
-                                                            claimDialog = false;
+                                                  SizedBox(height: 10.h),
+                                                  Padding(
+                                                    padding: EdgeInsets.symmetric(horizontal: 30.sp),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () async {
+                                                            Share.share('${dateDetails['detail']}');
                                                             setState(() {});
                                                           },
-                                                        );
-                                                      },
-                                                      child: Container(
-                                                        height: 50.sp,
-                                                        width: 120.w,
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(width: 1.w, color: Colors.white),
-                                                          color: Colors.green.shade800,
-                                                          borderRadius: BorderRadius.circular(8.r),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                          children: [
-                                                            Image(
-                                                              image: AssetImage('assets/images/single_diamond.png'),
-                                                              height: 22.sp,
+                                                          child: Container(
+                                                            height: 50.sp,
+                                                            width: 105.w,
+                                                            decoration: BoxDecoration(
+                                                              border: Border.all(width: 1.w, color: Colors.white),
+                                                              color: Colors.green.shade800,
+                                                              borderRadius: BorderRadius.circular(8.r),
                                                             ),
-                                                            Text(
-                                                              'Collect',
-                                                              style: GoogleFonts.lora(
-                                                                fontSize: isSmall ? 16.sp : 18.sp,
-                                                                color: Colors.white,
-                                                                fontWeight: FontWeight.w700,
-                                                                fontStyle: FontStyle.normal,
+                                                            child: Column(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.share,
+                                                                  size: 22.sp,
+                                                                  color: Colors.white,
+                                                                ),
+                                                                Text(
+                                                                  textAlign: TextAlign.center,
+                                                                  'Share',
+                                                                  style: GoogleFonts.lora(
+                                                                    fontSize: isSmall ? 16.sp : 18.sp,
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w700,
+                                                                    fontStyle: FontStyle.normal,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        if (dataProvider.collectList.contains(dateDetails['id'])) ...{
+                                                          Container(
+                                                            height: 50.sp,
+                                                            width: 105.w,
+                                                            decoration: BoxDecoration(
+                                                              border: Border.all(width: 1.w, color: Colors.white),
+                                                              color: Colors.green.shade800,
+                                                              borderRadius: BorderRadius.circular(8.r),
+                                                            ),
+                                                            child: Column(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                              children: [
+                                                                Image(
+                                                                  image: AssetImage('assets/images/single_diamond.png'),
+                                                                  height: 22.sp,
+                                                                ),
+                                                                Text(
+                                                                  'Collected',
+                                                                  style: GoogleFonts.lora(
+                                                                    fontSize: isSmall ? 16.sp : 18.sp,
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w700,
+                                                                    fontStyle: FontStyle.normal,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        } else ...{
+                                                          GestureDetector(
+                                                            onTap: () async {
+                                                              AdsRN().showFullScreen(
+                                                                context: context,
+                                                                onComplete: () async {
+                                                                  dataProvider.currency = dataProvider.currency + int.parse(dateDetails['codeUrl']);
+                                                                  await storage.write("currency", dataProvider.currency);
+                                                                  dataProvider.collectList.add(dateDetails['id']);
+                                                                  storage.write("collectList", dataProvider.collectList);
+                                                                  claimDialog = false;
+                                                                  setState(() {});
+                                                                },
+                                                              );
+                                                            },
+                                                            child: Container(
+                                                              height: 50.sp,
+                                                              width: 105.w,
+                                                              decoration: BoxDecoration(
+                                                                border: Border.all(width: 1.w, color: Colors.white),
+                                                                color: Colors.green.shade800,
+                                                                borderRadius: BorderRadius.circular(8.r),
+                                                              ),
+                                                              child: Column(
+                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                children: [
+                                                                  Image(
+                                                                    image: AssetImage('assets/images/single_diamond.png'),
+                                                                    height: 22.sp,
+                                                                  ),
+                                                                  Text(
+                                                                    'Collect',
+                                                                    style: GoogleFonts.lora(
+                                                                      fontSize: isSmall ? 16.sp : 18.sp,
+                                                                      color: Colors.white,
+                                                                      fontWeight: FontWeight.w700,
+                                                                      fontStyle: FontStyle.normal,
+                                                                    ),
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
+                                                          ),
+                                                        }
+                                                      ],
                                                     ),
-                                                  }
+                                                  ),
                                                 ],
                                               ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
+                                          Positioned(
+                                            top: isIpad
+                                                ? -65.h
+                                                : isSmall
+                                                    ? -50.h
+                                                    : -40.h,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                if (int.parse(dateDetails['codeUrl']) <= 10) ...{
+                                                  Image(
+                                                    fit: BoxFit.fill,
+                                                    image: AssetImage('assets/images/single_diamond.png'),
+                                                    height: 80.sp,
+                                                    width: 100.w,
+                                                  ),
+                                                } else if (int.parse(dateDetails['codeUrl']) <= 25) ...{
+                                                  Image(
+                                                    fit: BoxFit.fill,
+                                                    image: AssetImage('assets/images/multi_diamond.png'),
+                                                    height: 80.sp,
+                                                    width: 120.w,
+                                                  ),
+                                                } else ...{
+                                                  Image(
+                                                    fit: BoxFit.fill,
+                                                    image: AssetImage('assets/images/chest_diamond.png'),
+                                                    height: 80.sp,
+                                                    width: 100.w,
+                                                  ),
+                                                },
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Positioned(
-                                        top: isIpad
-                                            ? -65.h
-                                            : isSmall
-                                                ? -50.h
-                                                : -40.h,
-                                        child: Container(
-                                          height: 90.sp,
-                                          width: 120.w,
-                                          decoration: BoxDecoration(
-                                            color: Colors.black87,
-                                            border: Border.all(width: 1.w, color: Colors.white),
-                                            borderRadius: BorderRadius.circular(5.r),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              if (int.parse(dateDetails['codeUrl']) <= 10) ...{
-                                                Image(
-                                                  fit: BoxFit.fill,
-                                                  image: AssetImage('assets/images/single_diamond.png'),
-                                                  height: 80.sp,
-                                                  width: 100.w,
-                                                ),
-                                              } else if (int.parse(dateDetails['codeUrl']) <= 25) ...{
-                                                Image(
-                                                  fit: BoxFit.fill,
-                                                  image: AssetImage('assets/images/multi_diamond.png'),
-                                                  height: 80.sp,
-                                                  width: 100.w,
-                                                ),
-                                              } else ...{
-                                                Image(
-                                                  fit: BoxFit.fill,
-                                                  image: AssetImage('assets/images/chest_diamond.png'),
-                                                  height: 80.sp,
-                                                  width: 100.w,
-                                                ),
-                                              },
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
