@@ -53,15 +53,15 @@ class _splash_screenState extends State<splash_screen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: isIpad ? 50.sp : 30.sp),
+                        padding: EdgeInsets.symmetric(horizontal: isIpad ? 35.sp : 25.sp),
                         child: Image.asset(
                           height: isIpad
-                              ? 230.sp
+                              ? 250.sp
                               : isSmall
                                   ? 280.sp
                                   : 300.sp,
                           width: 1.sw,
-                          "assets/images/bible_book_image.png",
+                          "assets/images/home_quiz_book.png",
                           fit: BoxFit.fill,
                         ),
                       ),
