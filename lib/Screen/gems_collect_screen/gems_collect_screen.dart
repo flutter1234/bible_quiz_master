@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:bible_quiz_master/AdPlugin/Ads/FullScreen/Ads.dart';
 import 'package:bible_quiz_master/AdPlugin/Ads/Native/NativeRN.dart';
 import 'package:bible_quiz_master/AdPlugin/MainJson/MainJson.dart';
@@ -8,10 +7,8 @@ import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 class gems_collect_screen extends StatefulWidget {
   static const routeName = '/gems_collect_screen';
@@ -304,7 +301,7 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                               ),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 25.sp),
+                                              padding: EdgeInsets.symmetric(vertical: 30.sp),
                                               child: Column(
                                                 children: [
                                                   SizedBox(height: 10.h),
@@ -329,11 +326,11 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                   ),
                                                   SizedBox(height: 10.h),
                                                   Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                                                    padding: EdgeInsets.symmetric(horizontal: 25.sp),
                                                     child: Text(
                                                       '${dateDetails['detail']}',
                                                       style: GoogleFonts.adamina(
-                                                        fontSize: 12.sp,
+                                                        fontSize: 14.sp,
                                                         color: dataProvider.second,
                                                         fontWeight: FontWeight.w500,
                                                         fontStyle: FontStyle.normal,
@@ -342,42 +339,41 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                   ),
                                                   SizedBox(height: 10.h),
                                                   Padding(
-                                                    padding: EdgeInsets.symmetric(horizontal: 30.sp),
+                                                    padding: EdgeInsets.symmetric(horizontal: 30.sp, vertical: 20.sp),
                                                     child: Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                       children: [
                                                         GestureDetector(
                                                           onTap: () async {
-                                                            Share.share('${dateDetails['detail']}');
+                                                            // Share.share('${dateDetails['detail']}');
+                                                            if (dataProvider.soundOn == true) {
+                                                              dataProvider.initOnTap();
+                                                            }
+                                                            claimDialog = false;
                                                             setState(() {});
                                                           },
                                                           child: Container(
                                                             height: 50.sp,
                                                             width: 105.w,
                                                             decoration: BoxDecoration(
-                                                              border: Border.all(width: 1.w, color: Colors.white),
-                                                              color: Colors.green.shade800,
+                                                              image: DecorationImage(
+                                                                image: AssetImage('assets/images/collect_spin_image.png'),
+                                                                fit: BoxFit.fill,
+                                                              ),
+                                                              // border: Border.all(width: 1.w, color: Colors.white),
+                                                              // color: Colors.green.shade800,
                                                               borderRadius: BorderRadius.circular(8.r),
                                                             ),
-                                                            child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                              children: [
-                                                                Icon(
-                                                                  Icons.share,
-                                                                  size: 22.sp,
+                                                            child: Center(
+                                                              child: Text(
+                                                                'Close',
+                                                                style: GoogleFonts.lora(
+                                                                  fontSize: isSmall ? 16.sp : 20.sp,
                                                                   color: Colors.white,
+                                                                  fontWeight: FontWeight.w700,
+                                                                  fontStyle: FontStyle.normal,
                                                                 ),
-                                                                Text(
-                                                                  textAlign: TextAlign.center,
-                                                                  'Share',
-                                                                  style: GoogleFonts.lora(
-                                                                    fontSize: isSmall ? 16.sp : 18.sp,
-                                                                    color: Colors.white,
-                                                                    fontWeight: FontWeight.w700,
-                                                                    fontStyle: FontStyle.normal,
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -386,27 +382,24 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                             height: 50.sp,
                                                             width: 105.w,
                                                             decoration: BoxDecoration(
-                                                              border: Border.all(width: 1.w, color: Colors.white),
-                                                              color: Colors.green.shade800,
+                                                              image: DecorationImage(
+                                                                image: AssetImage('assets/images/collect_spin_image.png'),
+                                                                fit: BoxFit.fill,
+                                                              ),
+                                                              // border: Border.all(width: 1.w, color: Colors.white),
+                                                              // color: Colors.green.shade800,
                                                               borderRadius: BorderRadius.circular(8.r),
                                                             ),
-                                                            child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                              children: [
-                                                                Image(
-                                                                  image: AssetImage('assets/images/single_diamond.png'),
-                                                                  height: 22.sp,
+                                                            child: Center(
+                                                              child: Text(
+                                                                'Collected',
+                                                                style: GoogleFonts.lora(
+                                                                  fontSize: isSmall ? 16.sp : 20.sp,
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.w700,
+                                                                  fontStyle: FontStyle.normal,
                                                                 ),
-                                                                Text(
-                                                                  'Collected',
-                                                                  style: GoogleFonts.lora(
-                                                                    fontSize: isSmall ? 16.sp : 18.sp,
-                                                                    color: Colors.white,
-                                                                    fontWeight: FontWeight.w700,
-                                                                    fontStyle: FontStyle.normal,
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                              ),
                                                             ),
                                                           ),
                                                         } else ...{
@@ -428,27 +421,24 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                               height: 50.sp,
                                                               width: 105.w,
                                                               decoration: BoxDecoration(
-                                                                border: Border.all(width: 1.w, color: Colors.white),
-                                                                color: Colors.green.shade800,
+                                                                image: DecorationImage(
+                                                                  image: AssetImage('assets/images/collect_spin_image.png'),
+                                                                  fit: BoxFit.fill,
+                                                                ),
+                                                                // border: Border.all(width: 1.w, color: Colors.white),
+                                                                // color: Colors.green.shade800,
                                                                 borderRadius: BorderRadius.circular(8.r),
                                                               ),
-                                                              child: Column(
-                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                children: [
-                                                                  Image(
-                                                                    image: AssetImage('assets/images/single_diamond.png'),
-                                                                    height: 22.sp,
+                                                              child: Center(
+                                                                child: Text(
+                                                                  'Collect',
+                                                                  style: GoogleFonts.lora(
+                                                                    fontSize: isSmall ? 16.sp : 20.sp,
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w700,
+                                                                    fontStyle: FontStyle.normal,
                                                                   ),
-                                                                  Text(
-                                                                    'Collect',
-                                                                    style: GoogleFonts.lora(
-                                                                      fontSize: isSmall ? 16.sp : 18.sp,
-                                                                      color: Colors.white,
-                                                                      fontWeight: FontWeight.w700,
-                                                                      fontStyle: FontStyle.normal,
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -465,7 +455,7 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                                 ? -65.h
                                                 : isSmall
                                                     ? -50.h
-                                                    : -40.h,
+                                                    : -30.h,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
@@ -501,37 +491,37 @@ class _gems_collect_screenState extends State<gems_collect_screen> {
                                 ),
                               ),
                             ),
-                            Positioned(
-                              right: 18.w,
-                              top: isIpad
-                                  ? 150.h
-                                  : isSmall
-                                      ? 195.h
-                                      : 222.h,
-                              child: GestureDetector(
-                                onTap: () {
-                                  if (dataProvider.soundOn == true) {
-                                    dataProvider.initOnTap();
-                                  }
-                                  claimDialog = false;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  height: isIpad ? 25.sp : 30.sp,
-                                  width: isIpad ? 25.sp : 30.sp,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(width: 0.5.w, color: Colors.white),
-                                    color: dataProvider.settingBoxColor,
-                                  ),
-                                  child: Icon(
-                                    Icons.close,
-                                    color: Colors.yellow,
-                                    size: isIpad ? 20.sp : 25.sp,
-                                  ),
-                                ),
-                              ),
-                            )
+                            // Positioned(
+                            //   right: 28.w,
+                            //   top: isIpad
+                            //       ? 150.h
+                            //       : isSmall
+                            //           ? 195.h
+                            //           : 260.h,
+                            //   child: GestureDetector(
+                            //     onTap: () {
+                            //       if (dataProvider.soundOn == true) {
+                            //         dataProvider.initOnTap();
+                            //       }
+                            //       claimDialog = false;
+                            //       setState(() {});
+                            //     },
+                            //     child: Container(
+                            //       height: isIpad ? 25.sp : 30.sp,
+                            //       width: isIpad ? 25.sp : 30.sp,
+                            //       decoration: BoxDecoration(
+                            //         shape: BoxShape.circle,
+                            //         border: Border.all(width: 0.5.w, color: Colors.white),
+                            //         color: dataProvider.settingBoxColor,
+                            //       ),
+                            //       child: Icon(
+                            //         Icons.close,
+                            //         color: Colors.yellow,
+                            //         size: isIpad ? 20.sp : 25.sp,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         )
                       : SizedBox(),

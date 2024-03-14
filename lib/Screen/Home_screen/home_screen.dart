@@ -1685,6 +1685,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionImage", dataProvider.questionImage);
                                                       dataProvider.lifeLineImage = "assets/images/lifeline_image.png";
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.spinBoxImage = "assets/images/green_theme/theme2_spinBox.png";
+                                                      storage.write("spinBoxImage", dataProvider.spinBoxImage);
                                                       dataProvider.textColor = Colors.black;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = Colors.brown.shade100;
@@ -1744,6 +1746,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionImage", dataProvider.questionImage);
                                                       dataProvider.lifeLineImage = "assets/images/green_theme/theme2_lifeLine_image.png";
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.spinBoxImage = "assets/images/green_theme/theme2_spinBox.png";
+                                                      storage.write("spinBoxImage", dataProvider.spinBoxImage);
                                                       dataProvider.textColor = Colors.white;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = HexColor('EDC967');
@@ -1812,6 +1816,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionImage", dataProvider.questionImage);
                                                       dataProvider.lifeLineImage = "assets/images/black_theme/theme3_lifeLine_image.png";
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.spinBoxImage = "assets/images/black_theme/theme3_spinBox.png";
+                                                      storage.write("spinBoxImage", dataProvider.spinBoxImage);
                                                       dataProvider.textColor = Colors.black;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = Colors.black54;
@@ -1870,6 +1876,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("questionImage", dataProvider.questionImage);
                                                       dataProvider.lifeLineImage = "assets/images/blue_theme/theme4_lifeline_image.png";
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
+                                                      dataProvider.spinBoxImage = "assets/images/blue_theme/theme4_spinBox.png";
+                                                      storage.write("spinBoxImage", dataProvider.spinBoxImage);
                                                       dataProvider.textColor = Colors.white;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = Colors.black54;
