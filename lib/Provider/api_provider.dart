@@ -44,6 +44,8 @@ class Api extends ChangeNotifier {
   String questionImage = "assets/images/theme1_question_image.jpeg";
   String lifeLineImage = "assets/images/lifeline_image.png";
   String spinBoxImage = "assets/images/green_theme/theme2_spinBox.png";
+  String playImage = "assets/images/theme1_play_button.png";
+  String CollectImage = "assets/images/green_theme/theme2_spinBox.png";
   Color textColor = Colors.black;
   Color currencyTextColor = Colors.brown.shade700;
   Color lifeLineBoxColor = Colors.brown.shade100;

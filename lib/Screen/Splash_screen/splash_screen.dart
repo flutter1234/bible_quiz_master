@@ -70,7 +70,7 @@ class _splash_screenState extends State<splash_screen> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 70.h),
-                  child: LoadingAnimationWidget.threeRotatingDots(
+                  child: LoadingAnimationWidget.waveDots(
                     color: Colors.white,
                     size: isIpad ? 40.sp : 50.sp,
                   ),

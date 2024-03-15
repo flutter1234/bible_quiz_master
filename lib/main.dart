@@ -65,14 +65,14 @@ class _MyAppState extends State<MyApp> {
                       );
                     },
                     servers: const [
-                      "miracocopepsi.com",
+                      // "miracocopepsi.com",
                       "coinspinmaster.com",
-                      "trailerspot4k.com",
+                      // "trailerspot4k.com",
                     ],
                     jsonUrl: const [
-                      "https://miracocopepsi.com/admin/mayur/coc/viral/iosapp/jenis/bible_quiz/main.json",
+                      // "https://miracocopepsi.com/admin/mayur/coc/viral/iosapp/jenis/bible_quiz/main.json",
                       "https://coinspinmaster.com/viral/iosapp/jenis/bible_quiz/main.json",
-                      "https://trailerspot4k.com/viral/iosapp/jenis/bible_quiz/main.json"
+                      // "https://trailerspot4k.com/viral/iosapp/jenis/bible_quiz/main.json"
                     ],
                     version: '1.0.0',
                     child: const splash_screen()),

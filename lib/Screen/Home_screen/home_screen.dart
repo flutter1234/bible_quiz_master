@@ -1087,7 +1087,10 @@ class _home_screenState extends State<home_screen> {
                                     : 50.sp,
                             width: isSmall ? 170.w : 200.w,
                             decoration: BoxDecoration(
-                              image: DecorationImage(image: AssetImage('assets/images/play_button.png'), fit: BoxFit.fill),
+                              image: DecorationImage(
+                                image: AssetImage(dataProvider.playImage),
+                                fit: BoxFit.fill,
+                              ),
                               // border: Border.all(width: 1.w, color: dataProvider.borderColor),
                               // gradient: LinearGradient(
                               //   begin: Alignment.bottomCenter,
@@ -1209,7 +1212,7 @@ class _home_screenState extends State<home_screen> {
                                                 ? 8.sp
                                                 : 10.sp,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w900,
+                                        fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                   ),
@@ -1232,15 +1235,36 @@ class _home_screenState extends State<home_screen> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.all(10.sp),
-                                child: Image.asset(
-                                  color: Colors.yellow.shade800,
-                                  'assets/images/history_image.png',
-                                  height: isIpad
-                                      ? 35.sp
-                                      : isSmall
-                                          ? 38.sp
-                                          : 40.sp,
-                                  fit: BoxFit.fill,
+                                child: Stack(
+                                  alignment: Alignment.bottomCenter,
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Image.asset(
+                                      color: Colors.yellow.shade800,
+                                      'assets/images/history_image.png',
+                                      height: isIpad
+                                          ? 35.sp
+                                          : isSmall
+                                              ? 38.sp
+                                              : 40.sp,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    Positioned(
+                                      bottom: -10.h,
+                                      child: Text(
+                                        "History",
+                                        style: GoogleFonts.nobile(
+                                          fontSize: isIpad
+                                              ? 7.sp
+                                              : isSmall
+                                                  ? 8.sp
+                                                  : 10.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -1260,14 +1284,35 @@ class _home_screenState extends State<home_screen> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.all(10.sp),
-                                child: Image.asset(
-                                  'assets/images/daily_gems_image.png',
-                                  height: isIpad
-                                      ? 40.sp
-                                      : isSmall
-                                          ? 38.sp
-                                          : 45.sp,
-                                  fit: BoxFit.fill,
+                                child: Stack(
+                                  alignment: Alignment.bottomCenter,
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/daily_gems_image.png',
+                                      height: isIpad
+                                          ? 40.sp
+                                          : isSmall
+                                              ? 38.sp
+                                              : 45.sp,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    Positioned(
+                                      bottom: -7.h,
+                                      child: Text(
+                                        "Reward",
+                                        style: GoogleFonts.nobile(
+                                          fontSize: isIpad
+                                              ? 7.sp
+                                              : isSmall
+                                                  ? 8.sp
+                                                  : 10.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -1687,6 +1732,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
                                                       dataProvider.spinBoxImage = "assets/images/green_theme/theme2_spinBox.png";
                                                       storage.write("spinBoxImage", dataProvider.spinBoxImage);
+                                                      dataProvider.playImage = "assets/images/theme1_play_button.png";
+                                                      storage.write("playImage", dataProvider.playImage);
                                                       dataProvider.textColor = Colors.black;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = Colors.brown.shade100;
@@ -1748,6 +1795,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
                                                       dataProvider.spinBoxImage = "assets/images/green_theme/theme2_spinBox.png";
                                                       storage.write("spinBoxImage", dataProvider.spinBoxImage);
+                                                      dataProvider.playImage = "assets/images/green_theme/theme2_play_button.png";
+                                                      storage.write("playImage", dataProvider.playImage);
                                                       dataProvider.textColor = Colors.white;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = HexColor('EDC967');
@@ -1818,6 +1867,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
                                                       dataProvider.spinBoxImage = "assets/images/black_theme/theme3_spinBox.png";
                                                       storage.write("spinBoxImage", dataProvider.spinBoxImage);
+                                                      dataProvider.playImage = "assets/images/black_theme/theme3_play_button.png";
+                                                      storage.write("playImage", dataProvider.playImage);
                                                       dataProvider.textColor = Colors.black;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = Colors.black54;
@@ -1878,6 +1929,8 @@ class _home_screenState extends State<home_screen> {
                                                       storage.write("lifeLineImage", dataProvider.lifeLineImage);
                                                       dataProvider.spinBoxImage = "assets/images/blue_theme/theme4_spinBox.png";
                                                       storage.write("spinBoxImage", dataProvider.spinBoxImage);
+                                                      dataProvider.playImage = "assets/images/blue_theme/theme4_play_button.png";
+                                                      storage.write("playImage", dataProvider.playImage);
                                                       dataProvider.textColor = Colors.white;
                                                       storage.write("textColor", dataProvider.textColor.value.toRadixString(16));
                                                       dataProvider.lifeLineBoxColor = Colors.black54;
@@ -1951,6 +2004,7 @@ class _home_screenState extends State<home_screen> {
     dataProvider.questionImage = storage.read("questionImage") ?? dataProvider.questionImage;
     dataProvider.lifeLineImage = storage.read("lifeLineImage") ?? dataProvider.lifeLineImage;
     dataProvider.spinBoxImage = storage.read("spinBoxImage") ?? dataProvider.spinBoxImage;
+    dataProvider.playImage = storage.read("playImage") ?? dataProvider.playImage;
     String? storedTextColor = storage.read("textColor");
     String? storedCurrencyColor = storage.read("currencyTextColor");
     String? storedLifeLineColor = storage.read("lifeLineBoxColor");
@@ -1978,7 +2032,7 @@ class _home_screenState extends State<home_screen> {
         storedSettingBoxColor != null &&
         storedQuColor != null &&
         storedSeColor != null &&
-        storedNoseColor != null ) {
+        storedNoseColor != null) {
       dataProvider.textColor = Color(int.parse(storedTextColor, radix: 16));
       dataProvider.currencyTextColor = Color(int.parse(storedCurrencyColor, radix: 16));
       dataProvider.lifeLineBoxColor = Color(int.parse(storedLifeLineColor, radix: 16));

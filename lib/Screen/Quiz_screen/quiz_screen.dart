@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bible_quiz_master/AdPlugin/Ads/Banner/BannerWrapper.dart';
 import 'package:bible_quiz_master/AdPlugin/Ads/FullScreen/Ads.dart';
 import 'package:bible_quiz_master/AdPlugin/MainJson/MainJson.dart';
+import 'package:bible_quiz_master/AdPlugin/Utils/Extensions.dart';
 import 'package:bible_quiz_master/Provider/api_provider.dart';
 import 'package:bible_quiz_master/main.dart';
 import 'package:flutter/material.dart';
@@ -414,25 +415,18 @@ class _quiz_screenState extends State<quiz_screen> {
                                             width: 1.sw,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
-                                                  fit: BoxFit.fill,
-                                                  image: colorChange == true
-                                                      ? index + 1 ==
-                                                              dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
-                                                          ? AssetImage(dataProvider.correctOptionImage)
-                                                          : selectAnswer ==
-                                                                  dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
-                                                                      [index]
-                                                              ? AssetImage(dataProvider.wrongOptionImage)
-                                                              : AssetImage(dataProvider.optionImage)
-                                                      : AssetImage(dataProvider.optionImage)),
-                                              // color: colorChange == true
-                                              //     ? index + 1 == levelQuestion[nextQuestion]['correct_answer']
-                                              //         ? Colors.green
-                                              //         : selectAnswer == levelQuestion[nextQuestion]['answers'][index]
-                                              //             ? Colors.red
-                                              //             : HexColor('57356a')
-                                              //     : HexColor('57356a'),
-                                              // borderRadius: BorderRadius.circular(5.r),
+                                                fit: BoxFit.fill,
+                                                image: colorChange == true
+                                                    ? index + 1 ==
+                                                            dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['correct_answer']
+                                                        ? AssetImage(dataProvider.correctOptionImage)
+                                                        : selectAnswer ==
+                                                                dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'][questionIndex]['answers']
+                                                                    [index]
+                                                            ? AssetImage(dataProvider.wrongOptionImage)
+                                                            : AssetImage(dataProvider.optionImage)
+                                                    : AssetImage(dataProvider.optionImage),
+                                              ),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsets.only(left: 50.w),
@@ -506,22 +500,21 @@ class _quiz_screenState extends State<quiz_screen> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        AdsRN().showFullScreen(
-                                          context: context,
-                                          onComplete: () {
-                                            if (dataProvider.currency >= 100) {
-                                              if (dataProvider.soundOn == true) {
-                                                dataProvider.initLifeLine();
-                                              }
+                                        if (dataProvider.currency >= 100) {
+                                          if (dataProvider.soundOn == true) {
+                                            dataProvider.initLifeLine();
+                                          }
+                                          "second_button".performScreenAction(
+                                            context: context,
+                                            onComplete: () {
                                               start += 20;
                                               totalStepCount += 20;
                                               dataProvider.currency = dataProvider.currency - 100;
                                               storage.write("currency", dataProvider.currency);
                                               setState(() {});
-                                            }
-                                          },
-                                        );
-                                        setState(() {});
+                                            },
+                                          );
+                                        }
                                       },
                                       child: Stack(
                                         children: [
@@ -633,24 +626,20 @@ class _quiz_screenState extends State<quiz_screen> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        AdsRN().showFullScreen(
-                                          context: context,
-                                          onComplete: () {
-                                            if (dataProvider.currency >= 120) {
-                                              if (dataProvider.soundOn == true) {
-                                                dataProvider.initLifeLine();
-                                              }
+                                        if (dataProvider.currency >= 120) {
+                                          if (dataProvider.soundOn == true) {
+                                            dataProvider.initLifeLine();
+                                          }
+                                          "remove_option_button".performScreenAction(
+                                            context: context,
+                                            onComplete: () {
                                               halfOption = true;
                                               dataProvider.currency = dataProvider.currency - 120;
                                               storage.write("currency", dataProvider.currency);
                                               setState(() {});
-                                            } else {
-                                              print("Dialog");
-                                            }
-                                          },
-                                        );
-
-                                        setState(() {});
+                                            },
+                                          );
+                                        }
                                       },
                                       child: Stack(
                                         children: [
@@ -740,7 +729,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                           if (dataProvider.soundOn == true) {
                                             dataProvider.initLifeLine();
                                           }
-                                          AdsRN().showFullScreen(
+                                          "correct_answer_button".performScreenAction(
                                             context: context,
                                             onComplete: () {
                                               if (questionIndex < dataProvider.bibleList['data'][dataProvider.chapterIndex]['Chapter'][dataProvider.levelIndex]['Question'].length - 1) {
@@ -854,15 +843,15 @@ class _quiz_screenState extends State<quiz_screen> {
                                     GestureDetector(
                                       onTap: () {
                                         if (context.read<MainJson>().data![context.read<MainJson>().version]['globalConfig']['globalAdFlag'] == true) {
-                                          AdsRN().showFullScreen(
+                                          "video_button".performScreenAction(
                                             context: context,
                                             onComplete: () {
                                               dataProvider.currency = dataProvider.currency + 50;
                                               storage.write("currency", dataProvider.currency);
+                                              setState(() {});
                                             },
                                           );
                                         }
-                                        setState(() {});
                                       },
                                       child: Stack(
                                         children: [
