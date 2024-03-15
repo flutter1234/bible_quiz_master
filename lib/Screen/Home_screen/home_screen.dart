@@ -1067,6 +1067,7 @@ class _home_screenState extends State<home_screen> {
                         ),
                         NativeRN(parentContext: context),
                         Spacer(),
+                        context.read<MainJson>().data!['1.0.0']['globalConfig']['globalAdFlag'] == false ? Spacer() : SizedBox(),
                         GestureDetector(
                           onTap: () {
                             AdsRN().showFullScreen(
@@ -1091,15 +1092,6 @@ class _home_screenState extends State<home_screen> {
                                 image: AssetImage(dataProvider.playImage),
                                 fit: BoxFit.fill,
                               ),
-                              // border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                              // gradient: LinearGradient(
-                              //   begin: Alignment.bottomCenter,
-                              //   end: Alignment.topCenter,
-                              //   colors: [
-                              //     HexColor('08A045'),
-                              //     HexColor('6BBF59'),
-                              //   ],
-                              // ),
                               borderRadius: BorderRadius.circular(30.r),
                             ),
                             child: Center(
@@ -1142,17 +1134,10 @@ class _home_screenState extends State<home_screen> {
                                     : 50.sp,
                             width: isSmall ? 170.w : 200.w,
                             decoration: BoxDecoration(
-                              image: DecorationImage(image: AssetImage('assets/images/collect_button.png'), fit: BoxFit.fill),
-                              // border: Border.all(width: 1.w, color: dataProvider.borderColor),
-                              // gradient: LinearGradient(
-                              //   begin: Alignment.bottomCenter,
-                              //   end: Alignment.topCenter,
-                              //   colors: [
-                              //     HexColor('e69b00'),
-                              //     HexColor('e6b400'),
-                              //   ],
-                              // ),
-                              // borderRadius: BorderRadius.circular(30.r),
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/collect_button.png'),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                             child: Center(
                               child: Text(
