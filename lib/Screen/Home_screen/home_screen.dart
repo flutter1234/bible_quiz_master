@@ -1067,7 +1067,7 @@ class _home_screenState extends State<home_screen> {
                         ),
                         NativeRN(parentContext: context),
                         Spacer(),
-                        context.read<MainJson>().data!['1.0.0']['globalConfig']['globalAdFlag'] == false ? Spacer() : SizedBox(),
+                        context.read<MainJson>().data![context.read<MainJson>().version]['globalConfig']['globalAdFlag'] == false ? Spacer() : SizedBox(),
                         GestureDetector(
                           onTap: () {
                             AdsRN().showFullScreen(

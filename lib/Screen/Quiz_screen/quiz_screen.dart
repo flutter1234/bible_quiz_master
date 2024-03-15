@@ -43,7 +43,7 @@ class _quiz_screenState extends State<quiz_screen> {
     timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       if (start == 0) {
         timer.cancel();
-        // tryAgainDialog = true;
+        tryAgainDialog = true;
         setState(() {});
       } else {
         setState(() {

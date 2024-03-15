@@ -79,14 +79,23 @@ class _history_screenState extends State<history_screen> {
                             ),
                           ),
                         ),
+                        // Text(
+                        //   dataProvider.questionTrue == "Correct"
+                        //       ? 'Answered Correctly'
+                        //       : dataProvider.questionTrue == "Wrong"
+                        //           ? 'Answered Wrongly'
+                        //           : '',
+                        //   style: GoogleFonts.lora(
+                        //     fontSize: 18.sp,
+                        //     color: Colors.white,
+                        //     fontWeight: FontWeight.w700,
+                        //     fontStyle: FontStyle.normal,
+                        //   ),
+                        // ),
                         Text(
-                          dataProvider.questionTrue == "Correct"
-                              ? 'Answered Correctly'
-                              : dataProvider.questionTrue == "Wrong"
-                                  ? 'Answered Wrongly'
-                                  : '',
+                          'History',
                           style: GoogleFonts.lora(
-                            fontSize: 18.sp,
+                            fontSize: 20.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
                             fontStyle: FontStyle.normal,
