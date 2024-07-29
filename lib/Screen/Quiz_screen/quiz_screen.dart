@@ -634,7 +634,7 @@ class _quiz_screenState extends State<quiz_screen> {
                                             context: context,
                                             onComplete: () {
                                               halfOption = true;
-                                              dataProvider.currency = dataProvider.currency - 120;
+                                              // dataProvider.currency = dataProvider.currency - 120;
                                               storage.write("currency", dataProvider.currency);
                                               setState(() {});
                                             },

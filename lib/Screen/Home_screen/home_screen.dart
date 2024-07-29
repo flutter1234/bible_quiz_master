@@ -1988,9 +1988,9 @@ class _home_screenState extends State<home_screen> {
     dataProvider.wrongOptionImage = storage.read("wrongOptionImage") ?? dataProvider.wrongOptionImage;
     dataProvider.questionImage = storage.read("questionImage") ?? dataProvider.questionImage;
     dataProvider.lifeLineImage = storage.read("lifeLineImage") ?? dataProvider.lifeLineImage;
-    dataProvider.spinBoxImage = storage.read("spinBoxImage") ?? dataProvider.spinBoxImage;
-    dataProvider.playImage = storage.read("playImage") ?? dataProvider.playImage;
-    String? storedTextColor = storage.read("textColor");
+    dataProvider.spinBoxImage = ("spinBoxImage") ?? dataProvider.spinBoxImage;
+    dataProvider.playImage = ("playImage") ?? dataProvider.playImage;
+    String? storedTextColor = ("textColor");
     String? storedCurrencyColor = storage.read("currencyTextColor");
     String? storedLifeLineColor = storage.read("lifeLineBoxColor");
     String? storedBoxColor = storage.read("currencyBoxColor");
